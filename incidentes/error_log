@@ -1,0 +1,7 @@
+[09-Sep-2021 17:05:38 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home3/exforsa/exfor.co/EBD/incidentes/incidentes.php on line 5
+[09-Sep-2021 17:12:12 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home3/exforsa/exfor.co/EBD/incidentes/incidentes.php on line 5
+[09-Sep-2021 17:13:37 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home3/exforsa/exfor.co/EBD/incidentes/incidentes.php on line 5
+[09-Sep-2021 17:14:36 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home3/exforsa/exfor.co/EBD/incidentes/incidentes.php on line 5
+[20-Sep-2021 17:08:06 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home3/exforsa/exfor.co/EBD/incidentes/incidentes.php on line 5
+[20-Sep-2021 17:13:33 America/Chicago] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home3/exforsa/exfor.co/EBD/incidentes/registro.php on line 375
+[20-Sep-2021 17:13:52 America/Chicago] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home3/exforsa/exfor.co/EBD/incidentes/registro.php on line 375

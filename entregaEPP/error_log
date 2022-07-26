@@ -1,0 +1,1 @@
+[24-Aug-2021 17:12:36 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home3/exforsa/exfor.co/EBD/entregaEPP/registro.php on line 107

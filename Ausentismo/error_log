@@ -1,0 +1,15 @@
+[08-Feb-2021 07:21:04 America/Chicago] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home3/exforsa/exfor.co/EBD/conn.php on line 7
+[08-Feb-2021 07:21:06 America/Chicago] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home3/exforsa/exfor.co/EBD/conn.php on line 7
+[08-Feb-2021 07:21:06 America/Chicago] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home3/exforsa/exfor.co/EBD/ajax-grid-data.php on line 25
+[08-Feb-2021 07:26:45 America/Chicago] PHP Warning:  mysqli_error() expects exactly 1 parameter, 0 given in /home3/exforsa/exfor.co/EBD/registro.php on line 54
+[08-Feb-2021 07:29:18 America/Chicago] PHP Warning:  mysqli_error() expects exactly 1 parameter, 0 given in /home3/exforsa/exfor.co/EBD/registro.php on line 54
+[08-Feb-2021 07:34:04 America/Chicago] PHP Warning:  mysqli_error() expects exactly 1 parameter, 0 given in /home3/exforsa/exfor.co/EBD/registro.php on line 54
+[08-Feb-2021 07:42:41 America/Chicago] PHP Warning:  mysqli_error() expects exactly 1 parameter, 0 given in /home3/exforsa/exfor.co/EBD/registro.php on line 54
+[08-Feb-2021 07:45:29 America/Chicago] PHP Warning:  mysqli_error() expects exactly 1 parameter, 0 given in /home3/exforsa/exfor.co/EBD/registro.php on line 54
+[12-Mar-2021 09:09:51 America/Chicago] PHP Parse error:  syntax error, unexpected 'row' (T_STRING), expecting ',' or ';' in /home3/exforsa/exfor.co/EBD/editar.php on line 84
+[12-Mar-2021 14:24:55 America/Chicago] PHP Parse error:  syntax error, unexpected ')' in /home3/exforsa/exfor.co/EBD/ajax-grid-data.php on line 64
+[23-Sep-2021 12:54:30 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home3/exforsa/exfor.co/EBD/Ausentismo/ausentismo.php on line 5
+[23-Sep-2021 12:54:47 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home3/exforsa/exfor.co/EBD/Ausentismo/ausentismo.php on line 5
+[23-Sep-2021 13:05:50 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home3/exforsa/exfor.co/EBD/Ausentismo/ausentismo.php on line 5
+[23-Sep-2021 13:07:23 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home3/exforsa/exfor.co/EBD/Ausentismo/ausentismo.php on line 5
+[23-Sep-2021 13:45:58 America/Chicago] PHP Warning:  mysqli_error() expects exactly 1 parameter, 0 given in /home3/exforsa/exfor.co/EBD/Ausentismo/update-edit.php on line 25

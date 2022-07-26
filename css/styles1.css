@@ -1,0 +1,15 @@
+.input-group-text{
+    width: 100%;
+}
+.tabla input{
+    width: 100%;
+}
+.tabla {
+    float: left;
+}
+.list-group {
+    float: right;
+}
+.float-right{
+    float: right;
+}

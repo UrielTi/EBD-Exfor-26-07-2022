@@ -1,0 +1,55 @@
+body {
+    background-color: white;
+    font-family: sans-serif;
+}
+
+main {
+    width: 80%;
+    margin: 0 auto;
+}
+
+section {
+    padding: 24px 0;
+    border-bottom: 1px solid white;
+}
+
+.button {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 450;
+    /* bastante negra la letra */
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 7px;
+    text-transform: uppercase;
+    color: white;
+    text-decoration: none;
+}
+
+.button.gradient {
+    border: 0;
+    outline: 0;
+    background: rgb(52, 172, 52);
+    background: linear-gradient(180deg, rgba(52, 172, 52, 1) 10%, rgba(22, 43, 88, 1) 100%);
+    transition: all cubic-bezier(0.215, 0.610, 0.355, 1) .5s;
+}
+
+.button.gradient:hover {
+    cursor: pointer;
+    color: white;
+    text-decoration: underline white;
+    text-underline-offset: 2px;
+    background: linear-gradient(180deg, rgba(78, 175, 78, 1) 10%, rgba(52, 172, 52, 1) 40%, rgba(22, 43, 88, 1) 100%);
+    transform: translateY(-3px);
+}
+
+.button.gradient:active {
+    transform: translateY(3px);
+}
+
+.navbar-custom {
+    background-image: url('../include/images/fondo_paisaje_banner.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}

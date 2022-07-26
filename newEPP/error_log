@@ -1,0 +1,70 @@
+[24-Aug-2021 16:48:19 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home3/exforsa/exfor.co/EBD/newEPP/epp.php on line 5
+[24-Aug-2021 16:49:32 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home3/exforsa/exfor.co/EBD/newEPP/epp.php on line 5
+[24-Aug-2021 16:49:37 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home3/exforsa/exfor.co/EBD/newEPP/epp.php on line 5
+[24-Aug-2021 16:55:31 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home3/exforsa/exfor.co/EBD/newEPP/ElementSold.php on line 5
+[24-Aug-2021 16:55:36 America/Chicago] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home3/exforsa/exfor.co/EBD/newEPP/elementRotation.php on line 5
+[24-Aug-2021 16:58:36 America/Chicago] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home3/exforsa/exfor.co/EBD/newEPP/visualizar.php on line 16
+[24-Aug-2021 16:59:09 America/Chicago] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home3/exforsa/exfor.co/EBD/newEPP/editar.php on line 25
+[27-Aug-2021 10:52:01 America/Chicago] PHP Warning:  unlink(files/1626883740): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 10:55:11 America/Chicago] PHP Warning:  unlink(files/1630079470879709830001543480789.jpg1630079521): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 10:56:57 America/Chicago] PHP Warning:  unlink(files/1626883123): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:00:50 America/Chicago] PHP Warning:  unlink(files/16300796757972002833035.jpg1630079711): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:07:00 America/Chicago] PHP Warning:  unlink(files/IMG_20210827_105452549.jpg1630080050): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:09:32 America/Chicago] PHP Warning:  unlink(files/16300803959822990235306140270082.jpg1630080420): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:10:43 America/Chicago] PHP Warning:  unlink(files/1626883213): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:11:28 America/Chicago] PHP Warning:  unlink(files/1626883393): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:12:09 America/Chicago] PHP Warning:  unlink(files/1626885965): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:12:39 America/Chicago] PHP Warning:  unlink(files/1626886451): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:13:19 America/Chicago] PHP Warning:  unlink(files/1626884460): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:14:09 America/Chicago] PHP Warning:  unlink(files/1626883454): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:14:53 America/Chicago] PHP Warning:  unlink(files/1626884036): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:15:58 America/Chicago] PHP Warning:  unlink(files/1626884795): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:16:58 America/Chicago] PHP Warning:  unlink(files/1626886217): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:17:34 America/Chicago] PHP Warning:  unlink(files/1626886129): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:18:43 America/Chicago] PHP Warning:  unlink(files/1626885216): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:19:55 America/Chicago] PHP Warning:  unlink(files/1626884578): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:21:09 America/Chicago] PHP Warning:  unlink(files/1626885648): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:25:26 America/Chicago] PHP Warning:  unlink(files/1626883579): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:27:01 America/Chicago] PHP Warning:  unlink(files/1626883556): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:29:07 America/Chicago] PHP Warning:  unlink(files/1626884852): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:29:48 America/Chicago] PHP Warning:  unlink(files/1626885700): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:30:20 America/Chicago] PHP Warning:  unlink(files/1626884298): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:30:59 America/Chicago] PHP Warning:  unlink(files/1626883498): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:31:44 America/Chicago] PHP Warning:  unlink(files/1626884645): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:32:25 America/Chicago] PHP Warning:  unlink(files/1626883667): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:33:00 America/Chicago] PHP Warning:  unlink(files/1626886593): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:33:32 America/Chicago] PHP Warning:  unlink(files/1626886574): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:34:19 America/Chicago] PHP Warning:  unlink(files/1626886532): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:34:54 America/Chicago] PHP Warning:  unlink(files/1626895212): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:39:17 America/Chicago] PHP Warning:  unlink(files/1626894942): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:40:00 America/Chicago] PHP Warning:  unlink(files/1626886506): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:40:32 America/Chicago] PHP Warning:  unlink(files/1626894965): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:41:40 America/Chicago] PHP Warning:  unlink(files/16300822529382014569264342973090.jpg1630082289): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:42:28 America/Chicago] PHP Warning:  unlink(files/1626895437): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:42:55 America/Chicago] PHP Warning:  unlink(files/1626884615): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:43:41 America/Chicago] PHP Warning:  unlink(files/1626885595): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:45:13 America/Chicago] PHP Warning:  unlink(files/1626895253): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[27-Aug-2021 11:47:04 America/Chicago] PHP Warning:  unlink(files/1626885025): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 33
+[13-Sep-2021 16:03:42 America/Chicago] PHP Warning:  unlink(files/1626885935): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[18-Dec-2021 10:35:03 America/Chicago] PHP Warning:  unlink(files/1639844909127292660583359716047.jpg1639845278): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/update-edit.php on line 59
+[18-Dec-2021 10:36:42 America/Chicago] PHP Warning:  unlink(files/1639844909127292660583359716047.jpg1639845303): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:17:39 America/Chicago] PHP Warning:  unlink(files/1626884005): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:17:48 America/Chicago] PHP Warning:  unlink(files/1626885677): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:18:46 America/Chicago] PHP Warning:  unlink(files/1626884221): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:23:09 America/Chicago] PHP Warning:  unlink(files/1626884722): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:23:19 America/Chicago] PHP Warning:  unlink(files/16300824867586733345362093873341.jpg1630082500): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:25:00 America/Chicago] PHP Warning:  unlink(files/1626884393): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:25:08 America/Chicago] PHP Warning:  unlink(files/1626884739): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:25:43 America/Chicago] PHP Warning:  unlink(files/1626886334): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:27:59 America/Chicago] PHP Warning:  unlink(files/1626885363): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:28:16 America/Chicago] PHP Warning:  unlink(files/1626885326): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:28:38 America/Chicago] PHP Warning:  unlink(files/1626885475): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:30:31 America/Chicago] PHP Warning:  unlink(files/1626883301): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:30:39 America/Chicago] PHP Warning:  unlink(files/16398427453312046089707699937961.jpg1639843874): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:30:53 America/Chicago] PHP Warning:  unlink(files/1626883266): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:32:03 America/Chicago] PHP Warning:  unlink(files/1626883431): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:35:08 America/Chicago] PHP Warning:  unlink(files/1626883786): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:35:30 America/Chicago] PHP Warning:  unlink(files/1626883718): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:35:36 America/Chicago] PHP Warning:  unlink(files/1626886366): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:35:42 America/Chicago] PHP Warning:  unlink(files/1626885520): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36
+[29-Dec-2021 10:35:47 America/Chicago] PHP Warning:  unlink(files/1626885876): No such file or directory in /home3/exforsa/exfor.co/EBD/newEPP/index.php on line 36

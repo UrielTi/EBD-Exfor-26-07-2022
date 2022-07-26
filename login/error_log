@@ -1,0 +1,1 @@
+[24-Aug-2021 15:29:04 America/Chicago] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'root'@'localhost' (using password: YES) in /home3/exforsa/exfor.co/EBD/include/conn/conn.php on line 8
