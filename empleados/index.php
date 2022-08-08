@@ -14,14 +14,18 @@ include "../include/conn/conn.php";
     <?php include("../include/navegacion/nav.php"); ?>
     <div class="container-fluid border border-success bg-light">
         <hr>
-        <div class="alert alert-success" role="alert">
+        <div class="panel-heading">
+            <p class="h3"><i class="bi bi-person-fill"></i> Base de Datos de Empleados EXFOR S.A.S</p>
+        </div>
+        <br>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             <center><strong>¡Hola!</strong> Asegúrate de que la información que estas diligenciando esté
                 actualizada hasta la fecha, en tal caso de que se requiera modificar la información en otro
                 momento, puedes hacerlo al darle clic en el botón <i class="bi bi-pencil-fill"></i> o en el botón "Editar
                 Información" en la visualización del empleado <i class="bi bi-search"></i> . <strong>¡Muchas
                     Gracias!</strong></center>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <hr>
         <?php
         if (isset($_GET['action']) == 'delete') {
             $id_delete = intval($_GET['id']);
@@ -55,26 +59,22 @@ include "../include/conn/conn.php";
         ?>
 
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title"><i class="bi bi-person-fill"></i> Base de datos de empleados EXFOR
-                    S.A.S</h4>
-            </div>
 
             <div class="panel-body">
-                <div class="justify-content-end">
+                <div class="d-inline-flex p-2 bd-highlight">
                     <a href="registro.php" class="btn btn-sm btn-success"> <i class="bi bi-person-plus-fill"></i>
-                        Registrar nuevo empleado</a>
+                        Registrar nuevo empleado</a>&nbsp;
                     <a onclick="loadDataDotacion()" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#regDotacion"> <i class="bi bi-person-fill"></i>
-                        Dotación</a>
+                        Dotación</a>&nbsp;
                     <a href="../Ausentismo/index.php" class="btn btn-sm btn-success"> <i class="bi bi-heart-fill"></i>
-                        Ausentismo</a>
+                        Ausentismo</a>&nbsp;
                     <button class="btn btn-sm btn-success" data-bs-toggle="collapse" href="#collapseTotalEmpleados" role="button" aria-expanded="false" aria-controls="collapseTotalEmpleados">
                         Total de empleados <span class="badge rounded-pill bg-primary"><?php
                                                                                         $consulta = mysqli_query($conn, "SELECT COUNT(id) AS total FROM clientes");
                                                                                         $resultado = mysqli_fetch_array($consulta);
                                                                                         echo $resultado['total'];
                                                                                         ?></span>
-                    </button>
+                    </button>&nbsp;
                     <a class="btn btn-sm btn-success" data-bs-toggle="collapse" href="#collapseIncapacidades" role="button" aria-expanded="false" aria-controls="collapseIncapacidades">
                         Alerta incapacidades <span class="badge rounded-pill bg-danger"><?php
                                                                                         $sql = mysqli_query($conn, "SELECT nombres,cedula,cargo,nucleo, sum(dias_ausentismo) as 'dias' FROM ausentismo GROUP BY nombres, cedula, cargo, nucleo");
@@ -86,9 +86,9 @@ include "../include/conn/conn.php";
                                                                                         }
                                                                                         echo $cont;
                                                                                         ?></span>
-                    </a>
+                    </a>&nbsp;
                     <a onclick="loadDataTarea('bi bi-book',' Tareas','empleados')" class="btn btn-sm btn-success" href="" data-bs-toggle="modal" data-bs-target="#mimodal">
-                        <i class="bi bi-book-fill"></i> Tareas</a>
+                        <i class="bi bi-book-fill"></i> Tareas</a>&nbsp;
                     <a href="excelCumpleaños.php" class="btn btn-sm btn-success">
                         <i class="bi bi-file-text-fill"></i> Cumpleaños</a>
                 </div>
@@ -96,10 +96,10 @@ include "../include/conn/conn.php";
                 <div class="collapse" id="collapseTotalEmpleados">
                     <div class="card card-body">
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <center><strong>Recordatorio:</strong> Este es el total de empleados activos e inactivos de 
-                            EXFOR SAS en los diferentes núcleos, los datos son los que están actualmente en las bases de datos.
-                            Tener en cuenta el registro del personal nuevo y a qué nucleo asignarlo.
-                            <strong>¡Muchas Gracias!</strong>.
+                            <center><strong>Recordatorio:</strong> Este es el total de empleados activos e inactivos de
+                                EXFOR SAS en los diferentes núcleos, los datos son los que están actualmente en las bases de datos.
+                                Tener en cuenta el registro del personal nuevo y a qué nucleo asignarlo.
+                                <strong>¡Muchas Gracias!</strong>.
                             </center>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
@@ -148,9 +148,9 @@ include "../include/conn/conn.php";
                 <div class="collapse" id="collapseIncapacidades">
                     <div class="card card-body">
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <center><strong>¡Hola! Aquí se encuentran los empleados que están cumpliendo entre 
-                                145 y 180 días de incapacidad</strong></center>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <center><strong>¡Hola! Aquí se encuentran los empleados que están cumpliendo entre
+                                    145 y 180 días de incapacidad</strong></center>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         <div class="table-responsive">
                             <table id="table1" class="table table-bordered border-dark table-striped text-center">

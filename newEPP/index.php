@@ -13,15 +13,6 @@ include "../include/conn/conn.php";
     <?php include("../include/navegacion/nav.php"); ?>
 
     <div class="container-fluid border border-success bg-light">
-        <hr>
-        <div class="alert alert-success" role="alert">
-            <center><strong>¡Hola!</strong> Asegúrate de que la información que estas diligenciando esté
-                actualizada hasta la fecha, en cualquier caso si necesitas modificar algún dato en otro
-                momento puedes hacerlo con el botón <i class="bi bi-pencil-fill"></i> o en "Editar
-                Información" en la visualización del elemento <i class="bi bi-search"></i> , <strong>¡Muchas
-                    Gracias!</strong></center>
-        </div>
-        <hr>
         <?php
         if (isset($_GET['action']) == 'delete') {
             $id_delete = intval($_GET['id']);
@@ -43,45 +34,56 @@ include "../include/conn/conn.php";
             }
         }
         ?>
+        <hr>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 class="panel-title"><i class="bi bi-bag-plus-fill"></i> Sistema de inventario de elementos EXFOR S.A.S</h4>
+                <p class="h3"><i class="bi bi-file-earmark-text-fill"></i> Sistema de inventario de elementos EXFOR S.A.S </p>
             </div>
+            <br>
+
             <div class="panel-body">
-                <div class="justify-content-end">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <center><strong>¡Hola!</strong> Asegúrate de que la información que estas diligenciando esté
+                        actualizada hasta la fecha, en cualquier caso si necesitas modificar algún dato en otro
+                        momento puedes hacerlo con el botón <i class="bi bi-pencil-fill"></i> o en "Editar
+                        Información" en la visualización del elemento <i class="bi bi-search"></i> , <strong>¡Muchas
+                            Gracias!</strong></center>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div class="d-inline-flex p-2 bd-highlight">
                     <a href="registro.php" class="btn btn-sm btn-success"> <i class="bi bi-bag-plus-fill"></i> Registrar nuevo
-                        elemento</a>
+                        elemento</a>&nbsp;
                     <a onclick="loadData('bi bi-search','Visualización del elemento por agotarse','ElementSold','');" href="" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#mimodal"> <i class="bi bi-person-fill"></i>
                         Elementos por agotarse <span class="badge rounded-pill bg-danger"><?php
                                                                                             $sqlcont = mysqli_query($conn, "SELECT count(*)  AS totalAgotados FROM epp e WHERE stock <= 10;");
                                                                                             $conteo = mysqli_fetch_assoc($sqlcont);
                                                                                             echo $conteo['totalAgotados'];
-                                                                                            ?></span></a>
+                                                                                            ?></span></a>&nbsp;
                     <a onclick="loadData('bi bi-search','Visualización del elemento de alta rotación','elementRotation','');" href="" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#mimodal"> <i class="bi bi-heart-fill"></i>
-                        Elementos de alta rotación</a>
+                        Elementos de alta rotación</a>&nbsp;
                     <a href="../entregaEPP/index.php" class="btn btn-sm btn-success"> <i class="bi bi-person-plus-fill"></i> Nueva
-                        entrega de epp</a>
+                        entrega de epp</a>&nbsp;
                     <a onclick="loadDataTarea('bi bi-book',' Tareas','epp')" class="btn btn-sm btn-success" href="" data-bs-toggle="modal" data-bs-target="#mimodal">
-                        <i class="bi bi-book-fill"></i> Tareas</a>
+                        <i class="bi bi-book-fill"></i> Tareas</a>&nbsp;
+                        
+                    <form name="form2" id="form2" class="form-horizontal row-fluid" action="index.php" method="POST" enctype="multipart/form-data">
+                        <div class="input-group shadow-sm">
+                            <label class="input-group-text w-auto"> Núcleo: </label>
+                            <select class="form-select-sm" id="select_nucleo" aria-label=".form-select-sm example">
+                                <option selected> Selecciona núcleo </option>
+                                <option value="1"> Ambos núcleos </option>
+                                <option value="2"> Santa Rosa </option>
+                                <option value="3"> Riosucio </option>
+                            </select>
+                            <input type="hidden" name="input_nucleo" id="input_nucleo">
+                            <button type="submit" name="filtro_nucleo" id="filtro_nucleo" class="btn btn-primary">Filtrar núcleo</button>
+                    </form>
                 </div>
-                <br>
-                <form name="form2" id="form2" class="form-horizontal row-fluid" action="index.php" method="POST" enctype="multipart/form-data">
-                    <div class="input-group shadow-sm">
-                        <label class="input-group-text w-auto"> Núcleo: </label>
-                        <select class="form-select-sm" id="select_nucleo" aria-label=".form-select-sm example">
-                            <option selected> Selecciona núcleo </option>
-                            <option value="1"> Ambos núcleos </option>
-                            <option value="2"> Santa Rosa </option>
-                            <option value="3"> Riosucio </option>
-                        </select>
-                        <input type="hidden" name="input_nucleo" id="input_nucleo">
-                        <button type="submit" name="filtro_nucleo" id="filtro_nucleo" class="btn btn-primary">Filtrar núcleo</button>
-                </form>
             </div>
+            <hr>
             <div class="table-responsive">
                 <table id="table" class="table table-bordered border-dark table-striped text-center">
                     <thead>
-                        <hr>
                         <tr class="table-success border-success">
                             <th>Código</th>
                             <th class="col-md-1">Imagen</th>

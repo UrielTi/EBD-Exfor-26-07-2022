@@ -1,10 +1,10 @@
 <?php
 include ("../conn/conn.php");
-$nombres = $_POST['nombres'];
-$consulta = "SELECT id, nombres, nucleo, cargo, proceso, cedula, eps FROM clientes WHERE nombres = '$nombres'";
+$nombre = $_POST['nombres'];
+$consulta = "SELECT id, nombres, nucleo, cargo, proceso, cedula FROM clientes WHERE nombres = '$nombre'";
 $result = $conn->query($consulta);
 $fila = $result->fetch_array();
-  
+
 $respuesta = new stdClass();
 if($result->num_rows > 0){
     $respuesta->nombres = $fila['nombres'];
@@ -12,9 +12,10 @@ if($result->num_rows > 0){
     $respuesta->nucleo = $fila['nucleo'];
     $respuesta->proceso = $fila['proceso'];
     $respuesta->cargo = $fila['cargo'];
-    $respuesta->eps = $fila['eps'];
 }
-
+// Consultas de cargo, proceso, nucleo las cuales funcionan con id.
+// En este proceso se estan estudiando las reasignaciones que se realizan en;
+// cargo->cargo1 (23) - proceso->proceso1 (30) y nucleo->nucleo1 (37)
 $consultaCargo = "SELECT cargo FROM cargos WHERE id = '".$fila['cargo']."'";
 $resultCargo = $conn->query($consultaCargo);
 if($resultCargo->num_rows > 0){
@@ -34,13 +35,6 @@ $resultNucleo = $conn->query($consultaNucleo);
 if($resultNucleo->num_rows > 0){
     $filaNucleo = $resultNucleo->fetch_array();
     $respuesta->nucleo1 = $filaNucleo['nucleo'];
-}
-
-$consultaEps = "SELECT eps FROM eps WHERE id = '".$fila['eps']."'";
-$resultEps = $conn->query($consultaEps);
-if($resultEps->num_rows > 0){
-    $filaEps = $resultEps->fetch_array();
-    $respuesta->eps1 = $filaEps['eps'];
 }
 
 //consulta de tallas

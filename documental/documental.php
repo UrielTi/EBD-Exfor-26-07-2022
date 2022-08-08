@@ -36,7 +36,7 @@ if (!isset($_SESSION['tipo']) == 'gerente' || ($_SESSION['tipo']) == 'sistemas' 
         <a onclick="loadId('../documental/visualizar.php?id=','<?php echo $row['id'] ?>')" data-toggle="tooltip" title="Visualizar información" class="btn btn-secondary btn-sm"> <i class="bi bi-search"></i> </a>
             <a onclick="loadId('../documental/documental_obsoletos/oldversions.php?id=','<?php echo $row['id'] ?>')" title="Ver versiones obsoletas" class="btn btn-dark btn-sm"><i class="bi bi-stopwatch"></i></a>
             <a href="downloads.php?file=<?php echo $row['archivo'] ?>" title="Descargar documento" class="btn btn-primary btn-sm"><i class="bi bi-download"></i></a>
-            <a onclick="loadId('../documental/editar.php?id=','<?php echo $row['id'] ?>')" data-toggle="tooltip" title="Editar o actualizar datos" class="btn btn-success btn-sm"> <i class="bi bi-pencil-fill"></i> </a>
+            <a onclick="loadId('../documental/editar.php?id=','<?php echo $row['id'] ?>')" data-toggle="tooltip" title="Editar o actualizar datos" class="btn btn-success btn-sm"> <i class="bi bi-pencil-fill"></i></a>
             <a href="index.php?action=delete&id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos de: <?php echo $row['nombre'] ?>?\')" class="btn btn-danger btn-sm"> <i class="bi bi-trash-fill"></i> </a>
         </td>
     </tr>
