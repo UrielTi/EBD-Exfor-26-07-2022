@@ -1135,8 +1135,6 @@ include "../cond/todo.php"; ?>
             </div>
         </div>
 
-        <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-
 </body>
 
 <script>

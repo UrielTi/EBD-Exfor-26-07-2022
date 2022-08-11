@@ -1,6 +1,12 @@
-﻿<?php session_start();
+﻿<?php
+if (!session_id()) session_start();
 include "../include/conn/conn.php";
-include "../cond/todo.php"; ?>
+include "../cond/todo.php";
+if (!isset($_SESSION['email'])) {
+	echo "<script>window.location = '../login/login.php'</script>";
+	exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -9,7 +15,6 @@ include "../cond/todo.php"; ?>
 </head>
 
 <body>
-	<?php include("../include/navegacion/nav.php"); ?>
 
 	<div class="container-fluid border border-success bg-light">
 		<hr>
@@ -46,11 +51,9 @@ include "../cond/todo.php"; ?>
 				<div class="collapse show" id="ref_datos">
 					<div class="card card-body">
 						<h5>Datos personales del empleado:</h5>
-						<div class="input-group shadow-sm">
-							<span class="input-group-text w-auto" id="id">ID: </span>
-							<input class="form-control" type="text" name="id" id="id" value="<?php echo $row['id']; ?>" readonly="readonly">
-						</div>
-						<br>
+						<!-- ID del usuario desde la base de datos -->
+						<input class="form-control" type="hidden" name="id" id="id" value="<?php echo $row['id']; ?>" readonly="readonly">
+
 						<div class="input-group shadow-sm">
 							<span class="input-group-text w-auto" id="nombres">(*) Nombres: </span>
 							<input class="form-control" onkeyup="mayus(this);" type="text" name="nombres" id="nombres" value="<?php echo $row['nombres']; ?>">
@@ -738,15 +741,15 @@ include "../cond/todo.php"; ?>
 									<div class="input-group shadow-sm">
 										<label class="input-group-text w-auto" for="certificado_curso1"> Titulo certificado: </label>
 										<select class="form-select" name="certificado_curso1" id="certificado_curso1">
-											<option value="" <?php if (isset($cliente_cursos_cortos[0][4]) == '') {
+											<option value="" <?php if (isset($cliente_cursos_cortos[0][4]) == '0' || '') {
 																	echo "selected";
 																} ?>>SELECCIONA</option>
 											<option value="1" <?php if (isset($cliente_cursos_cortos[0][4]) == '1') {
 																	echo "selected";
-																} ?>>SI</option>
-											<option value="0" <?php if (isset($cliente_cursos_cortos[0][4]) == '0') {
-																	echo "selected";
 																} ?>>NO</option>
+											<option value="2" <?php if (isset($cliente_cursos_cortos[0][4]) == '2') {
+																	echo "selected";
+																} ?>>SI</option>
 										</select>
 									</div>
 								</div>
@@ -801,15 +804,15 @@ include "../cond/todo.php"; ?>
 									<div class="input-group shadow-sm">
 										<label class="input-group-text w-auto" for="certificado_curso2"> Titulo certificado: </label>
 										<select class="form-select" name="certificado_curso2" id="certificado_curso2">
-											<option value="" <?php if (isset($cliente_cursos_cortos[1][4]) == '') {
+											<option value="" <?php if (isset($cliente_cursos_cortos[1][4]) == '0' || '') {
 																	echo "selected";
 																} ?>>SELECCIONA</option>
 											<option value="1" <?php if (isset($cliente_cursos_cortos[1][4]) == '1') {
 																	echo "selected";
-																} ?>>SI</option>
-											<option value="0" <?php if (isset($cliente_cursos_cortos[1][4]) == '0') {
-																	echo "selected";
 																} ?>>NO</option>
+											<option value="2" <?php if (isset($cliente_cursos_cortos[1][4]) == '2') {
+																	echo "selected";
+																} ?>>SI</option>
 										</select>
 									</div>
 								</div>
@@ -862,15 +865,15 @@ include "../cond/todo.php"; ?>
 									<div class="input-group shadow-sm">
 										<label class="input-group-text w-auto" for="certificado_curso3"> Titulo certificado: </label>
 										<select class="form-select" name="certificado_curso3" id="certificado_curso3">
-											<option value="" <?php if (isset($cliente_cursos_cortos[2][4]) == '') {
+											<option value="" <?php if (isset($cliente_cursos_cortos[2][4]) == '0' || '') {
 																	echo "selected";
 																} ?>>SELECCIONA</option>
 											<option value="1" <?php if (isset($cliente_cursos_cortos[2][4]) == '1') {
 																	echo "selected";
-																} ?>>SI</option>
-											<option value="0" <?php if (isset($cliente_cursos_cortos[2][4]) == '0') {
-																	echo "selected";
 																} ?>>NO</option>
+											<option value="2" <?php if (isset($cliente_cursos_cortos[2][4]) == '2') {
+																	echo "selected";
+																} ?>>SI</option>
 										</select>
 									</div>
 								</div>
@@ -923,15 +926,15 @@ include "../cond/todo.php"; ?>
 									<div class="input-group shadow-sm">
 										<label class="input-group-text w-auto" for="certificado_curso4"> Titulo certificado: </label>
 										<select class="form-select" name="certificado_curso4" id="certificado_curso4">
-											<option value="" <?php if (isset($cliente_cursos_cortos[3][4]) == '') {
+											<option value="" <?php if (isset($cliente_cursos_cortos[3][4]) == '0' || '') {
 																	echo "selected";
 																} ?>>SELECCIONA</option>
 											<option value="1" <?php if (isset($cliente_cursos_cortos[3][4]) == '1') {
 																	echo "selected";
-																} ?>>SI</option>
-											<option value="0" <?php if (isset($cliente_cursos_cortos[3][4]) == '0') {
-																	echo "selected";
 																} ?>>NO</option>
+											<option value="2" <?php if (isset($cliente_cursos_cortos[3][4]) == '2') {
+																	echo "selected";
+																} ?>>SI</option>
 										</select>
 									</div>
 								</div>
@@ -1369,7 +1372,6 @@ include "../cond/todo.php"; ?>
 			<center> <b class="copyright"><a href=""> EXFOR S.A.S</a> &copy; <?php echo date("Y") ?> Servicios Forestales </b></center>
 		</div>
 	</div>
-	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
 </body>
 <script>

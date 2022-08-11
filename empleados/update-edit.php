@@ -178,7 +178,7 @@ if (isset($_POST['update'])) {
 		}
 
 		//referencia de vehiculo
-		//Se removieron dos lienas de Vensoat y ventecnomecanica, generaban error en local y en las bases de datos, ahora el valor por defaul se genera en la base de datos.
+		//Se removieron dos lineas de Vensoat y ventecnomecanica, generaban error en local y en las bases de datos, ahora el valor por defaul se genera en la base de datos.
 		$consultaVehiculo = mysqli_query($conn, "SELECT id FROM cliente_vehiculo WHERE id_empleado=$id");
 		if (mysqli_num_rows($consultaVehiculo) == 0) {
 			$insertVehiculo = mysqli_query($conn, "INSERT INTO cliente_vehiculo(id, id_empleado, vehiculo, ven_soat, ven_tecnomecanica)

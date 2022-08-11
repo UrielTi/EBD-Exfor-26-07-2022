@@ -25,6 +25,7 @@ $resultadoEmpleado = mysqli_fetch_array($consultaEmpleado);
 
 //condicionales de ayuda para el llenado del excel
 $hijos = ($resultadoEmpleado['hijos'] == 0) ? 'NO' : 'SI';
+$hijosCant = $resultadoEmpleado['hijos'];
 
 //cliente tallas
 $consultaTalla = mysqli_query($conn, "SELECT * FROM cliente_tallas WHERE id_empleado=$id");
@@ -119,6 +120,7 @@ if (strlen($resultadoEmpleado['telefono']) < 10){
 
 agregarEnCelda($spreadsheet, 'J24', $resultadoEmpleado['email']);
 agregarEnCelda($spreadsheet, 'D26', $hijos);
+agregarEnCelda($spreadsheet, 'J26', $hijosCant);
 agregarEnCelda($spreadsheet, 'S26', $estados_civiles[$resultadoEmpleado['civil']]);
 agregarEnCelda($spreadsheet, 'J28', $conyugue[0]);
 agregarEnCelda($spreadsheet, 'J28', $conyugue[0]);
@@ -265,10 +267,10 @@ function agregarEnCelda($spreadsheet, $celda, $valor){
 }
 
 //Guardar documento
-$nombre_documento = "Hoja de vida - ". $resultadoEmpleado['primer_apellido']. " ".$resultadoEmpleado['segundo_apellido']." ".$resultadoEmpleado['nombres'];
+$nombre_documento = "HV - ". $resultadoEmpleado['nombres']. " ".$resultadoEmpleado['primer_apellido'] ." "."EXFOR S.A.S";
 
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment; filename="'.$nombre_documento.'".xls"');
+header('Content-Disposition: attachment; filename="'.$nombre_documento.'".xlsx"');
 
 $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 $writer->save('php://output');

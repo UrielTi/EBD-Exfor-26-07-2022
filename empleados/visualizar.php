@@ -814,11 +814,14 @@ include "../cond/todo.php";
                     <br>
                     <div class="input-group shadow-sm">
                         <label class="input-group-text w-auto" for="contacto_directo1"> Contacto Directo: </label>
-                        <input type="text" name="contacto_directo1" id="contacto_directo1" class="form-control" readonly value="<?php if (isset($cliente_contacto[0][6]) == '' || '0') {
-                                                                                                                                    echo 'NO';
+                        <input type="text" name="contacto_directo1" id="contacto_directo1" class="form-control" readonly value="<?php
+                                                                                                                                $contactD1 = $cliente_contacto[0][5];
+                                                                                                                                if ($contactD1 == 1) {
+                                                                                                                                    echo "SI";
                                                                                                                                 } else {
-                                                                                                                                    echo 'SI';
-                                                                                                                                } ?>">
+                                                                                                                                    echo "NO";
+                                                                                                                                }
+                                                                                                                                ?>">
                     </div>
                 </div>
                 <br>
@@ -826,7 +829,7 @@ include "../cond/todo.php";
 
                 <!-- Referencia personal 2 -->
                 <h5>Datos segunda referencia personal:</h5>
-                <div class="input-group shadow-sm">
+                <div class=" input-group shadow-sm">
                     <label class="input-group-text w-auto" for="nombre_contacto2">(*) Nombre del contacto: </label>
                     <input type="text" style="text-transform:uppercase;" name="nombre_contacto2" id="nombre_contacto2" class="form-control" readonly value="<?php if (isset($cliente_contacto[1][0])) {
                                                                                                                                                                 echo $cliente_contacto[1][0];
@@ -850,11 +853,14 @@ include "../cond/todo.php";
                     <br>
                     <div class="input-group shadow-sm">
                         <label class="input-group-text w-auto" for="contacto_directo2"> Contacto Directo: </label>
-                        <input type="text" name="contacto_directo2" id="contacto_directo2" class="form-control" readonly value="<?php if (isset($cliente_contacto[1][6]) == '' || '0') {
-                                                                                                                                    echo 'NO';
+                        <input type="text" name="contacto_directo2" id="contacto_directo2" class="form-control" readonly value="<?php
+                                                                                                                                $contactD2 = $cliente_contacto[1][5];
+                                                                                                                                if ($contactD2 == 1) {
+                                                                                                                                    echo "SI";
                                                                                                                                 } else {
-                                                                                                                                    echo 'SI';
-                                                                                                                                } ?>">
+                                                                                                                                    echo "NO";
+                                                                                                                                }
+                                                                                                                                ?>">
                     </div>
                 </div>
                 <br>
@@ -885,11 +891,14 @@ include "../cond/todo.php";
                     <br>
                     <div class="input-group shadow-sm">
                         <label class="input-group-text w-auto" for="contacto_directo3"> Contacto Directo: </label>
-                        <input type="text" name="contacto_directo3" id="contacto_directo3" class="form-control" readonly value="<?php if (isset($cliente_contacto[2][6]) == '' || '0') {
-                                                                                                                                    echo 'NO';
+                        <input type="text" name="contacto_directo3" id="contacto_directo3" class="form-control" readonly value="<?php
+                                                                                                                                $contactD3 = $cliente_contacto[2][5];
+                                                                                                                                if ($contactD3 == 1) {
+                                                                                                                                    echo "SI";
                                                                                                                                 } else {
-                                                                                                                                    echo 'SI';
-                                                                                                                                } ?>">
+                                                                                                                                    echo "NO";
+                                                                                                                                }
+                                                                                                                                ?>">
                     </div>
                 </div>
                 <center>

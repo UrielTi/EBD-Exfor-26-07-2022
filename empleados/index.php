@@ -211,7 +211,7 @@ include "../include/conn/conn.php";
         <div class="card-footer">
             <div class="container">
                 <center> <b class="copyright"><a href=""> EXFOR S.A.S</a> &copy;
-                        Servicios Forestales </b></center>
+                    Servicios Forestales </b></center>
             </div>
         </div>
     </div>
