@@ -12,7 +12,8 @@ error_reporting (E_ALL ^ E_NOTICE);
         31 => 'OPERADOR ASERRIO',32 => 'OPERADOR DE EVACUACION Y CARGUE',33 => 'OPERADOR DE EXTRACCION',
         34 => 'OPERADOR MAQUINARIA',35 => 'COORDINADOR RECURSOS HUMANOS',36 => 'COORDINADOR OPERATIVO',
         37 => 'RECIBIDOR DE VIAS',38 => 'MAMPOSTERO',39 => 'AUXILIAR DE MAMPOSTERIA',40 => 'INVESTIGADOR',
-        41 => 'OFICIOS VARIOS'
+        41 => 'INGENIERO CIVIL', 42 => 'INGENIERO FORESTAL', 43 => 'SOCIAL', 44 => 'MEJORADORA SOCIAL',
+        45 => 'OFICIOS VARIOS'
     ];
 
     $nucleos=[
@@ -87,8 +88,8 @@ error_reporting (E_ALL ^ E_NOTICE);
         1 => "A.I.C EPSI", 2 => "ASMET SALUD EPS S.A.S.", 3 => "COMPENSAR", 4 => "COOMEVA E.P.S S.A.", 
         5 => "COOSALUD EPS S.A.", 6 => "COPI ATLANTICO", 7 => "EPS S.O.S", 8 => "EPS SANITAS S.A.S.", 
         9 => "EPS SURAMERICANA S.A.", 10 => "MEDIMAS EPS S.A.S.", 11 => "NUEVA EPS S.A.", 
-        12 => "PIJAOS SALUD EPSI", 13 => "SALUD TOTAL S.A.", 14 => "N/A", 15 => "PREVISORA SEGUROS",
-        16 => "EMSSANAR S.A.S"
+        12 => "PIJAOS SALUD EPSI", 13 => "SALUD TOTAL S.A.", 14 => 'N/A', 15 => 'PREVISORA SEGUROS',
+        16 => 'EMSSANAR S.A.S', 17 => 'FAMISANAR EPS S.A.S'
     ];
 
     $estados_aus=[

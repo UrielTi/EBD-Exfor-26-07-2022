@@ -3,7 +3,7 @@
 <html lang="es">
 
 <head>
-    <?php include("../head.php"); ?>
+    <?php include("headOld.php"); ?>
 
 </head>
 <?php
@@ -141,6 +141,14 @@ include "../../cond/todo.php";
                 <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="vigente_desde">(*) Vigente desde: </span>
                     <input name="vigente_desde" id="vigente_desde" class=" form-control" type="date" value="<?php echo $row['vigente_desde'] ?>" readonly>
+                </div>
+                <br>
+
+                <div class="input-group shadow-sm">
+                    <span class="input-group-text w-25" for="tiempoR1">(*) Tiempo de Retención inicial: </span>
+                    <input value="<?php echo $row['tiempo_r1'];?>" class="form-control" type="date" readonly>
+                    <span class="input-group-text" for="tiempoR2">(*) Tiempo de Retención final </span>
+                    <input value="<?php echo $row['tiempo_r2'];?>" class="form-control" type="date" readonly>
                 </div>
                 <br>
 

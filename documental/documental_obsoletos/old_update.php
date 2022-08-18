@@ -1,26 +1,71 @@
 <?php
 include "../../include/conn/conn.php";
 if (isset($_POST['update'])) {
+    // Id del documento y id del documento obsoleto
     $id_documento = mysqli_real_escape_string($conn, (strip_tags($_POST['id_documento'], ENT_QUOTES)));
-    $id = intval($_POST['id']);
+    $id = mysqli_real_escape_string($conn, (strip_tags($_POST['id'], ENT_QUOTES)));
+    // Input que contienen los datos del codigo.
+	$input_consecutivo = mysqli_real_escape_string($conn, (strip_tags($_POST['input_consecutivo'], ENT_QUOTES)));
+	$input_proceso = mysqli_real_escape_string($conn, (strip_tags($_POST['input_proceso'], ENT_QUOTES)));
+	$input_tipo = mysqli_real_escape_string($conn, (strip_tags($_POST['input_tipo'], ENT_QUOTES)));
+	// Selects con datos en id
+	$select_consecutivo = mysqli_real_escape_string($conn, (strip_tags($_POST['select_consecutivo'], ENT_QUOTES)));
+	$select_tipo = mysqli_real_escape_string($conn, (strip_tags($_POST['select_tipo'], ENT_QUOTES)));
+	$select_proceso = mysqli_real_escape_string($conn, (strip_tags($_POST['select_proceso'], ENT_QUOTES)));
+	// Datos que componen el documento.
     $nombre    = mysqli_real_escape_string($conn, (strip_tags($_POST['nombres'], ENT_QUOTES)));
     $sistema  = mysqli_real_escape_string($conn, (strip_tags($_POST['sistema'], ENT_QUOTES)));
     $codigo  = mysqli_real_escape_string($conn, (strip_tags($_POST['codigo'], ENT_QUOTES)));
     $version  = mysqli_real_escape_string($conn, (strip_tags($_POST['version'], ENT_QUOTES)));
     $origen   = mysqli_real_escape_string($conn, (strip_tags($_POST['origen'], ENT_QUOTES)));
-    $tipo   = mysqli_real_escape_string($conn, (strip_tags($_POST['tipo'], ENT_QUOTES)));
     $aprobacion   = mysqli_real_escape_string($conn, (strip_tags($_POST['aprobacion'], ENT_QUOTES)));
     $u_fisica   = mysqli_real_escape_string($conn, (strip_tags($_POST['u_fisica'], ENT_QUOTES)));
     $u_digital   = mysqli_real_escape_string($conn, (strip_tags($_POST['u_digital'], ENT_QUOTES)));
-    $proceso   = mysqli_real_escape_string($conn, (strip_tags($_POST['proceso'], ENT_QUOTES)));
     $estado   = mysqli_real_escape_string($conn, (strip_tags($_POST['estado'], ENT_QUOTES)));
     $revisado = mysqli_real_escape_string($conn, (strip_tags($_POST['revisado'], ENT_QUOTES)));
     $actualizado = mysqli_real_escape_string($conn, (strip_tags($_POST['actualizado'], ENT_QUOTES)));
     $vigente_desde = mysqli_real_escape_string($conn, (strip_tags($_POST['vigente_desde'], ENT_QUOTES)));
     $personaE   = mysqli_real_escape_string($conn, (strip_tags($_POST['personaE'], ENT_QUOTES)));
     $personaA   = mysqli_real_escape_string($conn, (strip_tags($_POST['personaA'], ENT_QUOTES)));
+    // Variables tiempo de retencion del documento.
+	$tiempoR1 = mysqli_real_escape_string($conn, (strip_tags($_POST['tiempoR1'], ENT_QUOTES)));
+	$tiempoR2 = mysqli_real_escape_string($conn, (strip_tags($_POST['tiempoR2'], ENT_QUOTES)));
+	// Documento.
     $archivo   = mysqli_real_escape_string($conn, (strip_tags($_FILES['archivo']['name'], ENT_QUOTES)));
     $documento_actual = mysqli_real_escape_string($conn, (strip_tags($_POST['documento_actual'], ENT_QUOTES)));
+
+    // Adjuntar 0 a consecutivo
+	$consecutivo = sprintf("%02d", $input_consecutivo);
+	
+	// Archivo php con datos de select.
+	include '../editorCodigo.php';
+
+	// Query datos que componen el codigo del documento.
+	$selectQuery = mysqli_query($conn, "SELECT codigo, proceso, tipo, consecutivo FROM documentos_obsoletos WHERE id='$id' AND id_documento='$id_documento'") or die (mysqli_error($conn));
+	$queryCodigo = mysqli_fetch_array($selectQuery);
+
+	// Generar codigo.
+	if ($input_proceso != '' || $input_tipo != '' || $consecutivo != '') {
+		// Verificar si algunos campos que componen el codigo no se han diligenciado, entonces la variable tendra el valor de lo almacenado en bd.
+		if ($input_proceso == '') {
+			$queryProceso = $queryCodigo['proceso'];
+			// PHP con comprobador.
+			include '../comprobadores/compProceso.php';
+			$proceso = $queryProceso;
+
+		}
+		if ($input_tipo == '') {
+			$queryTipo = $queryCodigo['tipo'];
+			// PHP con comprobador.
+			include '../comprobadores/compTipo.php';
+			$tipo = $queryTipo;
+		}
+		if ($consecutivo == '' || $input_consecutivo == '') {
+			$consecutivo = $queryCodigo['consecutivo'];
+		}
+		$codigo = $input_proceso . '-' . $input_tipo . '-' . $consecutivo;
+		$updateCodigo = mysqli_query($conn, "UPDATE documentos_obsoletos SET codigo='$codigo', proceso='$proceso', tipo='$tipo', consecutivo='$consecutivo' WHERE id='$id' AND id_documento='$id_documento'") or die(mysqli_error($conn));
+	}
 
     $path = "../oldfiles/" . $archivo;
     $extension = pathinfo($path, PATHINFO_EXTENSION);
@@ -28,7 +73,7 @@ if (isset($_POST['update'])) {
     if ($archivo == '') {
         $archivo = $documento_actual;
         // Update - Actualizacion
-        $update = mysqli_query($conn, "UPDATE documentos_obsoletos SET nombre='$nombre', sistema='$sistema', codigo='$codigo', version='$version', origen='$origen', tipo='$tipo', aprobacion='$aprobacion', u_fisica='$u_fisica', u_digital='$u_digital', proceso='$proceso', estado='$estado', vigente_desde='$vigente_desde', actualizado='$actualizado', revisado='$revisado', personaE='$personaE', personaA='$personaA', archivo='$archivo' WHERE id='$id'") or die(mysqli_error($conn));
+        $update = mysqli_query($conn, "UPDATE documentos_obsoletos SET nombre='$nombre', sistema='$sistema', version='$version', origen='$origen', aprobacion='$aprobacion', u_fisica='$u_fisica', u_digital='$u_digital', estado='$estado', vigente_desde='$vigente_desde', actualizado='$actualizado', revisado='$revisado', personaE='$personaE', personaA='$personaA', tiempo_r1='$tiempoR1', tiempo_r2='$tiempoR2', archivo='$archivo' WHERE id='$id' AND id_documento='$id_documento'") or die(mysqli_error($conn));
     } else {
         unlink('../oldfiles/' . $documento_actual);
         if ($_FILES['archivo']['error'] > 0) {
@@ -40,7 +85,7 @@ if (isset($_POST['update'])) {
                     $ruta = "../oldfiles/";
                     move_uploaded_file($_FILES["archivo"]["tmp_name"], $ruta . $archivo);
                      // Update - Actualizacion
-                    $update = mysqli_query($conn, "UPDATE documentos_obsoletos SET nombre='$nombre', sistema='$sistema', codigo='$codigo', version='$version', origen='$origen', tipo='$tipo', aprobacion='$aprobacion', u_fisica='$u_fisica', u_digital='$u_digital', proceso='$proceso', estado='$estado', vigente_desde='$vigente_desde', actualizado='$actualizado', revisado='$revisado', personaE='$personaE', personaA='$personaA', archivo='$archivo' WHERE id='$id'") or die(mysqli_error($conn));
+                    $update = mysqli_query($conn, "UPDATE documentos_obsoletos SET nombre='$nombre', sistema='$sistema', version='$version', origen='$origen', aprobacion='$aprobacion', u_fisica='$u_fisica', u_digital='$u_digital', estado='$estado', vigente_desde='$vigente_desde', actualizado='$actualizado', revisado='$revisado', personaE='$personaE', personaA='$personaA', tiempo_r1='$tiempoR1', tiempo_r2='$tiempoR2', archivo='$archivo' WHERE id='$id' AND id_documento='$id_documento'") or die(mysqli_error($conn));
                 } else {
                     echo "<script>alert('El documento pesa mas de 500MB o no es del tipo WORD, EXCEL, PDF, POWER POINT, JPEG, PNG'); window.location = 'registro.php'</script>";
                 }

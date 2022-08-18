@@ -7,9 +7,9 @@
 <!-- Boostrap Icon -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <!-- Script src local -->
-<script src="../scripts/jquery-3.6.0.min.js" type="text/javascript"></script>
+<script src="../../scripts/jquery-3.6.0.min.js" type="text/javascript"></script>
 <!-- Boostrap -->
-<script src="../scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+<script src="../../scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
@@ -18,7 +18,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-<!-- Javascripts calculos y demás -->
-<script src="./js/calculos.js"></script>
-<script src="./js/filtro.js"></script>
-<script src="./js/data.js"></script>
+<!-- Scripts utilizados para pestañas nuevas y carga de información -->
+<script src="../scripts/codigo.js"></script>
+<script src="../../documental/scripts/mayus.js" type="text/javascript"></script>
+<script src="../../documental/scripts/page.js" type="text/javascript"></script>
+<script src="../../documental/scripts/data.js" type="text/javascript"></script>

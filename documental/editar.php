@@ -140,19 +140,19 @@ include "../include/conn/conn.php";
 
                 <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="nombres">(*) Nombre: </span>
-                    <input type="text"  name="nombres" id="nombres" class="form-control" placeholder="INGRESA EL NOMBRE DEL ELEMENTO" value="<?php echo $row['nombre']; ?>" required>
+                    <input type="text"  name="nombres" onkeyup="mayus(this);" id="nombres" class="form-control" placeholder="INGRESA EL NOMBRE DEL ELEMENTO" value="<?php echo $row['nombre']; ?>" required>
                 </div>
                 <br>
 
                 <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="u_fisica">(*) Ubicacion fisica: </span>
-                    <input name="u_fisica" id="u_fisica" class=" form-control" type="text" placeholder="UBICACION FISICA DEL ELEMENTO" value="<?php echo $row['u_fisica']; ?>" required>
+                    <input name="u_fisica" id="u_fisica" onkeyup="mayus(this);" class="form-control" type="text" placeholder="UBICACION FISICA DEL ELEMENTO" value="<?php echo $row['u_fisica']; ?>" required>
                 </div>
                 <br>
 
                 <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="u_digital">(*) Ubicacion digital: </span>
-                    <input type="text"  name="u_digital" id="u_digital" class="form-control" placeholder="UBICACION DIGITAL DEL ELEMENTO" value="<?php echo $row['u_digital']; ?>" required>
+                    <input type="text"  name="u_digital" onkeyup="mayus(this);" id="u_digital" class="form-control" placeholder="UBICACION DIGITAL DEL ELEMENTO" value="<?php echo $row['u_digital']; ?>" required>
                 </div>
                 <br>
 
@@ -178,13 +178,13 @@ include "../include/conn/conn.php";
 
                 <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="personaE">(*) Persona que elaboro: </span>
-                    <input name="personaE" id="personaE" class=" form-control" type="text" placeholder="PERSONA QUE ELABORO" value="<?php echo $row['personaE']; ?>" required>
+                    <input name="personaE" onkeyup="mayus(this);" id="personaE" class=" form-control" type="text" placeholder="PERSONA QUE ELABORO" value="<?php echo $row['personaE']; ?>" required>
                 </div>
                 <br>
 
                 <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="personaA">(*) Persona que aprobo: </span>
-                    <input name="personaA"  id="personaA" class=" form-control" type="text" placeholder="PERSONA QUE APROBO" value="<?php echo $row['personaA']; ?>" required>
+                    <input name="personaA" onkeyup="mayus(this);" id="personaA" class=" form-control" type="text" placeholder="PERSONA QUE APROBO" value="<?php echo $row['personaA']; ?>" required>
                 </div>
                 <br>
 
@@ -221,8 +221,16 @@ include "../include/conn/conn.php";
                 <br>
 
                 <div class="input-group shadow-sm">
+                    <span class="input-group-text w-25" for="tiempoR1">(*) Tiempo de Retención inicial: </span>
+                    <input name="tiempoR1" id="tiempoR1" class="form-control" type="date" value="<?php echo $row['tiempo_r1'];?>">
+                    <span class="input-group-text" for="tiempoR2">(*) Tiempo de Retención final </span>
+                    <input name="tiempoR2" id="tiempoR2" class="form-control" type="date" value="<?php echo $row['tiempo_r2'];?>">
+                </div>
+                <br>
+
+                <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="archivo">(*) Archivo: </span>
-                    <input name="archivo" id="archivo" class="form-control" type="file" required>
+                    <input name="archivo" id="archivo" class="form-control" type="file">
                     <input readonly value="<?php echo $row['archivo'] ?>" name="documento_actual" class="form-control" type="text">
                 </div>
                 <br>
@@ -247,8 +255,6 @@ include "../include/conn/conn.php";
                 <center> <b class="copyright"><a href=""> EXFOR S.A.S</a> &copy; <?php echo date("Y") ?> Servicios Forestales </b></center>
             </div>
         </div>
-
-        <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
 
 

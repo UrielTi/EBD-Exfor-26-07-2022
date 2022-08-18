@@ -144,6 +144,14 @@ include "../cond/todo.php";
                 <br>
 
                 <div class="input-group shadow-sm">
+                    <span class="input-group-text w-25" for="tiempoR1">(*) Tiempo de Retención inicial: </span>
+                    <input value="<?php echo $row['tiempo_r1'];?>" class="form-control" type="date" readonly>
+                    <span class="input-group-text" for="tiempoR2">(*) Tiempo de Retención final </span>
+                    <input value="<?php echo $row['tiempo_r2'];?>" class="form-control" type="date" readonly>
+                </div>
+                <br>
+
+                <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="archivo">Archivo: </span>
                     <input name="archivo" id="archivo" class=" form-control" type="text" value="<?php echo $row['archivo']; ?>" required readonly>
                 </div>

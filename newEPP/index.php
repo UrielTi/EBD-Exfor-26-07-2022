@@ -50,7 +50,7 @@ include "../include/conn/conn.php";
                             Gracias!</strong></center>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div class="d-inline-flex p-2 bd-highlight">
+                <div class="d-flex align-items-start">
                     <a href="registro.php" class="btn btn-sm btn-success"> <i class="bi bi-bag-plus-fill"></i> Registrar nuevo
                         elemento</a>&nbsp;
                     <a onclick="loadData('bi bi-search','Visualización del elemento por agotarse','ElementSold','');" href="" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#mimodal"> <i class="bi bi-person-fill"></i>
@@ -65,18 +65,17 @@ include "../include/conn/conn.php";
                         entrega de epp</a>&nbsp;
                     <a onclick="loadDataTarea('bi bi-book',' Tareas','epp')" class="btn btn-sm btn-success" href="" data-bs-toggle="modal" data-bs-target="#mimodal">
                         <i class="bi bi-book-fill"></i> Tareas</a>&nbsp;
-                        
                     <form name="form2" id="form2" class="form-horizontal row-fluid" action="index.php" method="POST" enctype="multipart/form-data">
-                        <div class="input-group shadow-sm">
-                            <label class="input-group-text w-auto"> Núcleo: </label>
-                            <select class="form-select-sm" id="select_nucleo" aria-label=".form-select-sm example">
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text w-25" id="inputGroup-sizing-sm"> Núcleo: </span>
+                            <select class="form-select form-select-sm" id="select_nucleo" aria-label=".form-select-sm example">
                                 <option selected> Selecciona núcleo </option>
                                 <option value="1"> Ambos núcleos </option>
                                 <option value="2"> Santa Rosa </option>
                                 <option value="3"> Riosucio </option>
                             </select>
                             <input type="hidden" name="input_nucleo" id="input_nucleo">
-                            <button type="submit" name="filtro_nucleo" id="filtro_nucleo" class="btn btn-primary">Filtrar núcleo</button>
+                            <button type="submit" name="filtro_nucleo" id="filtro_nucleo" class="btn btn-primary btn-sm">Filtrar núcleo</button>
                     </form>
                 </div>
             </div>
@@ -109,10 +108,6 @@ include "../include/conn/conn.php";
                     Servicios Forestales </b></center>
         </div>
     </div>
-    <!-- <script src="../bootstrap/js/bootstrap.min.js" type="text/javascript"></script> -->
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.2.1/jquery.quicksearch.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
     <script>

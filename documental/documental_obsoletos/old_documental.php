@@ -15,7 +15,7 @@
 </div>
 <?php
 include("../../include/conn/conn.php");
-include("../head.php");
+include("headOld.php");
 $id_documento = intval($_GET['id']);
 if (!isset($_SESSION['tipo']) == 'gerente' || ($_SESSION['tipo']) == 'sistemas' || ($_SESSION['tipo']) == 'gestor_riesgo'){
     $sql = mysqli_query($conn, "SELECT id,codigo,version,nombre,tipo,origen,actualizado,revisado,archivo FROM documentos_obsoletos WHERE id_documento='$id_documento'");

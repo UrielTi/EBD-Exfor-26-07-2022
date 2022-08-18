@@ -26,8 +26,8 @@
             $cantidad = mysqli_real_escape_string($conn, (strip_tags($_POST['cantidad'], ENT_QUOTES)));
             $nucleo = mysqli_real_escape_string($conn, (strip_tags($_POST['nucleo'], ENT_QUOTES)));
             $proveedor = mysqli_real_escape_string($conn, (strip_tags($_POST['proveedor'], ENT_QUOTES)));
-            $precio1 = mysqli_real_escape_string($conn, (strip_tags($_POST['precio'], ENT_QUOTES)));
-            $precio = number_format($precio1);
+            $precio = mysqli_real_escape_string($conn, (strip_tags($_POST['precio'], ENT_QUOTES)));
+
             $imagen = mysqli_real_escape_string($conn, (file_get_contents($_FILES["img"]["tmp_name"], ENT_QUOTES)));
             //TALLAS
             $tipo_talla = mysqli_real_escape_string($conn, (strip_tags($_POST['tipo_talla'], ENT_QUOTES)));
@@ -103,70 +103,70 @@
                 $id_elemento = intval($resultadoEpp['id']);
 
                 if ($tallaU >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', 'U', '$tallaU', '$precioU')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', 'U', '$tallaU', '$precioU')") or die(mysqli_error($conn));
                 }
                 if ($tallaS >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', 'S', '$tallaS', '$precioS')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', 'S', '$tallaS', '$precioS')") or die(mysqli_error($conn));
                 }
                 if ($tallaM >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', 'M', '$tallaM', '$precioM')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', 'M', '$tallaM', '$precioM')") or die(mysqli_error($conn));
                 }
                 if ($tallaL >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', 'L', '$tallaL', '$precioL')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', 'L', '$tallaL', '$precioL')") or die(mysqli_error($conn));
                 }
                 if ($tallaXL >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', 'XL', '$tallaXL', '$precioXL')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', 'XL', '$tallaXL', '$precioXL')") or die(mysqli_error($conn));
                 }
                 if ($tallaXXL >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', 'XXL', '$tallaXXL', '$precioXXL')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', 'XXL', '$tallaXXL', '$precioXXL')") or die(mysqli_error($conn));
                 }
                 if ($talla28 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '28', '$talla28', '$precio28')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '28', '$talla28', '$precio28')") or die(mysqli_error($conn));
                 }
                 if ($talla29 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '29', '$talla29', '$precio29')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '29', '$talla29', '$precio29')") or die(mysqli_error($conn));
                 }
                 if ($talla30 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '30', '$talla30', '$precio30')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '30', '$talla30', '$precio30')") or die(mysqli_error($conn));
                 }
                 if ($talla31 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '31', '$talla31', '$precio31')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '31', '$talla31', '$precio31')") or die(mysqli_error($conn));
                 }
                 if ($talla32 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '32', '$talla32', '$precio32')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '32', '$talla32', '$precio32')") or die(mysqli_error($conn));
                 }
                 if ($talla33 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '33', '$talla33', '$precio33')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '33', '$talla33', '$precio33')") or die(mysqli_error($conn));
                 }
                 if ($talla34 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '34', '$talla34', '$precio34')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '34', '$talla34', '$precio34')") or die(mysqli_error($conn));
                 }
                 if ($talla35 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '35', '$talla35', '$precio35')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '35', '$talla35', '$precio35')") or die(mysqli_error($conn));
                 }
                 if ($talla36 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '36', '$talla36', '$precio36')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '36', '$talla36', '$precio36')") or die(mysqli_error($conn));
                 }
                 if ($talla37 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '37', '$talla37', '$precio37')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '37', '$talla37', '$precio37')") or die(mysqli_error($conn));
                 }
                 if ($talla38 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '38', '$talla38', '$precio38')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '38', '$talla38', '$precio38')") or die(mysqli_error($conn));
                 }
                 if ($talla39 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '39', '$talla39', '$precio39')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '39', '$talla39', '$precio39')") or die(mysqli_error($conn));
                 }
                 if ($talla40 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '40', '$talla40', '$precio40')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '40', '$talla40', '$precio40')") or die(mysqli_error($conn));
                 }
                 if ($talla41 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '41', '$talla41', '$precio41')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '41', '$talla41', '$precio41')") or die(mysqli_error($conn));
                 }
                 if ($talla42 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '42', '$talla42', '$precio42')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '42', '$talla42', '$precio42')") or die(mysqli_error($conn));
                 }
                 if ($talla43 >= '0') {
-                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio_unitario)VALUES(NULL, '$id_elemento', '43', '$talla43', '$precio43')") or die(mysqli_error($conn));
+                    $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '43', '$talla43', '$precio43')") or die(mysqli_error($conn));
                 }
                 echo '<div class="alert alert-success alert-dismissable"><center>&nbsp; Se ha registrado correctamente el elemento &nbsp;<button type="button" class="btn btn-outline-success" data-dismiss="alert" aria-hidden="true">Cerrar Ventana &times;</button></center></div>';
             } else {
@@ -222,8 +222,8 @@
                             <div class="input-group shadow-sm">
                                 <span class="input-group-text w-auto" for="precio">Precio total: </span>
                                 <span class="input-group-text w-auto">$</span>
-                                <input name="precio" id="precio" class="form-control precio_moneda" type="number" readonly>
-                                <span class="input-group-text w-50"> pesos</span>
+                                <input name="precio" id="precio" class="form-control w-auto" type="number" readonly>
+                                <span class="input-group-text w-25"> pesos</span>
                             </div>
                         </div>
                         <br>
@@ -288,13 +288,11 @@
                         Forestales </b></center>
             </div>
         </div>
-
-        <script src="../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-
 </body>
 
+</html>
 <!-- Valores en pesos -->
-<script>
+<!-- <script>
     $("input.precio_moneda").each((i, ele) => {
         let clone = $(ele).clone(false)
         clone.attr("type", "text")
@@ -317,6 +315,4 @@
             $(ele1).hide()
         })
     })
-</script>
-
-</html>
+</script> -->

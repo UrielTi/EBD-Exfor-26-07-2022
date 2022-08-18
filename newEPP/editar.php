@@ -24,17 +24,19 @@
 		if (mysqli_num_rows($sql) == 0) {
 			echo '<div class="alert alert-danger alert-dismissable">&nbsp; Error 404 apartado no encontrado &nbsp;<a href="index.php"  class="btn btn-outline-danger" data-dismiss="alert" aria-hidden="true">Volver al menú principal &times;</a></div>';
 		} else {
+			// Array con info
 			$row = mysqli_fetch_assoc($sql);
-		}
-		?>
-		<!-- TALLAS CON SU PRECIO -->
-		<script>
-			<?php
+			// Datos para generar los readonly
+			$consultaEppTipoTalla = mysqli_query($conn, "SELECT tipo_talla FROM epp WHERE id=$id");
+			$row_epp_talla = mysqli_fetch_assoc($consultaEppTipoTalla);
+			// Function que generar los Datos para el list
 			function ElementoTallas($conn, $id_elemento, $talla)
 			{
-				$consultaEppTallas = mysqli_query($conn, "SELECT * FROM elemento_tallas WHERE id_elemento=$id_elemento AND talla='$talla'");
-				$rowEppTallas = mysqli_fetch_assoc($consultaEppTallas);
-				return array($rowEppTallas['cantidad'], $rowEppTallas['precio_unitario'], $rowEppTallas['id']);
+				$consultaEppTallas = mysqli_query($conn, "SELECT * FROM elemento_tallas WHERE id_elemento='$id_elemento' AND talla='$talla'");
+				while (mysqli_num_rows($consultaEppTallas) > 0) {
+					$rowEppTallas = mysqli_fetch_assoc($consultaEppTallas);
+					return array($rowEppTallas['cantidad'], $rowEppTallas['precio'], $rowEppTallas['id']);
+				}
 			}
 			list($cantidadU, $precioU, $id_tallaU) = ElementoTallas($conn, $id, 'U');
 			list($cantidadS, $precioS, $id_tallaS) = ElementoTallas($conn, $id, 'S');
@@ -58,11 +60,7 @@
 			list($cantidad41, $precio41, $id_talla41) = ElementoTallas($conn, $id, '41');
 			list($cantidad42, $precio42, $id_talla42) = ElementoTallas($conn, $id, '42');
 			list($cantidad43, $precio43, $id_talla43) = ElementoTallas($conn, $id, '43');
-			?>
-		</script>
-		<?php
-		$consultaEppTipoTalla = mysqli_query($conn, "SELECT tipo_talla FROM epp WHERE id=$id");
-		$row_epp_talla = mysqli_fetch_assoc($consultaEppTipoTalla);
+		}
 		?>
 
 		<div class="panel panel-default">
@@ -89,7 +87,7 @@
 								</div>
 								<div class="card-body">
 									<center>
-										<h5>Imagen o fotografía del elemento:</h5>
+										<h5>Imagen del elemento:</h5>
 									</center>
 									<br>
 									<div class="mb-3">
@@ -308,7 +306,7 @@
 											</div>
 											<ul class="list-group list-group-flush">
 												<input type="hidden" id="id28" name="id28" value="<?php echo $id_talla28 ?>">
-												<input name="talla28" id="talla28" class="form-control" type="number" min="0" value="<?php $value28 = $cantidad28 == '0' ? '' : $cantidad28;
+												<input name="talla28" id="talla28" class="form-control" type="number" min="0" value="<?php $valueT28 = $cantidad28 == '0' ? '' : $cantidad28;
 																																		echo $valueT28; ?>" oninput="CantTotal();" placeholder="CANTIDAD" <?php $read = $row_epp_talla['tipo_talla'] == 3 ? '' : 'readOnly';
 																																																			echo $read; ?>>
 												<input name="precio28" id="precio28" class="form-control" type="number" min="0" value="<?php $valueP28 = $precio28 == '0' ? '' : $precio28;

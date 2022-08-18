@@ -49,7 +49,7 @@ include "../include/conn/conn.php";
                 </div>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <center><strong>Recordatorio: </strong>Si desea modificar algún FORMATO del Listado Maestro
-                        comuníquese directamente con nuestro Gestor de Riesgo, si quieres saber más da click en 
+                        comuníquese directamente con nuestro Gestor de Riesgo, si quieres saber más da click en
                         el botón "<i class="bi bi-info-lg"></i> Control de documentos",
                         <strong>¡Muchas Gracias!</strong>.
                     </center>
@@ -95,15 +95,8 @@ include "../include/conn/conn.php";
                         Servicios Forestales </b></center>
             </div>
         </div>
-        <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.2.1/jquery.quicksearch.js"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
-        <!-- script datatables -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
         <script>
             $(document).ready(function() {
                 $('#table').DataTable({

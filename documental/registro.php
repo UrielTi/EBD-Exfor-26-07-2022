@@ -1,4 +1,7 @@
-﻿<?php include "../include/conn/conn.php"; ?>
+﻿<?php
+session_start();
+include "../include/conn/conn.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,6 +46,10 @@
             $vigente_desde = mysqli_real_escape_string($conn, (strip_tags($_POST['vigente_desde'], ENT_QUOTES)));
             $personaE   = mysqli_real_escape_string($conn, (strip_tags($_POST['personaE'], ENT_QUOTES)));
             $personaA   = mysqli_real_escape_string($conn, (strip_tags($_POST['personaA'], ENT_QUOTES)));
+            // Variables tiempo de retencion del documento.
+            $tiempoR1 = mysqli_real_escape_string($conn, (strip_tags($_POST['tiempoR1'], ENT_QUOTES)));
+            $tiempoR2 = mysqli_real_escape_string($conn, (strip_tags($_POST['tiempoR2'], ENT_QUOTES)));
+            // Documento.
             $archivo   = mysqli_real_escape_string($conn, (strip_tags($_FILES['archivo']['name'], ENT_QUOTES)));
 
             $path = "files/" . $archivo;
@@ -71,11 +78,17 @@
             if ($vigente_desde === '') {
                 $vigente_desde = '0101-01-01';
             }
+            if ($tiempoR1 === '') {
+                $tiempoR1 = '0101-01-01';
+            }
+            if ($tiempoR2 === '') {
+                $tiempoR2 = '0101-01-01';
+            }
             // Archivo generador de codigo de documento.
             include 'generadorCodigo.php';
             // Insert de info a mysql
-            $insert = mysqli_query($conn, "INSERT INTO documentos(id, sistema, aprobacion, codigo, nombre, u_fisica, u_digital, version, proceso, consecutivo, tipo, estado, origen, actualizado, revisado, vigente_desde, personaE, personaA, archivo)
-							VALUES(NULL, '$sistema', '$aprobacion', '$codigo', '$nombre', '$u_fisica', '$u_digital', '$version', '$proceso', '$consecutivo', '$tipo', '$estado', '$origen', '$actualizado', '$revisado', '$vigente_desde', '$personaE', '$personaA', '$archivo')") or die(mysqli_error($conn));
+            $insert = mysqli_query($conn, "INSERT INTO documentos(id, sistema, aprobacion, codigo, nombre, u_fisica, u_digital, version, proceso, consecutivo, tipo, estado, origen, actualizado, revisado, vigente_desde, personaE, personaA, tiempo_r1, tiempo_r2, archivo)
+							VALUES(NULL, '$sistema', '$aprobacion', '$codigo', '$nombre', '$u_fisica', '$u_digital', '$version', '$proceso', '$consecutivo', '$tipo', '$estado', '$origen', '$actualizado', '$revisado', '$vigente_desde', '$personaE', '$personaA', '$tiempoR1', '$tiempoR2', '$archivo')") or die(mysqli_error($conn));
             if ($insert) {
                 echo '<div class="alert alert-success alert-dismissable"><center>&nbsp; Se ha registrado correctamente el documento &nbsp;<button type="button" class="btn btn-outline-success" data-dismiss="alert" aria-hidden="true">Cerrar Ventana &times;</button></center></div>';
             } else {
@@ -257,6 +270,14 @@
                 <br>
 
                 <div class="input-group shadow-sm">
+                    <span class="input-group-text w-25" for="tiempoR1">(*) Tiempo de Retención inicial: </span>
+                    <input name="tiempoR1" id="tiempoR1" class="form-control" type="date">
+                    <span class="input-group-text" for="tiempoR2">(*) Tiempo de Retención final </span>
+                    <input name="tiempoR2" id="tiempoR2" class="form-control" type="date">
+                </div>
+                <br>
+
+                <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="archivo">(*) Archivo: </span>
                     <input name="archivo" id="archivo" class=" form-control" type="file" required>
                 </div>
@@ -284,7 +305,6 @@
                         Forestales </b></center>
             </div>
         </div>
-        <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
 </body>
 

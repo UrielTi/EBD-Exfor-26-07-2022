@@ -6,7 +6,7 @@ include "../../include/conn/conn.php";
 <html lang="en">
 
 <head>
-    <?php include("../head.php"); ?>
+    <?php include("headOld.php"); ?>
 </head>
 
 <body>
@@ -29,23 +29,33 @@ include "../../include/conn/conn.php";
         ?>
         <?php
         if (isset($_POST['input'])) {
+            // elementos de Codigo
+            $select_consecutivo = mysqli_real_escape_string($conn, (strip_tags($_POST['select_consecutivo'], ENT_QUOTES)));
+            $select_proceso = mysqli_real_escape_string($conn, (strip_tags($_POST['select_proceso'], ENT_QUOTES)));
+            $select_tipo = mysqli_real_escape_string($conn, (strip_tags($_POST['select_tipo'], ENT_QUOTES)));
+            // inputs de elementos
+            $input_consecutivo = mysqli_real_escape_string($conn, (strip_tags($_POST['input_consecutivo'], ENT_QUOTES)));
+            $input_proceso = mysqli_real_escape_string($conn, (strip_tags($_POST['input_proceso'], ENT_QUOTES)));
+            $input_tipo = mysqli_real_escape_string($conn, (strip_tags($_POST['input_tipo'], ENT_QUOTES)));
+            // Datos del documento
             $id_documento = mysqli_real_escape_string($conn, (strip_tags($_POST['id_documento'], ENT_QUOTES)));
             $nombre    = mysqli_real_escape_string($conn, (strip_tags($_POST['nombres'], ENT_QUOTES)));
             $sistema  = mysqli_real_escape_string($conn, (strip_tags($_POST['sistema'], ENT_QUOTES)));
-            $codigo  = mysqli_real_escape_string($conn, (strip_tags($_POST['codigo'], ENT_QUOTES)));
             $version  = mysqli_real_escape_string($conn, (strip_tags($_POST['version'], ENT_QUOTES)));
             $origen   = mysqli_real_escape_string($conn, (strip_tags($_POST['origen'], ENT_QUOTES)));
-            $tipo   = mysqli_real_escape_string($conn, (strip_tags($_POST['tipo'], ENT_QUOTES)));
             $aprobacion   = mysqli_real_escape_string($conn, (strip_tags($_POST['aprobacion'], ENT_QUOTES)));
             $u_fisica   = mysqli_real_escape_string($conn, (strip_tags($_POST['u_fisica'], ENT_QUOTES)));
             $u_digital   = mysqli_real_escape_string($conn, (strip_tags($_POST['u_digital'], ENT_QUOTES)));
-            $proceso   = mysqli_real_escape_string($conn, (strip_tags($_POST['proceso'], ENT_QUOTES)));
             $estado   = mysqli_real_escape_string($conn, (strip_tags($_POST['estado'], ENT_QUOTES)));
             $actualizado = mysqli_real_escape_string($conn, (strip_tags($_POST['actualizado'], ENT_QUOTES)));
             $revisado = mysqli_real_escape_string($conn, (strip_tags($_POST['revisado'], ENT_QUOTES)));
             $vigente_desde = mysqli_real_escape_string($conn, (strip_tags($_POST['vigente_desde'], ENT_QUOTES)));
             $personaE   = mysqli_real_escape_string($conn, (strip_tags($_POST['personaE'], ENT_QUOTES)));
             $personaA   = mysqli_real_escape_string($conn, (strip_tags($_POST['personaA'], ENT_QUOTES)));
+            // Variables tiempo de retencion del documento.
+            $tiempoR1 = mysqli_real_escape_string($conn, (strip_tags($_POST['tiempoR1'], ENT_QUOTES)));
+            $tiempoR2 = mysqli_real_escape_string($conn, (strip_tags($_POST['tiempoR2'], ENT_QUOTES)));
+            // Documento.
             $archivo   = mysqli_real_escape_string($conn, (strip_tags($_FILES['archivo']['name'], ENT_QUOTES)));
 
             $path = "oldfiles/" . $archivo;
@@ -74,9 +84,11 @@ include "../../include/conn/conn.php";
             if ($vigente_desde === '') {
                 $vigente_desde = '0101-01-01';
             }
+            // Archivo generador de codigo de documento.
+            include '../generadorCodigo.php';
 
-            $insert = mysqli_query($conn, "INSERT INTO documentos_obsoletos (id, id_documento, sistema, aprobacion, codigo, nombre, u_fisica, u_digital, version, proceso, tipo, estado, origen, actualizado, revisado, vigente_desde, personaE, personaA, archivo)
-							VALUES(NULL, '$id_documento', '$sistema', '$aprobacion', '$codigo', '$nombre', '$u_fisica', '$u_digital', '$version', '$proceso', '$tipo', '$estado', '$origen', '$actualizado', '$revisado', '$vigente_desde', '$personaE', '$personaA', '$archivo')") or die(mysqli_error($conn));
+            $insert = mysqli_query($conn, "INSERT INTO documentos_obsoletos (id, id_documento, sistema, aprobacion, codigo, nombre, u_fisica, u_digital, version, proceso, consecutivo, tipo, estado, origen, actualizado, revisado, vigente_desde, personaE, personaA, tiempo_r1, tiempo_r2, archivo)
+							VALUES(NULL, '$id_documento', '$sistema', '$aprobacion', '$codigo', '$nombre', '$u_fisica', '$u_digital', '$version', '$proceso', '$consecutivo', '$tipo', '$estado', '$origen', '$actualizado', '$revisado', '$vigente_desde', '$personaE', '$personaA', '$tiempoR1', '$tiempoR2', '$archivo')") or die(mysqli_error($conn));
             if ($insert) {
                 echo "<script>alert('Nueva version obsoleta registrada correctamente'); window.location = 'oldversions.php?id=$id'</script>";
             } else {
@@ -105,9 +117,56 @@ include "../../include/conn/conn.php";
 
                 <input class="form-control" name="id_documento" id="id_documento" type="hidden" value="<?php echo $id; ?>">
 
-                <div class="input-group shadow-sm">
+              <!-- Generación de código de documento -->
+              <div class="input-group shadow-sm">
+                    <span class="input-group-text w-auto" for="proceso">(*) Proceso: </span>
+                    <select class="form-select" name="select_proceso" id="select_proceso" aria-label="Default select example" required>
+                        <option value="" selected>SELECCIONA</option>
+                        <?php
+                        $proceso = $conn->query("SELECT * FROM proceso");
+                        while ($nombresP = mysqli_fetch_array($proceso)) {
+                            $id_p = $nombresP['id'];
+                            $nombre_proc = $nombresP['proceso'];
+                            echo '<option value="'.$id_p.'">'.$nombre_proc.'</option>';
+                        }
+                        ?>
+                    </select>
+                    <span class="input-group-text w-auto" for="codigo">(*) Tipo: </span>
+                    <select class="form-select" id="select_tipo" name="select_tipo" aria-label="Default select example" required>
+                        <option value="" selected>SELECCIONA</option>
+                        <?php
+                        $tipo = $conn->query("SELECT * FROM tipodc");
+                        while ($nombresT = mysqli_fetch_array($tipo)) {
+                            $id_t = $nombresT['id'];
+                            $nombre_t = $nombresT['tipo'];
+                            echo '<option value="'.$id_t.'">'.$nombre_t.'</option>';
+                        }
+                        ?>
+                    </select>
+                    <span class="input-group-text w-auto" for="codigo">(*) Consecutivo: </span>
+                    <select class="form-select" id="select_consecutivo" name="select_consecutivo" aria-label="Default select example" required>
+                        <option value="" selected>SELECCIONA</option>
+                        <?php
+                        for ($i = 1; ; $i++) {
+                            if ($i > 500) {
+                                break;
+                            }
+                            echo '<option value="'.$i.'">'.$i.'</option>';
+                        }
+                        ?>
+                    </select>
+                    <span class="input-group-text" id="basic-addon1">Código</span>
+                    <input type="text" name="input_proceso" id="input_proceso" class="form-control" placeholder="#" readonly>
+                    <span class="input-group-text">-</span>
+                    <input type="text" name="input_tipo" id="input_tipo" class="form-control" placeholder="#" readonly>
+                    <span class="input-group-text">-</span>
+                    <input type="text" name="input_consecutivo" id="input_consecutivo" class="form-control" placeholder="#" readonly>
+                </div>
+                <br>
+               <!-- Datos del documento -->
+               <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="sistema">(*) Sistema: </span>
-                    <input class="form-control" onkeyup="mayus(this);" name="sistema" id="sistema" type="text" list="sistemaList" placeholder="INGRESA SISTEMA DEL DOCUMENTO" autocomplete="off">
+                    <input class="form-control" onkeyup="mayus(this);" name="sistema" id="sistema" type="text" list="sistemaList" placeholder="INGRESA SISTEMA DEL DOCUMENTO " autocomplete="off">
                     <datalist id="sistemaList">
                         <?php
                         $sistema = $conn->query("SELECT * FROM sistemadc");
@@ -134,70 +193,40 @@ include "../../include/conn/conn.php";
                 <br>
 
                 <div class="input-group shadow-sm">
-                    <span class="input-group-text w-25" for="codigo">(*) Codigo: </span>
-                    <input type="text" onkeyup="mayus(this);" name="codigo" id="codigo" class="form-control" placeholder="INGRESA EL CÓDIGO DEL ELEMENTO" required>
-                </div>
-                <br>
-
-                <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="nombres">(*) Nombre: </span>
-                    <input type="text" onkeyup="mayus(this);" name="nombres" id="nombres" class="form-control" placeholder="INGRESA EL NOMBRE DEL ELEMENTO" required>
+                    <input type="text" onkeyup="mayus(this);" name="nombres" id="nombres" class="form-control" placeholder="INGRESA EL NOMBRE DEL DOCUMENTO" required>
                 </div>
                 <br>
 
                 <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="u_fisica">(*) Ubicacion fisica: </span>
-                    <input onkeyup="mayus(this);" name="u_fisica" id="u_fisica" class=" form-control" type="text" placeholder="UBICACIÓN FÍSICA DEL ELEMENTO" required>
+                    <input onkeyup="mayus(this);" name="u_fisica" id="u_fisica" class=" form-control" type="text" placeholder="UBICACIÓN FÍSICA DEL DOCUMENTO" required>
                 </div>
                 <br>
 
                 <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="u_digital">(*) Ubicacion digital: </span>
-                    <input type="text" onkeyup="mayus(this);" name="u_digital" id="u_digital" class="form-control" placeholder="UBICACIÓN DIGITAL DEL ELEMENTO" required>
+                    <input onkeyup="mayus(this);" type="text" name="u_digital" id="u_digital" class="form-control" placeholder="UBICACIÓN DIGITAL DEL DOCUMENTO" required>
                 </div>
                 <br>
 
-                <div class="card-group">
-                    <div class="card">
-                        <span class="input-group-text" for="version">(*) Version: </span>
-                        <input name="version" id="version" class="form-control" placeholder="VERSIÓN DEL DOCUMENTO" type="number" step="0.1" required>
-                    </div>
-                    <div class="card">
-                        <span class="input-group-text" for="origen">(*) Origen: </span>
-                        <input class="form-control" name="origen" id="origen" type="text" list="origenList" placeholder="ORIGEN DEL DOCUMENTO" autocomplete="off">
-                        <datalist id="origenList">
-                            <?php
-                            $origen = $conn->query("SELECT * FROM origendc");
-                            while ($nombresO = mysqli_fetch_array($origen)) {
-                                echo '<option value="' . $nombresO['origen'] . '"></option>';
-                            }
-                            ?>
-                        </datalist>
-                    </div>
-                    <div class="card">
-                        <span class="input-group-text" for="tipo">(*) Tipo: </span>
-                        <input class="form-control" name="tipo" id="tipo" type="text" list="tipoList" placeholder="TIPO DE DOCUMENTO" autocomplete="off">
-                        <datalist id="tipoList">
-                            <?php
-                            $tipo = $conn->query("SELECT * FROM tipodc");
-                            while ($nombresT = mysqli_fetch_array($tipo)) {
-                                echo '<option value="' . $nombresT['tipo'] . '"></option>';
-                            }
-                            ?>
-                        </datalist>
-                    </div>
-                    <div class="card">
-                        <span class="input-group-text" for="proceso" required>(*) Proceso: </span>
-                        <input class="form-control" name="proceso" id="proceso" type="text" list="procesoList" placeholder="PROCESO DEL DOCUMENTO" autocomplete="off">
-                        <datalist id="procesoList">
-                            <?php
-                            $proceso = $conn->query("SELECT * FROM proceso");
-                            while ($nombresP = mysqli_fetch_array($proceso)) {
-                                echo '<option value="' . $nombresP['proceso'] . '"></option>';
-                            }
-                            ?>
-                        </datalist>
-                    </div>
+                <div class="input-group shadow-sm">
+                    <span class="input-group-text w-25" for="version">(*) Version: </span>
+                    <input name="version" id="version" class="form-control" placeholder="VERSIÓN DEL DOCUMENTO" type="number" step="0.1" required>
+                </div>
+                <br>
+
+                <div class="input-group shadow-sm">
+                    <span class="input-group-text w-25" for="origen">(*) Origen: </span>
+                    <input class="form-control" name="origen" id="origen" type="text" list="origenList" placeholder="ORIGEN DEL DOCUMENTO" autocomplete="off">
+                    <datalist id="origenList">
+                        <?php
+                        $origen = $conn->query("SELECT * FROM origendc");
+                        while ($nombresO = mysqli_fetch_array($origen)) {
+                            echo '<option value="' . $nombresO['origen'] . '"></option>';
+                        }
+                        ?>
+                    </datalist>
                 </div>
                 <br>
 
@@ -209,7 +238,7 @@ include "../../include/conn/conn.php";
 
                 <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="personaA">(*) Persona que aprobo: </span>
-                    <input name="personaA" onkeyup="mayus(this);" id="personaA" class=" form-control" type="text" placeholder="PERSONA QUE APROBÓ EL DOCUMENTO" required>
+                    <input onkeyup="mayus(this);" name="personaA" id="personaA" class=" form-control" type="text" placeholder="PERSONA QUE APROBÓ EL DOCUMENTO" required>
                 </div>
                 <br>
 
@@ -246,6 +275,14 @@ include "../../include/conn/conn.php";
                 <br>
 
                 <div class="input-group shadow-sm">
+                    <span class="input-group-text w-25" for="tiempoR1">(*) Tiempo de Retención inicial: </span>
+                    <input name="tiempoR1" id="tiempoR1" class="form-control" type="date">
+                    <span class="input-group-text" for="tiempoR2">(*) Tiempo de Retención final </span>
+                    <input name="tiempoR2" id="tiempoR2" class="form-control" type="date">
+                </div>
+                <br>
+
+                <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="archivo">(*) Archivo: </span>
                     <input name="archivo" id="archivo" class=" form-control" type="file" required>
                 </div>
@@ -256,8 +293,8 @@ include "../../include/conn/conn.php";
                         <h6>Para registrar los cambios realizados, dar clic en el siguiente botón de Registrar o de lo contrario en el botón de Cancelar para salir:</h6>
                     </center>
                     <div class="controls">
-                        <center><button type="submit" name="input" id="input" class="btn btn-sm btn-success"><i class="bi bi-clipboard2-check-fill"></i> Registrar</button>
-                            <a href="oldversions.php?id=<?php echo $id; ?>" class="btn btn-sm btn-secondary btn-block"><i class="bi bi-clipboard2-x-fill"></i> Cancelar</a>
+                        <center><button type="submit" name="input" id="input" class="btn btn-sm btn-success"><i class="bi bi-file-earmark-check-fill"></i> Registrar</button>
+                            <a href="index.php" class="btn btn-sm btn-secondary btn-block"><i class="bi bi-file-earmark-x-fill"></i> Cancelar</a>
                         </center>
                     </div>
                 </div>
@@ -273,7 +310,6 @@ include "../../include/conn/conn.php";
                         Forestales </b></center>
             </div>
         </div>
-        <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
 </body>
 

@@ -8,7 +8,7 @@ include "../../include/conn/conn.php";
 <head>
 
     <head>
-        <?php include("../head.php"); ?>
+        <?php include("headOld.php"); ?>
     </head>
 
 <body>
@@ -230,6 +230,14 @@ include "../../include/conn/conn.php";
                 <br>
 
                 <div class="input-group shadow-sm">
+                    <span class="input-group-text w-25" for="tiempoR1">(*) Tiempo de Retención inicial: </span>
+                    <input name="tiempoR1" id="tiempoR1" class="form-control" type="date" value="<?php echo $row['tiempo_r1'];?>">
+                    <span class="input-group-text" for="tiempoR2">(*) Tiempo de Retención final </span>
+                    <input name="tiempoR2" id="tiempoR2" class="form-control" type="date" value="<?php echo $row['tiempo_r2'];?>">
+                </div>
+                <br>
+
+                <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="archivo">(*) Archivo: </span>
                     <input name="archivo" id="archivo" class=" form-control" type="file">
                     <input readonly value="<?php echo $row['archivo'] ?>" name="documento_actual" class="form-control" type="text">
@@ -256,12 +264,7 @@ include "../../include/conn/conn.php";
                 <center> <b class="copyright"><a href=""> EXFOR S.A.S</a> &copy; <?php echo date("Y") ?> Servicios Forestales </b></center>
             </div>
         </div>
-
-        <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-
-
-
-
+    </div>
 </body>
 
 </html>

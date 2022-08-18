@@ -1,5 +1,5 @@
 <div class="modal fade" id="viewDocumental" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 id="titulo" class="panel-title"></h4>
@@ -8,7 +8,7 @@
             <div class="modal-body">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal"><i class="bi bi-arrow-left"></i> Regresar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar Ventana</button>
             </div>
         </div>
     </div>

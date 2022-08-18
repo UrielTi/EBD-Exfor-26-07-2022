@@ -139,7 +139,6 @@ include "../cond/todo.php"; ?>
             if ($cedula == isset($resultado1['cedula'])) {
                 echo "<script> confirm('La cedula ya esta registrada en el sistema'); history.go(-1)</script>";
             } else {
-
                 /**Conectar la base de datos de nomina, para crear un registro en clientes
                  * ayudandonos asi a que se cree la nomina de esa persona si se requiere
                  */

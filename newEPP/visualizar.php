@@ -24,47 +24,46 @@ include "../cond/todo.php";
         $id = intval($_GET['id']);
         $sql = mysqli_query($conn, "SELECT * FROM epp WHERE id='$id'");
         if (mysqli_num_rows($sql) == 0) {
-            header("Location: index.php");
+            echo '<div class="alert alert-danger alert-dismissable">&nbsp; Error 404 apartado no encontrado &nbsp;<a href="index.php"  class="btn btn-outline-danger" data-dismiss="alert" aria-hidden="true">Volver al menú principal &times;</a></div>';
         } else {
-            $row = mysqli_fetch_assoc($sql);
-        }
-        ?>
-        <script>
-            <?php
-            function ElementoTallas($conn, $id_elemento, $talla)
-            {
-                $consultaEppTallas = mysqli_query($conn, "SELECT * FROM elemento_tallas WHERE id_elemento=$id_elemento AND talla='$talla'");
-                $rowEppTallas = mysqli_fetch_assoc($consultaEppTallas);
-                return array($rowEppTallas['cantidad'], $rowEppTallas['precio_unitario'], $rowEppTallas['id']);
-            }
-            list($cantidadU, $precioU, $id_tallaU) = ElementoTallas($conn, $id, 'U');
-            list($cantidadS, $precioS, $id_tallaS) = ElementoTallas($conn, $id, 'S');
-            list($cantidadM, $precioM, $id_tallaM) = ElementoTallas($conn, $id, 'M');
-            list($cantidadL, $precioL, $id_tallaL) = ElementoTallas($conn, $id, 'L');
-            list($cantidadXL, $precioXL, $id_tallaXL) = ElementoTallas($conn, $id, 'XL');
-            list($cantidadXXL, $precioXXL, $id_tallaXXL) = ElementoTallas($conn, $id, 'XXL');
-            list($cantidad28, $precio28, $id_talla28) = ElementoTallas($conn, $id, '28');
-            list($cantidad29, $precio29, $id_talla29) = ElementoTallas($conn, $id, '29');
-            list($cantidad30, $precio30, $id_talla30) = ElementoTallas($conn, $id, '30');
-            list($cantidad31, $precio31, $id_talla31) = ElementoTallas($conn, $id, '31');
-            list($cantidad32, $precio32, $id_talla32) = ElementoTallas($conn, $id, '32');
-            list($cantidad33, $precio33, $id_talla33) = ElementoTallas($conn, $id, '33');
-            list($cantidad34, $precio34, $id_talla34) = ElementoTallas($conn, $id, '34');
-            list($cantidad35, $precio35, $id_talla35) = ElementoTallas($conn, $id, '35');
-            list($cantidad36, $precio36, $id_talla36) = ElementoTallas($conn, $id, '36');
-            list($cantidad37, $precio37, $id_talla37) = ElementoTallas($conn, $id, '37');
-            list($cantidad38, $precio38, $id_talla38) = ElementoTallas($conn, $id, '38');
-            list($cantidad39, $precio39, $id_talla39) = ElementoTallas($conn, $id, '39');
-            list($cantidad40, $precio40, $id_talla40) = ElementoTallas($conn, $id, '40');
-            list($cantidad41, $precio41, $id_talla41) = ElementoTallas($conn, $id, '41');
-            list($cantidad42, $precio42, $id_talla42) = ElementoTallas($conn, $id, '42');
-            list($cantidad43, $precio43, $id_talla43) = ElementoTallas($conn, $id, '43');
-            ?>
-        </script>
-        <?php
-        $consultaEppTipoTalla = mysqli_query($conn, "SELECT tipo_talla FROM epp WHERE id=$id");
-        $row_epp_talla = mysqli_fetch_assoc($consultaEppTipoTalla);
-        ?>
+           // Array con info
+			$row = mysqli_fetch_assoc($sql);
+			// Datos para generar los readonly
+			$consultaEppTipoTalla = mysqli_query($conn, "SELECT tipo_talla FROM epp WHERE id=$id");
+			$row_epp_talla = mysqli_fetch_assoc($consultaEppTipoTalla);
+			// Function que generar los Datos para el list
+			function ElementoTallas($conn, $id_elemento, $talla)
+			{
+				$consultaEppTallas = mysqli_query($conn, "SELECT * FROM elemento_tallas WHERE id_elemento='$id_elemento' AND talla='$talla'");
+				while (mysqli_num_rows($consultaEppTallas) > 0) {
+					$rowEppTallas = mysqli_fetch_assoc($consultaEppTallas);
+					return array($rowEppTallas['cantidad'], $rowEppTallas['precio'], $rowEppTallas['id']);
+				}
+			}
+			list($cantidadU, $precioU, $id_tallaU) = ElementoTallas($conn, $id, 'U');
+			list($cantidadS, $precioS, $id_tallaS) = ElementoTallas($conn, $id, 'S');
+			list($cantidadM, $precioM, $id_tallaM) = ElementoTallas($conn, $id, 'M');
+			list($cantidadL, $precioL, $id_tallaL) = ElementoTallas($conn, $id, 'L');
+			list($cantidadXL, $precioXL, $id_tallaXL) = ElementoTallas($conn, $id, 'XL');
+			list($cantidadXXL, $precioXXL, $id_tallaXXL) = ElementoTallas($conn, $id, 'XXL');
+			list($cantidad28, $precio28, $id_talla28) = ElementoTallas($conn, $id, '28');
+			list($cantidad29, $precio29, $id_talla29) = ElementoTallas($conn, $id, '29');
+			list($cantidad30, $precio30, $id_talla30) = ElementoTallas($conn, $id, '30');
+			list($cantidad31, $precio31, $id_talla31) = ElementoTallas($conn, $id, '31');
+			list($cantidad32, $precio32, $id_talla32) = ElementoTallas($conn, $id, '32');
+			list($cantidad33, $precio33, $id_talla33) = ElementoTallas($conn, $id, '33');
+			list($cantidad34, $precio34, $id_talla34) = ElementoTallas($conn, $id, '34');
+			list($cantidad35, $precio35, $id_talla35) = ElementoTallas($conn, $id, '35');
+			list($cantidad36, $precio36, $id_talla36) = ElementoTallas($conn, $id, '36');
+			list($cantidad37, $precio37, $id_talla37) = ElementoTallas($conn, $id, '37');
+			list($cantidad38, $precio38, $id_talla38) = ElementoTallas($conn, $id, '38');
+			list($cantidad39, $precio39, $id_talla39) = ElementoTallas($conn, $id, '39');
+			list($cantidad40, $precio40, $id_talla40) = ElementoTallas($conn, $id, '40');
+			list($cantidad41, $precio41, $id_talla41) = ElementoTallas($conn, $id, '41');
+			list($cantidad42, $precio42, $id_talla42) = ElementoTallas($conn, $id, '42');
+			list($cantidad43, $precio43, $id_talla43) = ElementoTallas($conn, $id, '43');
+		}
+		?>
 
         <div class="panel panel-default">
             <hr>
@@ -84,13 +83,13 @@ include "../cond/todo.php";
                         <div class="d-flex">
                             <div class="card" style="width: 30rem;">
                                 <div class="card-body">
-                                    <h5 class="card-title">Imagen o fotografía del elemento</h5>
+                                    <h5 class="card-title">Imagen del elemento</h5>
                                     <p class="card-text"><?php echo $row['nombre']; ?></p>
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <img width="65%" src="data:image/jpg;base64,<?php echo base64_encode($row['imagen']); ?>" class="card-img-top">
                                 </div>
-                                
+
                             </div>&nbsp;
                             <br>
                             <div class="container">
@@ -153,23 +152,23 @@ include "../cond/todo.php";
                         <div class="collapse multi-collapse" id="talla_unica">
                             <div class="card card-body">
                                 <h6>Elementos de talla única:</h6>
-                                    <div class="card-header">
-                                        Talla Única
-                                    </div>
-                                    <ul class="list-group list-group-flush">
-                                        <input type="hidden" id="idU" name="idU" value="<?php echo $id_tallaU ?>">
-                                        <input name="tallaU" id="tallaU" class="form-control" type="number" min="0" value="<?php $valueTU = $cantidadU == '0' ? '' : $cantidadU;
-                                                                                                                            echo $valueTU; ?>" oninput="CantTotal();" placeholder="CANTIDAD" readOnly>
-                                        <input name="precioU" id="precioU" class="form-control" type="number" min="0" value="<?php $valuePU = $precioU == '0' ? '' : $precioU;
-                                                                                                                                echo $valuePU; ?>" oninput="PrecTotal();" placeholder="PRECIO" readOnly>
-                                    </ul>
+                                <div class="card-header">
+                                    Talla Única
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <input type="hidden" id="idU" name="idU" value="<?php echo $id_tallaU ?>">
+                                    <input name="tallaU" id="tallaU" class="form-control" type="number" min="0" value="<?php $valueTU = $cantidadU == '0' ? '' : $cantidadU;
+                                                                                                                        echo $valueTU; ?>" oninput="CantTotal();" placeholder="CANTIDAD" readOnly>
+                                    <input name="precioU" id="precioU" class="form-control" type="number" min="0" value="<?php $valuePU = $precioU == '0' ? '' : $precioU;
+                                                                                                                            echo $valuePU; ?>" oninput="PrecTotal();" placeholder="PRECIO" readOnly>
+                                </ul>
                             </div>
                         </div>
                         <!-- talla en letras -->
                         <div class="col">
                             <div class="collapse multi-collapse" id="talla_letras">
                                 <div class="card card-body">
-                                <h6>Elementos con talla en letras:</h6>
+                                    <h6>Elementos con talla en letras:</h6>
                                     <div class="card-group">
                                         <div class="card" style="width: 18rem;">
                                             <div class="card-header">
@@ -239,7 +238,7 @@ include "../cond/todo.php";
                         <div class="col">
                             <div class="collapse multi-collapse" id="talla_numeros">
                                 <div class="card card-body">
-                                <h6>Elementos con talla en números:</h6>
+                                    <h6>Elementos con talla en números:</h6>
                                     <div class="card-group">
                                         <div class="card" style="width: 18rem;">
                                             <div class="card-header">
@@ -449,17 +448,17 @@ include "../cond/todo.php";
                     </div>
                 </div><!-- cierre collapse -->
                 <hr>
-                    <div class="card card-body">
-                        <div class="control-group">
-                            <center>
-                                <h6>Para modificar y actualizar la información del empleado, dar clic en el siguiente botón de Editar información o de lo contrario en el botón de Cancelar:</h6>
-                                <div class="controls">
-                                    <a href="editar.php?id=<?php echo $row['id']; ?>" class="btn btn-success"><i class="bi bi-pencil-square"></i> Editar Información</a>
-                                    <a href="index.php" class="btn btn-secondary btn btn-block"><i class="bi bi-x-circle"></i> Cancelar</a>
-                            </center>
-                        </div>
-                    </div><br>
-                    <br>
+                <div class="card card-body">
+                    <div class="control-group">
+                        <center>
+                            <h6>Para modificar y actualizar la información del empleado, dar clic en el siguiente botón de Editar información o de lo contrario en el botón de Cancelar:</h6>
+                            <div class="controls">
+                                <a href="editar.php?id=<?php echo $row['id']; ?>" class="btn btn-success"><i class="bi bi-pencil-square"></i> Editar Información</a>
+                                <a href="index.php" class="btn btn-secondary btn btn-block"><i class="bi bi-x-circle"></i> Cancelar</a>
+                        </center>
+                    </div>
+                </div><br>
+                <br>
             </form>
         </div>
     </div>

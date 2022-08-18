@@ -383,6 +383,21 @@ if (!isset($_SESSION['email'])) {
 									<option value="40" <?php if ($row['cargo'] == 40) {
 															echo "selected";
 														} ?>>INVESTIGADOR</option>
+									<option value="41" <?php if ($row['cargo'] == 41) {
+															echo "selected";
+														} ?>>INGENIERO CIVIL</option>
+									<option value="42" <?php if ($row['cargo'] == 42) {
+															echo "selected";
+														} ?>>INGENIERO FORESTAL</option>
+									<option value="43" <?php if ($row['cargo'] == 43) {
+															echo "selected";
+														} ?>>SOCIAL</option>
+									<option value="44" <?php if ($row['cargo'] == 44) {
+															echo "selected";
+														} ?>>MEJORADORA SOCIAL</option>
+									<option value="45" <?php if ($row['cargo'] == 45) {
+															echo "selected";
+														} ?>>OFICIOS VARIOS</option>
 								</select>
 							</div>&nbsp;
 							<br>
