@@ -189,14 +189,14 @@ include "../include/conn/conn.php";
                         <thead>
                             <hr>
                             <tr class="table-success border-dark">
-                                <th width="7%">Cédula</th>
-                                <th width="25%">Apellidos y Nombres</th>
-                                <th width="10%">Cargo</th>
-                                <th width="10%">Eps</th>
-                                <th width="5%">Núcleo</th>
-                                <th width="15%">Fecha</th>
-                                <th width="5%">Estado</th>
-                                <th class="w-25">Acciones</th>
+                                <th style="width: 5%;";>Cédula</th>
+                                <th style="width: 20%;">Apellidos y Nombres</th>
+                                <th style="width: 10%;">Cargo</th>
+                                <th style="width: 10%;">Eps</th>
+                                <th style="width: 3%;">Núcleo</th>
+                                <th style="width: 8%;">Fecha</th>
+                                <th style="width: 3%;">Estado</th>
+                                <th style="width: 15%;">Acciones</th>
                             </tr>
 
                         </thead>

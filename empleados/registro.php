@@ -134,9 +134,8 @@ include "../cond/todo.php"; ?>
             $numero3 = mysqli_real_escape_string($conn, (strip_tags($_POST['numero3'], ENT_QUOTES)));
             $contacto_directo3 = mysqli_real_escape_string($conn, (strip_tags($_POST['contacto_directo3'], ENT_QUOTES)));
 
-            $consulta = mysqli_query($conn, "SELECT cedula FROM clientes WHERE cedula=$cedula");
-            $resultado1 = mysqli_fetch_array($consulta);
-            if ($cedula == isset($resultado1['cedula'])) {
+            $consulta = mysqli_query($conn, "SELECT cedula FROM clientes WHERE cedula=$cedula") or die(mysqli_error($conn));
+            if (mysqli_num_rows($consulta) > 0) {
                 echo "<script> confirm('La cedula ya esta registrada en el sistema'); history.go(-1)</script>";
             } else {
                 /**Conectar la base de datos de nomina, para crear un registro en clientes
@@ -152,7 +151,7 @@ include "../cond/todo.php"; ?>
                 mysqli_close($conexion);
                 /**Cerramos la base de datos ya que solo nos sirve en este momento */
 
-                $insert = mysqli_query($conn, "INSERT INTO clientes(id, cedula, primer_apellido, segundo_apellido, nombres, exp_ced, fecha_expedicion, fecha_nacimiento, civil, genero, raza, rh, hijos, acargo, eps, pensiones, caja, telefono, no_contrato, servicio_funerario, enfermedad, email, direccion, estrato, tip_vivi, nucleo, cargo, proceso, estado, arl, fecha_ingreso)VALUES(NULL,'$cedula','$primer_apellido', '$segundo_apellido', '$nombres', '$exp_ced', '$fecha_expedicion', '$fecha_nacimiento', '$civil', '$genero', '$raza', '$rh', '$hijos', '$acargo', '$eps', '$pensiones', '$caja', '$telefono', '$no_contrato', '$servicio_funerario', '$enfermedad', '$email', '$direccion', '$estrato', '$tip_vivi', '$nucleo', '$cargo', '$proceso', '$estado', '$arl', '$fecha_ingreso')") or die(mysqli_error($conn));
+                $insert = mysqli_query($conn, "INSERT INTO clientes(id, cedula, primer_apellido, segundo_apellido, nombres, exp_ced, fecha_expedicion, fecha_nacimiento, civil, genero, raza, rh, hijos, acargo, eps, pensiones, caja, telefono, no_contrato, serv_funerario, enfermedad, email, direccion, estrato, tip_vivi, nucleo, cargo, proceso, estado, arl, fecha_ingreso)VALUES(NULL,'$cedula','$primer_apellido', '$segundo_apellido', '$nombres', '$exp_ced', '$fecha_expedicion', '$fecha_nacimiento', '$civil', '$genero', '$raza', '$rh', '$hijos', '$acargo', '$eps', '$pensiones', '$caja', '$telefono', '$no_contrato', '$servicio_funerario', '$enfermedad', '$email', '$direccion', '$estrato', '$tip_vivi', '$nucleo', '$cargo', '$proceso', '$estado', '$arl', '$fecha_ingreso')") or die(mysqli_error($conn));
                 if ($insert) {
                     /**Ejecutamos la misma consulta anterior pero esta vez ya insertado los datos para sacar el id generado de este registro y asi poder sacar la informacion correspondiente*/
                     $consulta1 = mysqli_query($conn, "SELECT id FROM clientes WHERE cedula=$cedula");
@@ -650,9 +649,11 @@ include "../cond/todo.php"; ?>
                     </div>
                 </div>
                 <!-- Información cursos corto duracion -->
-                <center><hr><a class="btn btn-success w-25" data-bs-toggle="collapse" href="#ref_cursos" role="button" aria-expanded="false" aria-controls="ref_cursos">
+                <center>
+                    <hr><a class="btn btn-success w-25" data-bs-toggle="collapse" href="#ref_cursos" role="button" aria-expanded="false" aria-controls="ref_cursos">
                         <i class="bi bi-arrow-down"></i> CURSOS DE CORTA DURACIÓN
-                    </a></center>
+                    </a>
+                </center>
                 <div class="collapse show" id="ref_cursos">
                     <div class="card card-body">
                         <!-- Curso corto 1 -->
@@ -965,10 +966,11 @@ include "../cond/todo.php"; ?>
                         </center>
                     </div>
                 </div>
-               
+
 
                 <!-- REFERENCIAS PERSONALES -->
-                <center><hr><a class="btn btn-success w-25" data-bs-toggle="collapse" href="#ref_personales" role="button" aria-expanded="false" aria-controls="ref_personales">
+                <center>
+                    <hr><a class="btn btn-success w-25" data-bs-toggle="collapse" href="#ref_personales" role="button" aria-expanded="false" aria-controls="ref_personales">
                         <i class="bi bi-arrow-down"></i> REFERENCIAS PERSONALES
                 </center></a>
                 <div class="collapse show" id="ref_personales">

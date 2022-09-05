@@ -42,11 +42,10 @@ error_reporting (E_ALL ^ E_NOTICE);
     ];
 
     $parentescos=[
-        1 => 'SELECCIONA', 
-        2 => 'FAMILIAR',
-        3 => 'CONYUGUE',
-        4 => 'AMIGO',
-        5 => 'COMPAÑERO DE TABAJO'
+        1 => 'FAMILIAR',
+        2 => 'CONYUGUE',
+        3 => 'AMIGO',
+        4 => 'COMPAÑERO DE TABAJO'
     ];
 
     $programas=[

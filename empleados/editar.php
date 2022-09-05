@@ -587,7 +587,7 @@ if (!isset($_SESSION['email'])) {
 						<div class="d-flex">
 							<div class="input-group shadow-sm">
 								<span class="input-group-text w-auto" for="servicio_funerario">Servicio funerario: </span>
-								<input type="text" onkeyup="mayus(this);" name="servicio_funerario" id="servicio_funerario" class="form-control" placeholder="INGRESA EL SERVICIO FUNERARIO" value="<?php echo $row['servicio_funerario'] ?>">
+								<input type="text" onkeyup="mayus(this);" name="servicio_funerario" id="servicio_funerario" class="form-control" placeholder="INGRESA EL SERVICIO FUNERARIO" value="<?php echo $row['serv_funerario'] ?>">
 							</div>&nbsp;
 							<hr>
 							<div class="input-group shadow-sm">
@@ -644,26 +644,32 @@ if (!isset($_SESSION['email'])) {
 														} ?>>SECUNDARIA</option>
 									<option value="4" <?php if ($row_curso['curso'] == 4) {
 															echo "selected";
-														} ?>>TÉCNICO</option>
+														} ?>>MEDIA VOCACIONAL</option>
 									<option value="5" <?php if ($row_curso['curso'] == 5) {
 															echo "selected";
-														} ?>>TECNÓLOGO</option>
+														} ?>>TÉCNICO</option>
 									<option value="6" <?php if ($row_curso['curso'] == 6) {
 															echo "selected";
-														} ?>>PREGRADO/PROFESIONAL</option>
+														} ?>>TECNÓLOGO</option>
 									<option value="7" <?php if ($row_curso['curso'] == 7) {
 															echo "selected";
-														} ?>>POSTGRADO</option>
+														} ?>>PROFESIONAL</option>
 									<option value="8" <?php if ($row_curso['curso'] == 8) {
 															echo "selected";
+														} ?>>ESPECIALISTA</option>
+									<option value="9" <?php if ($row_curso['curso'] == 9) {
+															echo "selected";
 														} ?>>MAGISTER</option>
+									<option value="10" <?php if ($row_curso['curso'] == 10) {
+															echo "selected";
+														} ?>>DOCTOR</option>
 								</select>
 							</div>&nbsp;
 							<br>
 							<div class="input-group shadow-sm">
 								<label class="input-group-text w-auto" for="completado">(*) Completado: </label>
 								<select class="form-select" name="completado" id="completado" required>
-									<option value="" <?php if ($row_curso['completado'] == '') {
+									<option value="" <?php if ($row_curso['completado'] == 'NULL') {
 															echo "selected";
 														} ?>>SELECCIONA</option>
 									<option value="1" <?php if ($row_curso['completado'] == 1) {
@@ -1177,15 +1183,11 @@ if (!isset($_SESSION['email'])) {
 							<div class="input-group shadow-sm">
 								<label class="input-group-text w-auto" for="parentesco">(*) Parentesco: </label>
 								<select class="form-select" name="parentesco" id="parentesco">
-									<option value="<?php if (isset($cliente_contacto[0][3])) {
-														echo $cliente_contacto[0][3];
-													} ?>"><?php if (isset($cliente_contacto[0][1])) {
-																echo $cliente_contacto[0][1];
-															} ?></option>
+									<option value="<?php $clientContactId = (isset($cliente_contacto[0][3])) ? $cliente_contacto[0][3] : ''; echo $clientContactId; ?> selected"><?php $clientContactText = (isset($cliente_contacto[0][1])) ? $cliente_contacto[0][1] : 'SELECCIONA'; echo $clientContactText; ?></option>
 									<?php
 									$query = $conn->query("SELECT * FROM parentesco");
 									while ($parentesco = mysqli_fetch_array($query)) {
-										echo ($cliente_contacto[0][3] == $parentesco['id']) ? '' : '<option value="' . $parentesco['id'] . '">' . $parentesco['parentesco'] . '</option>';
+										echo'<option value="' . $parentesco['id'] . '">' . $parentesco['parentesco'] . '</option>';
 									}
 									?>
 								</select>
@@ -1246,15 +1248,11 @@ if (!isset($_SESSION['email'])) {
 							<div class="input-group shadow-sm">
 								<label class="input-group-text w-auto" for="parentesco2">(*) Parentesco: </label>
 								<select class="form-select" name="parentesco2" id="parentesco2">
-									<option value="<?php if (isset($cliente_contacto[1][3])) {
-														echo $cliente_contacto[1][3];
-													} ?>"><?php if (isset($cliente_contacto[1][1])) {
-																echo $cliente_contacto[1][1];
-															} ?></option>
+								<option value="<?php $clientContactId2 = (isset($cliente_contacto[1][3])) ? $cliente_contacto[1][3] : ''; echo $clientContactId2; ?> selected"><?php $clientContactText2 = (isset($cliente_contacto[1][1])) ? $cliente_contacto[1][1] : 'SELECCIONA'; echo $clientContactText2; ?></option>
 									<?php
 									$query = $conn->query("SELECT * FROM parentesco");
 									while ($parentesco = mysqli_fetch_array($query)) {
-										echo ($cliente_contacto[1][3] == $parentesco['id']) ? '' : '<option value="' . $parentesco['id'] . '">' . $parentesco['parentesco'] . '</option>';
+										echo '<option value="' . $parentesco['id'] . '">' . $parentesco['parentesco'] . '</option>';
 									}
 									?>
 								</select>
@@ -1311,16 +1309,12 @@ if (!isset($_SESSION['email'])) {
 							<div class="input-group shadow-sm">
 								<label class="input-group-text w-auto" for="parentesco3">(*) Parentesco: </label>
 								<select class="form-select" name="parentesco3" id="parentesco3">
-									<option selected value="<?php if (isset($cliente_contacto[2][3])) {
-																echo $cliente_contacto[2][3];
-															} ?>"><?php if (isset($cliente_contacto[2][1])) {
-																		echo $cliente_contacto[2][1];
-																	} ?></option>
+								<option value="<?php $clientContactId3 = (isset($cliente_contacto[2][3])) ? $cliente_contacto[2][3] : ''; echo $clientContactId3; ?> selected"><?php $clientContactText3 = (isset($cliente_contacto[2][1])) ? $cliente_contacto[2][1] : 'SELECCIONA'; echo $clientContactText3; ?></option>
 									<?php
 									$query = $conn->query("SELECT * FROM parentesco");
 									while ($parentesco = mysqli_fetch_array($query)) {
 
-										echo ($cliente_contacto[2][3] == $parentesco['id']) ? '' : '<option value="' . $parentesco['id'] . '">' . $parentesco['parentesco'] . '</option>';
+										echo '<option value="' . $parentesco['id'] . '">' . $parentesco['parentesco'] . '</option>';
 									} ?>
 								</select>
 							</div>&nbsp;

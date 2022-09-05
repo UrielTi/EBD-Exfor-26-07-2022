@@ -276,7 +276,7 @@ include "../cond/todo.php";
                         <div class="d-flex">
                             <div class="input-group shadow-sm">
                                 <span class="input-group-text w-auto" for="servicio_funerario">Servicio funerario: </span>
-                                <input type="text" style="text-transform:uppercase;" name="servicio_funerario" id="servicio_funerario" class="form-control" readonly value="<?php echo $row['servicio_funerario'] ?>">
+                                <input type="text" style="text-transform:uppercase;" name="servicio_funerario" id="servicio_funerario" class="form-control" readonly value="<?php echo $row['serv_funerario'] ?>">
                             </div>&nbsp;
                             <br>
                             <div class="input-group shadow-sm">

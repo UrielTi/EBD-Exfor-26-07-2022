@@ -1,32 +1,32 @@
 <?php
 include "../include/conn/conn.php";
 if (isset($_POST['update'])) {
-	$id			= intval($_POST['id']);
-	$nombres	= mysqli_real_escape_string($conn, (strip_tags($_POST['nombres'], ENT_QUOTES)));
-	$primer_apellido    = mysqli_real_escape_string($conn, (strip_tags($_POST['primer_apellido'], ENT_QUOTES)));
-	$segundo_apellido    = mysqli_real_escape_string($conn, (strip_tags($_POST['segundo_apellido'], ENT_QUOTES)));
-	$cedula  	= mysqli_real_escape_string($conn, (strip_tags($_POST['cedula'], ENT_QUOTES)));
-	$exp_ced  = mysqli_real_escape_string($conn, (strip_tags($_POST['exp_ced'], ENT_QUOTES)));
-	$fecha_expedicion  = mysqli_real_escape_string($conn, (strip_tags($_POST['fecha_expedicion'], ENT_QUOTES)));
-	$fecha_nacimiento  = mysqli_real_escape_string($conn, (strip_tags($_POST['fecha_nacimiento'], ENT_QUOTES)));
+	$id	= intval($_POST['id']);
+	$nombres = mysqli_real_escape_string($conn, (strip_tags($_POST['nombres'], ENT_QUOTES)));
+	$primer_apellido = mysqli_real_escape_string($conn, (strip_tags($_POST['primer_apellido'], ENT_QUOTES)));
+	$segundo_apellido = mysqli_real_escape_string($conn, (strip_tags($_POST['segundo_apellido'], ENT_QUOTES)));
+	$cedula = mysqli_real_escape_string($conn, (strip_tags($_POST['cedula'], ENT_QUOTES)));
+	$exp_ced = mysqli_real_escape_string($conn, (strip_tags($_POST['exp_ced'], ENT_QUOTES)));
+	$fecha_expedicion = mysqli_real_escape_string($conn, (strip_tags($_POST['fecha_expedicion'], ENT_QUOTES)));
+	$fecha_nacimiento = mysqli_real_escape_string($conn, (strip_tags($_POST['fecha_nacimiento'], ENT_QUOTES)));
 	// No aplica; $edad	= mysqli_real_escape_string($conn, (strip_tags($_POST['edad'], ENT_QUOTES)));
-	$civil  = mysqli_real_escape_string($conn, (strip_tags($_POST['civil'], ENT_QUOTES)));
-	$genero  = mysqli_real_escape_string($conn, (strip_tags($_POST['genero'], ENT_QUOTES)));
-	$raza  = mysqli_real_escape_string($conn, (strip_tags($_POST['raza'], ENT_QUOTES)));
-	$rh  = mysqli_real_escape_string($conn, (strip_tags($_POST['rh'], ENT_QUOTES)));
-	$hijos  = mysqli_real_escape_string($conn, (strip_tags($_POST['hijos'], ENT_QUOTES)));
-	$acargo  = mysqli_real_escape_string($conn, (strip_tags($_POST['acargo'], ENT_QUOTES)));
-	$telefono  = mysqli_real_escape_string($conn, (strip_tags($_POST['telefono'], ENT_QUOTES)));
-	$email  = mysqli_real_escape_string($conn, (strip_tags($_POST['email'], ENT_QUOTES)));
-	$direccion  = mysqli_real_escape_string($conn, (strip_tags($_POST['direccion'], ENT_QUOTES)));
-	$estrato  = mysqli_real_escape_string($conn, (strip_tags($_POST['estrato'], ENT_QUOTES)));
-	$tip_vivi  = mysqli_real_escape_string($conn, (strip_tags($_POST['tip_vivi'], ENT_QUOTES)));
-	$nucleo  = mysqli_real_escape_string($conn, (strip_tags($_POST['nucleo'], ENT_QUOTES)));
-	$cargo 		= mysqli_real_escape_string($conn, (strip_tags($_POST['cargo'], ENT_QUOTES)));
-	$proceso  = mysqli_real_escape_string($conn, (strip_tags($_POST['proceso'], ENT_QUOTES)));
-	$estado  = mysqli_real_escape_string($conn, (strip_tags($_POST['estado'], ENT_QUOTES)));
-	$fecha_ingreso  = mysqli_real_escape_string($conn, (strip_tags($_POST['fecha_ingreso'], ENT_QUOTES)));
-	$fecha_salida  = mysqli_real_escape_string($conn, (strip_tags($_POST['fecha_salida'], ENT_QUOTES)));
+	$civil = mysqli_real_escape_string($conn, (strip_tags($_POST['civil'], ENT_QUOTES)));
+	$genero = mysqli_real_escape_string($conn, (strip_tags($_POST['genero'], ENT_QUOTES)));
+	$raza = mysqli_real_escape_string($conn, (strip_tags($_POST['raza'], ENT_QUOTES)));
+	$rh = mysqli_real_escape_string($conn, (strip_tags($_POST['rh'], ENT_QUOTES)));
+	$hijos = mysqli_real_escape_string($conn, (strip_tags($_POST['hijos'], ENT_QUOTES)));
+	$acargo = mysqli_real_escape_string($conn, (strip_tags($_POST['acargo'], ENT_QUOTES)));
+	$telefono = mysqli_real_escape_string($conn, (strip_tags($_POST['telefono'], ENT_QUOTES)));
+	$email = mysqli_real_escape_string($conn, (strip_tags($_POST['email'], ENT_QUOTES)));
+	$direccion = mysqli_real_escape_string($conn, (strip_tags($_POST['direccion'], ENT_QUOTES)));
+	$estrato = mysqli_real_escape_string($conn, (strip_tags($_POST['estrato'], ENT_QUOTES)));
+	$tip_vivi = mysqli_real_escape_string($conn, (strip_tags($_POST['tip_vivi'], ENT_QUOTES)));
+	$nucleo = mysqli_real_escape_string($conn, (strip_tags($_POST['nucleo'], ENT_QUOTES)));
+	$cargo = mysqli_real_escape_string($conn, (strip_tags($_POST['cargo'], ENT_QUOTES)));
+	$proceso = mysqli_real_escape_string($conn, (strip_tags($_POST['proceso'], ENT_QUOTES)));
+	$estado = mysqli_real_escape_string($conn, (strip_tags($_POST['estado'], ENT_QUOTES)));
+	$fecha_ingreso = mysqli_real_escape_string($conn, (strip_tags($_POST['fecha_ingreso'], ENT_QUOTES)));
+	$fecha_salida = mysqli_real_escape_string($conn, (strip_tags($_POST['fecha_salida'], ENT_QUOTES)));
 
 	//referencia de tallas para dotacion
 	$camisa = mysqli_real_escape_string($conn, (strip_tags(strtoupper($_POST['camisa']), ENT_QUOTES)));
@@ -118,26 +118,28 @@ if (isset($_POST['update'])) {
 	$numero3 = mysqli_real_escape_string($conn, (strip_tags($_POST['numero3'], ENT_QUOTES)));
 	$contacto_directo3 = mysqli_real_escape_string($conn, (strip_tags($_POST['contacto_directo3'], ENT_QUOTES)));
 
-	$update = mysqli_query($conn, "UPDATE clientes SET  cedula='$cedula', nombres='$nombres', primer_apellido='$primer_apellido', segundo_apellido='$segundo_apellido', exp_ced='$exp_ced', fecha_expedicion='$fecha_expedicion', fecha_nacimiento='$fecha_nacimiento', civil='$civil', genero='$genero', raza='$raza', rh='$rh', hijos='$hijos', acargo='$acargo', eps='$eps', pensiones='$pensiones', caja='$caja', telefono='$telefono', email='$email', direccion='$direccion', estrato='$estrato', tip_vivi='$tip_vivi', nucleo='$nucleo', cargo='$cargo', proceso='$proceso', estado='$estado', fecha_ingreso='$fecha_ingreso', servicio_funerario='$servicio_funerario', enfermedad='$enfermedad', fecha_salida='$fecha_salida' WHERE id='$id'") or die(mysqli_error($conn));
+	$update = mysqli_query($conn, "UPDATE clientes SET  cedula='$cedula', nombres='$nombres', primer_apellido='$primer_apellido', segundo_apellido='$segundo_apellido', exp_ced='$exp_ced', fecha_expedicion='$fecha_expedicion', fecha_nacimiento='$fecha_nacimiento', civil='$civil', genero='$genero', raza='$raza', rh='$rh', hijos='$hijos', acargo='$acargo', eps='$eps', pensiones='$pensiones', caja='$caja', telefono='$telefono', email='$email', direccion='$direccion', estrato='$estrato', tip_vivi='$tip_vivi', nucleo='$nucleo', cargo='$cargo', proceso='$proceso', estado='$estado', fecha_ingreso='$fecha_ingreso', serv_funerario='$servicio_funerario', enfermedad='$enfermedad', fecha_salida='$fecha_salida' WHERE id='$id'") or die(mysqli_error($conn));
 	if ($update) {
 		//referencia de tallas para dotacion
 		$consultaTallas = mysqli_query($conn, "SELECT id FROM cliente_tallas WHERE id_empleado=$id");
-		if (mysqli_num_rows($consultaTallas) == 0) {
+		if (mysqli_num_rows($consultaTallas) > 0) {
 			$insertTallas = mysqli_query($conn, "INSERT INTO cliente_tallas(id, id_empleado, camisa, pantalon, botas, guayo)
                             VALUES (NULL, '$id', '$camisa', '$pantalon', '$botas', '$guayo')") or die(mysqli_error($conn));
 		} else {
 			$updateTallas = mysqli_query($conn, "UPDATE cliente_tallas SET camisa='$camisa', pantalon='$pantalon', botas='$botas', guayo='$guayo' WHERE id_empleado='$id'") or die(mysqli_error($conn));
 		}
 		//referencia academica
-		$consultaAcademico = $consultaAcademico = mysqli_query($conn, "SELECT id FROM cliente_academico WHERE id_cliente=$id");
-		if ($curso == "" || $completado == "" || $semestre == "" || $titulo == "") {
-			$insert_cliente_academico = mysqli_query($conn, "INSERT INTO cliente_academico (id, id_cliente, curso, completado, semestre, titulo)VALUES(NULL,'$id','$curso','$completado','$semestre','$titulo')");
-		} else {
-			$update_cliente_academico = mysqli_query($conn, "UPDATE cliente_academico SET  curso='$curso', completado='$completado', semestre='$semestre', titulo='$titulo' WHERE id='$id_academico' and id_cliente='$id'");
+		if ($curso != "" || $completado != "" || $semestre != "" || $titulo != "") {
+			$consultaAcademico = mysqli_query($conn, "SELECT id FROM cliente_academico WHERE id_cliente=$id") or die(mysqli_error($conn));
+			if (mysqli_num_rows($consultaAcademico) > 0) {
+				$insert_cliente_academico = mysqli_query($conn, "INSERT INTO cliente_academico (id, id_cliente, curso, completado, semestre, titulo)VALUES(NULL,'$id','$curso','$completado','$semestre','$titulo')") or die(mysqli_error($conn));
+			} else {
+				$update_cliente_academico = mysqli_query($conn, "UPDATE cliente_academico SET  curso='$curso', completado='$completado', semestre='$semestre', titulo='$titulo' WHERE id='$id_academico' and id_cliente='$id'") or die(mysqli_error($conn));
+			}
 		}
 		//referencia de cursos cortos
 		$consulta_cursos = $consulta_cursos = mysqli_query($conn, "SELECT id FROM cliente_cursos WHERE id_cliente=$id");
-		if (mysqli_num_rows($consulta_cursos) == 0) {
+		if (mysqli_num_rows($consulta_cursos) > 0) {
 			if ($nombre_curso1 != "" || $duracion_curso1 != "" || $entidad_curso1 != "" || $tiempo_curso1 != "" || $certificado_curso1 != "") {
 				$insert_curso1 = mysqli_query($conn, "INSERT INTO cliente_cursos (id, id_cliente, nombre_curso, duracion, entidad, tiempo, certificado)VALUES(NULL, '$id', '$nombre_curso1', '$duracion_curso1', '$entidad_curso1', '$tiempo_curso1','$certificado_curso1')") or die(mysqli_error($conn));
 			}
@@ -180,7 +182,7 @@ if (isset($_POST['update'])) {
 		//referencia de vehiculo
 		//Se removieron dos lineas de Vensoat y ventecnomecanica, generaban error en local y en las bases de datos, ahora el valor por defaul se genera en la base de datos.
 		$consultaVehiculo = mysqli_query($conn, "SELECT id FROM cliente_vehiculo WHERE id_empleado=$id");
-		if (mysqli_num_rows($consultaVehiculo) == 0) {
+		if (mysqli_num_rows($consultaVehiculo) > 0) {
 			$insertVehiculo = mysqli_query($conn, "INSERT INTO cliente_vehiculo(id, id_empleado, vehiculo, ven_soat, ven_tecnomecanica)
                             VALUES(NULL,'$id','$vehiculo','$ven_soat','$ven_tecnomecanica')") or die(mysqli_error($conn));
 		} else {
@@ -190,7 +192,7 @@ if (isset($_POST['update'])) {
 		//referencia laboral
 		$consultaLaboral = mysqli_query($conn, "SELECT id FROM cliente_laborales WHERE id_empleado=$id");
 		if ($empresa == "" && $empresa2 == "") {
-		} elseif (mysqli_num_rows($consultaLaboral) == 0) {
+		} elseif (mysqli_num_rows($consultaLaboral) > 0) {
 			if ($empresa2 == "") {
 				$insertLaborales = mysqli_query($conn, "INSERT INTO cliente_laborales(id, id_empleado, empresa, jefe, telefono, cargo, tiempo_exp, motivo)
                             	VALUES(NULL,'$id','$empresa','$jefe','$telefonoE','$cargoE','$tiempo_exp','$motivo')") or die(mysqli_error($conn));
@@ -213,8 +215,11 @@ if (isset($_POST['update'])) {
 
 		//referencia personal
 		// Se renovó el metodo de actualizar en cuanto a re insert y update 25-05-2022
+
+		// Contacto 1 
+
 		$consult_contacto1 = mysqli_query($conn, "SELECT * FROM cliente_contacto WHERE id='$id_contacto' and id_empleado='$id'");
-		if (mysqli_num_rows($consult_contacto1) == 0) {
+		if (mysqli_num_rows($consult_contacto1) > 0) {
 			if ($nombre_contacto != "" || $parentesco != "" || $contacto_directo1 != "" || $numero != "") {
 				$insertContacto1 = mysqli_query($conn, "INSERT INTO cliente_contacto(id, id_empleado, nombre_contacto, parentesco, contacto_directo, numero)
 								VALUES(NULL,'$id','$nombre_contacto','$parentesco', '$contacto_directo1','$numero')") or die(mysqli_error($conn));
@@ -227,10 +232,12 @@ if (isset($_POST['update'])) {
 			}
 		}
 
+		// Contacto 2
+
 		$consult_contacto2 = mysqli_query($conn, "SELECT * FROM cliente_contacto WHERE id='$id_contacto2' and id_empleado='$id'");
-		if (mysqli_num_rows($consult_contacto2) == 0) {
+		if (mysqli_num_rows($consult_contacto2) > 0) {
 			if ($nombre_contacto2 != "" || $parentesco2 != "" || $contacto_directo2 != "" || $numero2 != "") {
-				$insertContacto = mysqli_query($conn, "INSERT INTO cliente_contacto(id, id_empleado, nombre_contacto, parentesco, contacto_directo, numero)
+				$insertContacto2 = mysqli_query($conn, "INSERT INTO cliente_contacto(id, id_empleado, nombre_contacto, parentesco, contacto_directo, numero)
 								VALUES(NULL,'$id','$nombre_contacto2','$parentesco2', '$contacto_directo2','$numero2')") or die(mysqli_error($conn));
 			}
 		} else {
@@ -241,21 +248,23 @@ if (isset($_POST['update'])) {
 			}
 		}
 
+		// Contacto 3
+
 		$consult_contacto3 = mysqli_query($conn, "SELECT * FROM cliente_contacto WHERE id='$id_contacto3' and id_empleado='$id'");
-		if (mysqli_num_rows($consult_contacto3) == 0) {
+		if (mysqli_num_rows($consult_contacto3) > 0) {
 			if ($nombre_contacto3 != "" || $parentesco3 != "" || $contacto_directo3 != "" || $numero3 != "") {
-				$insertContacto = mysqli_query($conn, "INSERT INTO cliente_contacto(id, id_empleado, nombre_contacto, parentesco, contacto_directo, numero)
+				$insertContacto3 = mysqli_query($conn, "INSERT INTO cliente_contacto(id, id_empleado, nombre_contacto, parentesco, contacto_directo, numero)
 								VALUES(NULL,'$id','$nombre_contacto3','$parentesco3', '$contacto_directo3','$numero3')") or die(mysqli_error($conn));
 			}
 		} else {
 			while ($result_contacto3 = mysqli_fetch_array($consult_contacto3)) {
-				if ($nombre_contacto3 != $result_contacto3['nombre_contacto'] || $parentesco2 != $result_contacto3['parentesco'] || $contacto_directo2 != $result_contacto3['contacto_directo'] || $numero3 != $result_contacto3['numero']) {
+				if ($nombre_contacto3 != $result_contacto3['nombre_contacto'] || $parentesco3 != $result_contacto3['parentesco'] || $contacto_directo3 != $result_contacto3['contacto_directo'] || $numero3 != $result_contacto3['numero']) {
 					$updateContacto3 = mysqli_query($conn, "UPDATE cliente_contacto SET nombre_contacto='$nombre_contacto3', parentesco='$parentesco3', contacto_directo='$contacto_directo3', numero='$numero3' WHERE id_empleado='$id' and id='$id_contacto3'") or die(mysqli_error($conn));
 				}
 			}
 		}
 
-		echo "<script>alert('Los datos han sido actualizados!'); window.location = 'index.php'</script>";
+		echo "<script>alert('Los datos han sido actualizados!'); window.location = 'editar.php?id=$id'</script>";
 	} else {
 		echo "<script>alert('Error, no se pudo actualizar los datos'); window.location = 'index.php'</script>";
 	}

@@ -7,29 +7,29 @@ while ($row = mysqli_fetch_assoc($sql)) {
     $sqlAus = mysqli_query($conn, "SELECT id FROM ausentismo WHERE cedula='" . $row['cedula'] . "'");
 ?>
     <tr>
-        <td width="10%"><?php echo $row['cedula'] ?></td>
-        <td width="25%"><a onclick="loadData('bi bi-search',' Visualización del empleado','visualizar',<?php echo $row['id'] ?>)" href="" data-bs-toggle="modal" data-bs-target="#mimodal">
+        <td class="align-middle"><?php echo $row['cedula'] ?></td>
+        <td class="align-middle"><a onclick="loadData('bi bi-search',' Visualización del empleado','visualizar',<?php echo $row['id'] ?>)" href="" data-bs-toggle="modal" data-bs-target="#mimodal">
                 <?php echo $row['primer_apellido'] . ' ' . $row['segundo_apellido'] . ' ' . $row['nombres'] ?></a></td>
 
-        <td width="10%"><?php echo $cargos[$row["cargo"]] ?></td>
-        <td width="10%"><?php echo $epss[$row["eps"]] ?></td>
-        <td width="5%"><?php echo $nucleosEmpleado[$row["nucleo"]] ?></td>
-        <td width="15%"><a onclick="loadData('bi bi-search',' Editar, fecha y estado','editar_fecha_estado',<?php echo $row['id'] ?>)" href="" data-bs-toggle="modal" data-bs-target="#mimodal">
+        <td class="align-middle"><?php echo $cargos[$row["cargo"]] ?></td>
+        <td class="align-middle"><?php echo $epss[$row["eps"]] ?></td>
+        <td class="align-middle"><?php echo $nucleosEmpleado[$row["nucleo"]] ?></td>
+        <td class="align-middle"><a onclick="loadData('bi bi-search',' Editar, fecha y estado','editar_fecha_estado',<?php echo $row['id'] ?>)" href="" data-bs-toggle="modal" data-bs-target="#mimodal">
                 <?php if ($row['estado'] == 1) {
 
                     echo $estadosIngSal[$row["estado"]] . '<br>' . $row['fecha_ingreso'];
                 } else {
                     if ($row['fecha_salida'] == '0101-01-01') {
-                        $fecha_default = 'Sin Fecha de Salida';
+                        $fecha_default = 'S/F';
                         echo $estadosIngSal[$row["estado"]] . '<br>' . $fecha_default;
                     } else {
                         echo $estadosIngSal[$row["estado"]] . '<br>' . $row['fecha_salida'];
                     }
-                } ?> <i class="bi bi-pencil"></i></td>
-        <td width="5%"><?php echo $estados[$row["estado"]] ?></td>
+                } ?></td>
+        <td class="align-middle"><?php echo $estados[$row["estado"]] ?></td>
 
 
-        <td>
+        <td class="align-middle">
             <a href="visualizar.php?id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Ver" class="btn btn-sm btn-secondary"> <i class="bi bi-search"></i> </a>
 
             <a href="excelEmpleado.php?id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Descargar hoja de vida" class="btn btn-sm btn-primary"> <i class="bi bi-file-earmark-arrow-down"></i> </a>
