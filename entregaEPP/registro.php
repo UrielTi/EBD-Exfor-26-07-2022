@@ -1,36 +1,57 @@
 <?php session_start();
-include "../include/conn/conn.php"; ?>
+include "../include/conn/conn.php";
+include("../cond/todo.php"); ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <?php include("head.php"); ?>
-    <script src="../entregaEPP/scripts/autocomplete.js" type="text/javascript"></script>
-</head>
+    <?php include("./head.php"); ?>
 
-<body>
     <script>
         $(document).ready(function() {
-            $("#nombres").focusout(function() {
+            $("#codigoElement").on('change', function() {
                 $.ajax({
-                    url: '../include/empleados/empleado.php',
+                    url: 'autocompleteElement.php',
                     type: 'POST',
                     dataType: 'json',
                     data: {
-                        nombres: $('#nombres').val()
+                        codigo: $('#codigoElement').val()
                     }
-                }).done(function(respuesta) {
-                    $("#cedula").val(respuesta.cedula);
-                    $("#proceso").val(respuesta.proceso);
-                    $("#nucleo").val(respuesta.nucleo);
-                    $("#cargo").val(respuesta.cargo);
-                    $("#proceso1").val(respuesta.proceso1);
-                    $("#nucleo1").val(respuesta.nucleo1);
-                    $("#cargo1").val(respuesta.cargo1);
+                }).done(function(element) {
+                    $("#stockElement").val(element.stock);
+                    $("<option value='" + element.talla + "'>" + element.talla + "</option>").appendTo("#tallaElement");
                 });
             });
         });
+        $(document).ready(function() {
+            $('#table').DataTable({
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se han cargado entregas a este empleado o no existe",
+                    "sEmptyTable": "No se han cargado entregas a este empleado",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                }
+            });
+        });
     </script>
+</head>
+
+<body>
     <div class="container-fluid border border-success bg-light">
         <hr>
         <div class="alert alert-success" role="alert">
@@ -39,194 +60,141 @@ include "../include/conn/conn.php"; ?>
                 (Gestor de Entregas) en el historial de entregas de EPP <strong>¡Gracias!</strong></center>
         </div>
         <hr>
-        <?php include "../entregaEPP/query-registro.php"; ?>
+        <!-- include "../entregaEPP/query-registro.php";  -->
         <div class="panel panel-default">
             <div class="panel-heading">
-                <p class="h3"><i class="bi bi-journal-plus"></i>&nbsp; Sistema registro de entregas: EPP</p>
+                <p class="h3"><i class="bi bi-journal-plus"></i>&nbsp; Sistema gestor de entregas: EPP</p>
             </div>
             <br>
 
-            <form name="form1" id="form1" class="form-horizontal row-fluid" action="registro.php" method="POST">
-                <div class="control-group">
-                    <div class="controls">
-                        <a href="index.php" class="btn btn-sm btn-success">&nbsp;<i class="bi bi-arrow-left"></i>
-                            Volver a historial de entregas </a>
-                    </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <a href="index.php" class="btn btn-sm btn-success">&nbsp;<i class="bi bi-arrow-left"></i>
+                        Volver a historial de entregas </a>
                 </div>
-                <hr>
-                <!-- cuerpo de sistema de registro  -->
-                <h2>
-                    Registro de entregas
-                    <small class="text-success">Elementos de Protección</small>
-                </h2>
-                <br>
-                <span class="badge text-bg-success" style="font-size: 17px;" ;> Datos del empleado: </span>
-                <br><br>
-                <div class="container-fluid">
+            </div>
+            <hr>
+            <!-- cuerpo de sistema de registro  -->
+            <h2>
+                Gestor de entregas
+                <small class="text-success">Elementos de Protección</small>
+            </h2>
+            <br>
+            <span class="badge text-bg-success" style="font-size: 17px;" ;> Datos del empleado: </span>
+            <br><br>
+            <div class="container-fluid">
+
+                <?php
+
+                include_once 'postid.php';
+
+                $id_empleado = intval($_GET['id']);
+
+                if (isset($id_empleado) != NULL) {
+
+                    $consultaEmpleado = mysqli_query($conn, "SELECT cedula, primer_apellido, segundo_apellido, nombres, nucleo, cargo, proceso FROM clientes WHERE id = '$id_empleado' ") or die(mysqli_error($conn));
+                    if (mysqli_num_rows($consultaEmpleado) > 0) {
+                        $resultEmpleado = mysqli_fetch_assoc($consultaEmpleado);
+                        $cedula = $resultEmpleado['cedula'];
+                        $nombreCompleto = $resultEmpleado['nombres'] . " " . $resultEmpleado['primer_apellido'] . " " . $resultEmpleado['segundo_apellido'];
+                        $nombres = $nombreCompleto;
+                        $nucleo = $nucleos[$resultEmpleado['nucleo']];
+                        $cargo = $cargos[$resultEmpleado['cargo']];
+                        $proceso = $procesos[$resultEmpleado['proceso']];
+                    }
+                }
+                ?>
+
+                <form name="form2" id="form2" action="registro.php" method="POST">
                     <div class="input-group">
-                        <span class="input-group-text w-auto shadow-sm" for="nombre del empleado" style="background-color: #198754; color: #FFFFFF;" ;>Nombre del empleado:</span>
-                        <input type="text" name="nombres" id="nombres" class="form-control rounded-end w-auto shadow-sm" list="nombreList" placeholder="o Cédula..." autocomplete="off" required style="margin-right: 10px;" ;>
-                        <datalist id="nombreList">
+                        <span class="input-group-text w-auto shadow-sm" for="Datos empleado" style="background-color: #198754; color: #FFFFFF;" ;>Cédula del empleado:</span>
+                        <input type="text" name="cedula" id="cedula" value="<?php $echo = (isset($cedula) != NULL) ? $cedula : '';
+                                                                            echo $echo; ?>" list="empleadosList" class="form-control rounded-end w-auto shadow-sm" placeholder="o Nombre..." autocomplete="off" required>
+                        <datalist id="empleadosList">
                             <?php
-                            $sql = mysqli_query($conn, "SELECT nombres,cedula FROM clientes");
-                            while ($row = mysqli_fetch_assoc($sql)) {
-                                echo '<option value="' . $row['nombres'] . '">' . $row['cedula'] . '</option>';
+                            $sql = mysqli_query($conn, "SELECT nombres, primer_apellido, segundo_apellido, cedula FROM clientes ORDER BY nombres") or die(mysqli_error($conn));
+                            while (($row = mysqli_fetch_array($sql)) != NULL) {
+                                echo '<option value="' . $row['cedula'] . '">' . $row['nombres'] . ' ' . $row['primer_apellido'] . ' ' . $row['segundo_apellido'] . '</option>';
                             }
                             ?>
                         </datalist>
-                        <span class="input-group-text rounded-start w-auto shadow-sm" for="fecha de registro" style="background-color: #198754; color: #FFFFFF;" ;>Fecha de registro:</span>
-                        <input type="date" name="fecha-registro" id="fecha-registro" class="form-control w-auto shadow-sm" required>
+                        <button type="submit" name="postid" id="postid" value="Buscar Entregas..." class="btn btn-primary rounded"><i class="bi bi-search"></i></button>
                     </div>
+                </form>
+                <br>
+
+                <form name="form1" id="form1" class="form-horizontal row-fluid" action="registro.php" method="POST">
+                    <div class="input-group">
+                        <span class="input-group-text rounded-start w-auto shadow-sm" style="background-color: #198754; color: #FFFFFF;" ;>Nombre del empleado:</span>
+                        <input name="nombres" id="nombres" value="<?php $echo = (isset($nombres) != NULL) ? $nombres : '';
+                                                                    echo $echo; ?>" class="form-control w-25 shadow-sm rounded-end" type="text" style="margin-right: 10px;" readonly>
+                        <span class="input-group-text rounded-start w-auto shadow-sm" style="background-color: #198754; color: #FFFFFF;" ;>Cargo:</span>
+                        <input name="cargo" id="cargo" value="<?php $echo = (isset($cargo) != NULL) ? $cargo : '';
+                                                                echo $echo; ?>" class="form-control w-auto shadow-sm" type="text" readonly>
+                    </div>
+                    <br>
+
+                    <input type="text" id="id-empleado" value="<?php $echo = (isset($id_empleado) != NULL) ? $id_empleado : '';
+                                                                echo $echo; ?>" name="id-empleado">
+
                     <!-- Inputs con autocompletado -->
-                    <input name="cedula" id="cedula" class=" form-control" type="number" placeholder="CEDULA DEL EMPLEADO" required readonly>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-start w-auto shadow-sm" style="background-color: #198754; color: #FFFFFF;" ;>Núcleo:</span>
+                        <input name="nucleo" id="nucleo" value="<?php $echo = (isset($nucleo) != NULL) ? $nucleo : '';
+                                                                echo $echo; ?>" class="form-control w-auto shadow-sm rounded-end" type="text" style="margin-right: 10px;" readonly>
 
-                    <input name="nucleo" id="nucleo" class=" form-control" type="text" required readonly>
-                    <input name="nucleo1" id="nucleo1" class=" form-control" type="text" placeholder="NUCLEO DEL EMPLEADO" readonly>
+                        <span class="input-group-text rounded-start w-auto shadow-sm" style="background-color: #198754; color: #FFFFFF;" ;>Proceso:</span>
+                        <input name="proceso" id="proceso" value="<?php $echo = (isset($proceso) != NULL) ? $proceso : '';
+                                                                    echo $echo; ?>" class="form-control w-auto shadow-sm rounded-end" type="text" readonly>
+                    </div>
+            </div>
+            <br>
+            <span class="badge text-bg-success" style="font-size: 17px;" ;> Elementos a entregar: </span>
+            <br><br>
+            <!-- Contenedor de mis elementos dinámicos -->
 
-                    <input name="proceso" id="proceso" class=" form-control" type="text" required readonly>
-                    <input name="proceso1" id="proceso1" class=" form-control" type="text" placeholder="PROCESO DEL EMPLEADO" readonly>
-
-                    <input name="cargo" id="cargo" class=" form-control" type="text" required readonly>
-                    <input name="cargo1" id="cargo1" class=" form-control" type="text" placeholder="CARGO DEL EMPLEADO" readonly>
-                </div>
-                <br>
-                <span class="badge text-bg-success" style="font-size: 17px;" ;> Elementos a entregar: </span>
-                <br><br>
-                <!-- Contenedor de mis elementos dinámicos -->
-                <div class="container-fluid" id="element-dinamic"></div>
-                <br>
+            <div class="input-group">
+                <span class="input-group-text w-auto shadow-sm" style="background-color: #198754; color: #FFFFFF;" ;>Elemento:</span>
+                <input type="text" id="codigoElement" name="codigoElement" class="form-control rounded-end w-auto shadow-sm" list="elementList" placeholder="Buscar..." style="margin-right: 10px;">
+                <input type="text" id="stockElement" class="form-control rounded-pill shadow-sm" placeholder="stock" style="border-color: #198754; color: #198754; margin-right: 10px; width: 5%; text-align: center;" readonly>
                 <datalist id="elementList">
                     <?php
-                    $sql = mysqli_query($conn, "SELECT nombre FROM epp");
-                    while ($row = mysqli_fetch_assoc($sql)) {
-                        echo '<option value="' . $row['nombre'] . '"></option>';
+                    $sql = mysqli_query($conn, "SELECT nombre, codigo FROM epp ORDER BY nombre") or die(mysqli_error($conn));
+                    while (($row = mysqli_fetch_array($sql)) != NULL) {
+                        echo '<option value="' . $row['codigo'] . '"> ' . $row['nombre'] . '</option>';
                     }
                     ?>
                 </datalist>
+
+                <span class="input-group-text rounded-start w-auto shadow-sm" style="background-color: #198754; color: #FFFFFF;" ;>Talla:</span>
+                <select id="tallaElement" name="tallaElement" class="form-select rounded-end w-auto shadow-sm" style="margin-right: 10px;"></select>
+                <span class="input-group-text rounded-start w-auto shadow-sm" style="background-color: #198754; color: #FFFFFF;" ;>Cantidad:</span>
+                <input type="text" name="cantidadElement" class="form-control rounded-end w-auto shadow-sm" list="cantList" placeholder="Digita Cantidad" autocomplete="off" style="margin-right: 10px;">
+
+                <span class="input-group-text rounded-start w-auto shadow-sm" for="fecha de registro" style="background-color: #198754; color: #FFFFFF;" ;>Fecha de registro:</span>
+                <input type="date" name="fechaRegistro" id="fechaRegistro" class="form-control w-auto shadow-sm">
+            </div>
+            <br>
             </form>
-            <button class="btn btn-success mx-auto d-block" id="button-add-element"><i class="bi bi-plus-lg"></i></button>
-            <script src="../entregaEPP/scripts/dinamic-inputs.js"></script>
         </div>
-
-        <!-- <div class="input-group shadow-sm">
-                    <span class="input-group-text w-25" for="fecha">(*) Fecha: </span>
-                    <input type="date" name="fecha" id="fecha" class="form-control" required>
-                </div>
-                <hr>
-
-                <div class="input-group shadow-sm">
-                    <span class="input-group-text w-25" for="nombres">(*) Nombre: </span>
-                    <input type="text" style="text-transform:uppercase;" name="nombres" id="nombres" class="form-control" list="nombreList" placeholder="INGRESA EL NOMBRE DEL EMPLEADO" autocomplete="off" required>
-                    <datalist id="nombreList">
-                        <?php
-                        $sql = mysqli_query($conn, "SELECT nombres,cedula FROM clientes");
-                        while ($row = mysqli_fetch_assoc($sql)) {
-                            echo '<option value="' . $row['nombres'] . '">' . $row['cedula'] . '</option>';
-                        }
-                        ?>
-                    </datalist>
-                </div>
-                <hr>
-
-                <div class="input-group shadow-sm">
-                    <span class="input-group-text w-25" for="cedula">(*) Cedula: </span>
-                    <input name="cedula" id="cedula" class=" form-control" type="number" placeholder="CEDULA DEL EMPLEADO" required readonly>
-                </div>
-                <hr>
-
-                <div class="input-group shadow-sm">
-                    <span class="input-group-text w-25" for="nucleo">(*) nucleo: </span>
-                    <input name="nucleo" id="nucleo" class=" form-control" type="hidden" required readonly>
-                    <input name="nucleo1" id="nucleo1" class=" form-control" type="text" placeholder="NUCLEO DEL EMPLEADO" readonly>
-                </div>
-                <hr>
-
-                <div class="input-group shadow-sm">
-                    <span class="input-group-text w-25" for="proceso">(*) proceso: </span>
-                    <input name="proceso" id="proceso" class=" form-control" type="hidden" required readonly>
-                    <input name="proceso1" id="proceso1" class=" form-control" type="text" placeholder="PROCESO DEL EMPLEADO" readonly>
-                </div>
-                <hr>
-
-                <div class="input-group shadow-sm">
-                    <span class="input-group-text w-25" for="cargo">(*) cargo: </span>
-                    <input name="cargo" id="cargo" class=" form-control" type="hidden" required readonly>
-                    <input name="cargo1" id="cargo1" class=" form-control" type="text" placeholder="CARGO DEL EMPLEADO" readonly>
-                </div>
-                <hr>
-
-                <div class="input-group shadow-sm">
-                    <span class="input-group-text w-25" for="talla">(*) Tallas: </span>
-                    <input type="hidden" id="id_talla" name="id_talla">
-                    <select name="talla" id="talla" class="form-select">
-                        <option value="">ESCOGE LA TALLA</option>
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                        <option value="XL">XL</option>
-                        <option value="28">28</option>
-                        <option value="30">30</option>
-                        <option value="32">32</option>
-                        <option value="34">34</option>
-                        <option value="36">36</option>
-                        <option value="38">38</option>
-                        <option value="40">40</option>
-                        <option value="42">42</option>
-                    </select>
-                </div>
-                <hr>
-
-                <div class="input-group shadow-sm">
-                    <span class="input-group-text w-25" for="elemento">(*) Elemento: </span>
-                    <input name="elemento" style="text-transform:uppercase;" id="elemento" class=" form-control" type="text" list="elementList" placeholder="INGRESA EL NOMBRE DEL ELEMENTO" required>
-                    <datalist id="elementList">
-                        <?php
-                        $sql = mysqli_query($conn, "SELECT nombre FROM epp");
-                        while ($row = mysqli_fetch_assoc($sql)) {
-                            echo '<option value="' . $row['nombre'] . '"></option>';
-                        }
-                        ?>
-                    </datalist>
-                </div>
-                <hr>
-
-                <div class="input-group shadow-sm">
-                    <span class="input-group-text w-25" for="cantidad">(*) Cantidad del elemento: </span>
-                    <input name="cantidadE" id="cantidadE" class=" form-control" type="number" readonly placeholder="INGRESA LA CANTIDAD DEL ELEMENTO" required>
-                </div>
-                <hr>
-
-                <div class="input-group shadow-sm">
-                    <span class="input-group-text w-25" for="precio">(*) Precio: </span>
-                    <input name="precio" id="precio" class=" form-control" type="number" placeholder="PRECIO DEL ELEMENTO" required readonly>
-                </div>
-                <hr>
-
-                <div class="input-group shadow-sm">
-                    <span class="input-group-text w-25" for="cantidad">(*) Cantidad: </span>
-                    <input name="cantidad" id="cantidad" class=" form-control" type="number" oninput="calculo()" onblur="AlertaCantidad()" placeholder="INGRESA LA CANTIDAD DEL ELEMENTO" required>
-                </div>
-                <hr>
-
-                <div class="input-group shadow-sm">
-                    <span class="input-group-text w-25" for="total">(*) Precio total: </span>
-                    <input name="total" id="total" class=" form-control" type="number" placeholder="PRECIO TOTAL DEL ELEMENTO" required onclick="calculo()" readonly>
-                </div>
-                <small><strong>Dale click en precio total para calcular el precio total del elemento</strong></small>
-                <hr>
-
-                <div class="control-group">
-                    <div class="controls">
-                        <button type="submit" name="input" id="input" class="btn btn-sm btn-primary">Registrar</button>
-                        <a href="index.php" class="btn btn-sm btn-danger">Cancelar</a>
-                    </div>
-                </div>
-            </form>
-        </div> -->
-        <!--/.content-->
-        <!--/.container-->
+        <div class="table-responsive">
+            <table id="table" class="table table-bordered border-dark table-striped text-center">
+                <thead>
+                    <tr class="table-success border-dark">
+                        <th>Elemento</th>
+                        <th>Cantidad</th>
+                        <th>Talla</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php include_once 'entregaTable.php' ?>
+                </tbody>
+            </table>
+        </div>
         <br>
-        <script>
+        <!-- <script>
             function calculo() {
                 try {
                     var cant = parseFloat(document.getElementById("cantidad").value) || 0,
@@ -234,16 +202,14 @@ include "../include/conn/conn.php"; ?>
                     document.getElementById("total").value = cant * price;
                 } catch (e) {}
             }
-        </script>
+        </scrip> -->
         <!--/.wrapper-->
         <div class="card-footer">
             <div class="container">
-                <center> <b class="copyright"><a href=""> EXFOR S.A.S</a> &copy; <?php echo date("Y") ?> Servicios
-                        Forestales </b></center>
+                <center> <b class="copyright"><a href=""> EXFOR S.A.S</a> &copy; <?php echo date("Y") ?> Servicios Forestales </b></center>
             </div>
         </div>
     </div>
-
 </body>
 
 </html>

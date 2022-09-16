@@ -1,33 +1,18 @@
 $(document).ready(function () {
-    $("#nombre-elemento").focusout(function () {
+    $("#cedula").focusout(function () {
         $.ajax({
-            url: '../include/elementos/element.php',
+            url: '../include/empleados/empleado.php',
             type: 'POST',
             dataType: 'json',
             data: {
-                talla: $('#talla').val(),
-                nombres: $('#elemento').val()
+                cedula: $('#cedula').val()
             }
-        }).done(function (respuesta) {
-            $("#id_talla").val(respuesta.id_talla);
-            $("#elemento").val(respuesta.nombres);
-            $("#precio").val(respuesta.precio);
-            $("#cantidadE").val(respuesta.stock);
+        }).done(function(respuesta) {
+            $('#id-empleado').val(respuesta.id);
+            $('#nombres').val(respuesta.nombres);
+            $('#proceso').val(respuesta.proceso);
+            $('#nucleo').val(respuesta.nucleo);
+            $('#cargo').val(respuesta.cargo);
         });
     });
 });
-
-
-// function AlertaCantidad() {
-//     var cantidadElemento = document.getElementById("cantidadE").value,
-//         cantidadSolicitada = document.getElementById("cantidad").value,
-//         total = cantidadElemento - cantidadSolicitada;
-
-//     if (total < 0) {
-//         alert("La cantidad solicitada: " + cantidadSolicitada + " es mayor a la cantidad del producto: " + cantidadElemento);
-//         document.getElementById("cantidad").value = 0;
-//     } else if (cantidadSolicitada < 0) {
-//         alert("La cantidad solicitada: " + cantidadSolicitada + " no puede ser menor");
-//         document.getElementById("cantidad").value = 0;
-//     }
-// }
