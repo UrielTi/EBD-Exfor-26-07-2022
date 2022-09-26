@@ -1,5 +1,5 @@
 <?php
-error_reporting (E_ALL ^ E_NOTICE);
+// error_reporting (E_ALL ^ E_NOTICE);
     $cargos=[
         1 => 'DESPACHADOR',2 => 'MONITOR',3 => 'SUPERVISOR DE APROVECHAMIENTO',4 => 'INSPECTOR DE EQUIPOS',
         5 => 'JEFE DE LINEA',6 => 'MOTOSIERRISTA',7 => 'ESTROBADOR',8 => 'DESCORTEZADOR',9 => 'ARRIERO',
