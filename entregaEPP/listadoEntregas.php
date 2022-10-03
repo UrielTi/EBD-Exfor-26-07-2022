@@ -22,7 +22,12 @@
                 <tbody>
                     <?php
                     $id_empleado = intval($_GET['id']);
-                    $consultEntregas = mysqli_query($conn, "SELECT id, id_empleado, elemento, cantidad, talla, fecha FROM entrega_epp WHERE id_empleado='$id_empleado'") or die(mysqli_error($conn));
+                    $id = intval($_GET['id2']);
+                    $consultDocumento = mysqli_query($conn, "SELECT documento FROM entrega_epp WHERE id_empleado='$id_empleado' AND id='$id'") or die (mysqli_error($conn));
+                    $rD = mysqli_fetch_assoc($consultDocumento);
+                    $documento = $rD['documento'];
+                    
+                    $consultEntregas = mysqli_query($conn, "SELECT elemento, cantidad, talla, fecha FROM entrega_epp WHERE id_empleado='$id_empleado' AND documento='$documento'") or die(mysqli_error($conn));
                     
                     while (($resultEntregas = mysqli_fetch_assoc($consultEntregas)) != NULL) {
                     

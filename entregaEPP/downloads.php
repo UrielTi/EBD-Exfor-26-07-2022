@@ -29,3 +29,6 @@ if (is_file($path)) {
 } else {
  die("<script>alert('El archivo que tratas de descargar no esta almacenado en la base de datos'); window.location = 'index.php'</script>");
 }
+
+
+?>

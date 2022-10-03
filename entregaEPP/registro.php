@@ -14,11 +14,6 @@ include("../cond/todo.php"); ?>
     <div class="container-fluid border border-success bg-light">
 
         <hr>
-        <!-- Delete, devolver elementos -->
-        <?php include('returnItem.php'); ?>
-        <!-- Insert que captura la informacion digitada y genera el registro y calculos de la entrega -->
-        <?php include('insert.php'); ?>
-
         <div class="panel panel-default">
             <div class="panel-heading">
                 <p class="h3"><i class="bi bi-journal-plus"></i>&nbsp; Sistema gestor de entregas <small class="text-success">Elementos de Protección</small></p>
@@ -38,6 +33,10 @@ include("../cond/todo.php"); ?>
                     </div>
                 </div>
                 <hr>
+                <!-- Subida de documento PDF Diligenciado de firmas -->
+                <?php include('uploadDoc.php'); ?>
+                <!-- Insert que captura la informacion digitada y genera el registro y calculos de la entrega -->
+                <?php include('insert.php'); ?>
                 <!-- cuerpo de sistema de registro  -->
                 <span class="badge text-bg-success" style="font-size: 17px; margin-left: 13px;"> Datos del empleado: </span>
                 <br><br>
@@ -77,9 +76,10 @@ include("../cond/todo.php"); ?>
                                 }
                                 ?>
                             </datalist>
-                            <button type="submit" name="postid" id="postid" value="Buscar Entregas..." class="btn btn-primary rounded" style="margin-left: 10px;"><i class="bi bi-search"></i></button>
+                            <button type="submit" title="Buscar empleado"name="postid" id="postid" value="Buscar Entregas..." class="btn btn-primary rounded" style="margin-left: 10px;"><i class="bi bi-search"></i></button>
                         </div>
                     </form>
+
                     <br>
                     <div class="input-group">
                         <span class="input-group-text rounded-start w-auto shadow-sm" style="background-color: #198754; color: #FFFFFF;" ;>Nombre del empleado:</span>
@@ -114,7 +114,8 @@ include("../cond/todo.php"); ?>
                         <input type="number" id="stockElement" name="stockElement" class="form-control rounded-pill shadow-sm" placeholder="stock" style="border-color: #198754; color: #198754; margin-right: 10px; width: 4%; text-align: center;" readonly>
                         <datalist id="elementList">
                             <?php
-                            $sql = mysqli_query($conn, "SELECT nombre, codigo FROM epp ORDER BY nombre") or die(mysqli_error($conn));
+                            $nucleo = $_SESSION['nucleo'];
+                            $sql = mysqli_query($conn, "SELECT nombre, codigo FROM epp WHERE nucleo='$nucleo' ORDER BY nombre") or die(mysqli_error($conn));
                             while (($row = mysqli_fetch_array($sql)) != NULL) {
                                 echo '<option value="' . $row['codigo'] . '"> ' . $row['nombre'] . '</option>';
                             }
@@ -143,6 +144,18 @@ include("../cond/todo.php"); ?>
                         </div>
                     </div>
                 </form>
+                <hr>
+                <form name="form3" id="form3" action="registro.php?id=<?php echo $id_empleado; ?>" method="POST" enctype="multipart/form-data">
+                    <div class="input-group">
+                        <button onclick="return confirm('Este segmento te permite subir la constancia de entrega en PDF diligenciada con las firmas del empleado, asegurate de descargar la ultima constancia con las ultimas entregas registradas, una vez subido el documento las entregas en estado pendiente pasaran a diligenciado.')" class="btn btn-primary rounded" style="margin-right: 10px; margin-left: 10%;"><i class="bi bi-info-square-fill"></i></button>
+                        <span class="input-group-text w-auto rounded-start" for="documento" style="border-color: #0d6efdff; background-color: #0d6efdff; border-width: 1px;color: #FFFFFF;"> Documento diligenciado:</span>
+                        <input type="file" name="documento" id="documento" class="form-control rounded-end" style="border-color: #0d6efdff; width: 20%;">
+
+                        <button type="submit" id="documento" name="documento" class="btn btn-primary rounded" style="margin-left: 10px;"><i class="bi bi-cloud-arrow-up-fill"></i> Subir</button>
+                        <a href="excelEntregas.php?id=<?php echo $id_empleado; ?>" data-toggle="tooltip" title="Descargar constancia" class="btn btn-primary rounded" style="margin-left: 10px; margin-right: 10%;"><i class="bi bi-file-earmark-arrow-down-fill"></i> Constancia</a>
+                    </div>
+                </form>
+                <br>
             </div>
             <div class="table-responsive">
                 <table id="table" class="table table-bordered border-dark table-striped text-center">
@@ -152,7 +165,8 @@ include("../cond/todo.php"); ?>
                             <th>Cantidad</th>
                             <th>Talla</th>
                             <th>Fecha</th>
-                            <th>Devolver</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -53,8 +53,19 @@ include "../include/conn/conn.php";
                     <a href="../graficas/graficaEntregaEpp.php" class="btn btn-sm btn-success"> <i class="bi bi-person-plus-fill"></i> Ver
                         Grafica de Entregas de elemento</a>&nbsp;
 
-                    <form name="form2" id="form2" class="form-horizontal row-fluid" action="index.php" method="POST" enctype="multipart/form-data">
-                        <button type="submit" name="load_pendientes" id="load_pendientes" class="btn btn-sm btn-success"><i class="bi bi-shield-exclamation"></i> Mostrar Pendientes </button>&nbsp;
+                    <form name="form2" id="form2" class="form-horizontal row-fluid" action="index.php" method="POST">
+                        <button type="submit" name="load_pending" id="load_pending" class="btn btn-sm btn-success"><i class="bi bi-shield-exclamation"></i> Mostrar Pendientes </button>&nbsp;
+                    </form>
+
+                    <form name="form3" id="form3" class="form-horizontal row-fluid" action="index.php" method="POST">
+                        <button type="submit" name="load_diligence" id="load_diligence" class="btn btn-sm btn-success"><i class="bi bi-shield-check"></i> Mostrar Diligenciados </button>&nbsp;
+                    </form>
+                    <?php
+                    if (isset($_POST['refresh']))
+                    echo "<script>window.location = 'index.php'</script>";
+                    ?>
+                    <form name="form4" id="form4" class="form-horizontal row-fluid" method="POST" >
+                        <button type="submit" name="refresh"class="btn btn-sm btn-success"><i class="bi bi-shield-shaded"></i> Mostrar Todos </button>&nbsp;
                     </form>
 
                     <a onclick="loadDataTarea('bi bi-book',' Tareas','entregaEpp')" class="btn btn-sm btn-success" href="" data-bs-toggle="modal" data-bs-target="#mimodal">
