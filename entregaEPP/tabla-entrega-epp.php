@@ -74,7 +74,7 @@ if (isset($_POST['load_pending'])) {
             </div>
         </div>
         <?php } else {
-        $consultEntregas = mysqli_query($conn, "SELECT id, id_empleado, documento, MAX(fecha) as maxFecha, estado FROM entrega_epp GROUP BY documento ORDER BY estado ASC") or die(mysqli_error($conn));
+        $consultEntregas = mysqli_query($conn, "SELECT id, id_empleado, documento, MAX(fecha) as maxFecha, estado FROM entrega_epp GROUP BY id_empleado, documento ORDER BY estado ASC") or die(mysqli_error($conn));
         while ($rE = mysqli_fetch_assoc($consultEntregas)) {
             $id_empleado = $rE['id_empleado'];
             $documento = $rE['documento'];
