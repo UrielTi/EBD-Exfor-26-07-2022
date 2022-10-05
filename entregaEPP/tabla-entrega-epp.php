@@ -1,9 +1,10 @@
 <?php
 include("../include/conn/conn.php");
 if (isset($_POST['load_pending'])) {
-    $consultEntregas = mysqli_query($conn, "SELECT id, id_empleado, fecha, COUNT(*) AS tanda, MAX(fecha) AS maxFecha, estado FROM entrega_epp WHERE estado = 0 GROUP BY id_empleado, documento HAVING MAX(tanda) <= 1") or die(mysqli_error($conn));
+    $consultEntregas = mysqli_query($conn, "SELECT id, id_empleado, documento, fecha, COUNT(*) AS tanda, MAX(fecha) AS maxFecha, estado FROM entrega_epp WHERE estado = 0 GROUP BY id_empleado, documento HAVING MAX(tanda) <= 1") or die(mysqli_error($conn));
     while ($rE = mysqli_fetch_assoc($consultEntregas)) {
         $id_empleado = $rE['id_empleado'];
+        $documento = $rE['documento'];
         $consultEmpleado = mysqli_query($conn, "SELECT nombres, primer_apellido, segundo_apellido, cedula FROM clientes WHERE id = '$id_empleado'") or die(mysqli_error($conn));
         while ($row = mysqli_fetch_assoc($consultEmpleado)) {
 ?>
@@ -38,9 +39,10 @@ if (isset($_POST['load_pending'])) {
         </div>
     <?php } else {
     if (isset($_POST['load_diligence'])) {
-        $consultEntregas = mysqli_query($conn, "SELECT id, id_empleado, fecha, COUNT(*) AS tanda, MAX(fecha) AS maxFecha, estado FROM entrega_epp WHERE estado = 1 GROUP BY id_empleado, documento HAVING MAX(tanda) <= 1") or die(mysqli_error($conn));
+        $consultEntregas = mysqli_query($conn, "SELECT id, id_empleado, documento, fecha, COUNT(*) AS tanda, MAX(fecha) AS maxFecha, estado FROM entrega_epp WHERE estado = 1 GROUP BY id_empleado, documento HAVING MAX(tanda) <= 1") or die(mysqli_error($conn));
         while ($rE = mysqli_fetch_assoc($consultEntregas)) {
             $id_empleado = $rE['id_empleado'];
+            $documento = $rE['documento'];
             $consultEmpleado = mysqli_query($conn, "SELECT nombres, primer_apellido, segundo_apellido, cedula FROM clientes WHERE id = '$id_empleado'") or die(mysqli_error($conn));
             while ($row = mysqli_fetch_assoc($consultEmpleado)) {
     ?>
