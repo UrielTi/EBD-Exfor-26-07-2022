@@ -1,4 +1,6 @@
-﻿<?php include "../include/conn/conn.php"; ?>
+﻿<?php
+include("../login/userRestrintion.php");
+include "../include/conn/conn.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +11,7 @@
 	</head>
 
 <body>
-	
+
 </body>
 
 </html>

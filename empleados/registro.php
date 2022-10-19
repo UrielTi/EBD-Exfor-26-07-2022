@@ -1,4 +1,5 @@
-<?php session_start();
+<?php
+include ("../login/userRestrintion.php");
 include "../include/conn/conn.php";
 include "../cond/todo.php"; ?>
 <!DOCTYPE html>
@@ -287,8 +288,7 @@ include "../cond/todo.php"; ?>
                         <br>
                         <div class="d-flex">
                             <div class="input-group shadow-sm">
-                                <span class="input-group-text w-auto" for="fecha_expedicion">(*) Fecha de Expedición:
-                                </span>
+                                <span class="input-group-text w-auto" for="fecha_expedicion">(*) Fecha de Expedición: </span>
                                 <input name="fecha_expedicion" id="fecha_expedicion" class=" form-control" type="date" required>
                             </div>&nbsp;
                             <br>
@@ -299,17 +299,17 @@ include "../cond/todo.php"; ?>
                             </div>
                         </div>
                         <br>
-
+                        d="fecha_expe
                         <div class="d-flex">
                             <div class="input-group shadow-sm">
                                 <span class="input-group-text w-auto" for="fecha_nacimiento">(*) Fecha de Nacimiento: </span>
-                                <input name="fecha_nacimiento" id="fecha_nacimiento" class=" form-control" type="date" required onblur="calc()">
+                                <input name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" type="date" required onblur="calc()">
                             </div>&nbsp;
                             <br>
 
                             <div class="input-group shadow-sm">
                                 <span class="input-group-text w-auto" for="edad">Edad de ingreso: </span>
-                                <input name="edad" id="edad" class=" form-control" type="number" readonly placeholder="">
+                                <input name="edad" id="edad" class=" form-control" type="number" readonly>
                                 <input name="tiempo" id="tiempo" class=" form-control w-50" type="text" readonly placeholder="Tiempo en días, meses o años">
                             </div>
                         </div>
@@ -401,19 +401,19 @@ include "../cond/todo.php"; ?>
                         <div class="d-flex">
                             <div class="input-group shadow-sm">
                                 <label class="input-group-text w-auto" for="direccion">(*) Dirección: </label>
-                                <input type="text" onkeyup="mayus(this);" name="direccion" id="direccion" class="form-control" placeholder="DIRECCIÓN DEL EMPLEADO" required>
+                                <input type="text" onkeyup="mayus(this);" name="direccion" id="direccion" class="form-control" placeholder="DIRECCIÓN DEL EMPLEADO">
                             </div>&nbsp;
                             <br>
                             <div class="input-group shadow-sm">
                                 <label class="input-group-text w-auto" for="estrato">(*) Estrato socioeconómico: </label>
-                                <input type="number" name="estrato" id="estrato" class=" form-control" placeholder="ESTRATO SOCIOECONÓMICO" required>
+                                <input type="number" name="estrato" id="estrato" class=" form-control" placeholder="ESTRATO SOCIOECONÓMICO">
                             </div>
                         </div>
                         <br>
                         <div class="d-flex">
                             <div class="input-group shadow-sm">
                                 <label class="input-group-text w-auto" for="tip_vivi">(*) Tipo de Vivienda: </label>
-                                <select class="form-select" name="tip_vivi" id="tip_vivi" required>
+                                <select class="form-select" name="tip_vivi" id="tip_vivi">
                                     <option value="">SELECCIONA EL TIPO DE VIVIENDA</option>
                                     <?php
                                     $query = $conn->query("SELECT * FROM tip_vivi");
@@ -580,14 +580,15 @@ include "../cond/todo.php"; ?>
                         <div class="d-flex">
                             <div class="input-group shadow-sm">
                                 <span class="input-group-text w-auto" for="servicio_funerario">Servicio funerario: </span>
-                                <input type="text" onkeyup="mayus(this);" name="servicio_funerario" id="servicio_funerario" class="form-control" placeholder="INGRESA EL SERVICIO FUNERARIO">
+                                <input type="text" onkeyup="mayus(this);" name="serv_funerario" id="serv_funerario" class="form-control" placeholder="INGRESA EL SERVICIO FUNERARIO">
                             </div>&nbsp;
                             <br>
                             <div class="input-group shadow-sm">
                                 <label class="input-group-text w-auto" for="enfermedad">Enfermedad o tratamiento médico: </label>
                                 <select class="form-select" name="enfermedad" id="enfermedad">
-                                    <option value="1" selected>NO</option>
-                                    <option value="2">SI</option>
+                                <option value="" selected>SELECCIONA</option>    
+                                <option value="1">NO</option>
+                                <option value="2">SI</option>
                                 </select>
                             </div>
                         </div>
@@ -622,7 +623,7 @@ include "../cond/todo.php"; ?>
                             <br>
                             <div class="input-group shadow-sm">
                                 <label class="input-group-text w-auto" for="completado">(*) Completado: </label>
-                                <select class="form-select" name="completado" id="completado" required>
+                                <select class="form-select" name="completado" id="completado">
                                     <option value="" selected>SELECCIONA</option>
                                     <option value="1">SI</option>
                                     <option value="0">NO</option>
@@ -686,9 +687,9 @@ include "../cond/todo.php"; ?>
                                     <div class="input-group shadow-sm">
                                         <label class="input-group-text w-auto" for="certificado_curso1"> Titulo certificado: </label>
                                         <select class="form-select" name="certificado_curso1" id="certificado_curso1">
-                                            <option value="" selected>SELECCIONA</option>
-                                            <option value="1">SI</option>
-                                            <option value="0">NO</option>
+                                            <option value="0" selected>SELECCIONA</option>
+                                            <option value="1">NO</option>
+                                            <option value="2">SI</option>
                                         </select>
                                     </div>
                                 </div>
@@ -730,9 +731,9 @@ include "../cond/todo.php"; ?>
                                     <div class="input-group shadow-sm">
                                         <label class="input-group-text w-auto" for="certificado_curso2"> Titulo certificado: </label>
                                         <select class="form-select" name="certificado_curso2" id="certificado_curso2">
-                                            <option value="" selected>SELECCIONA</option>
-                                            <option value="1">SI</option>
-                                            <option value="0">NO</option>
+                                            <option value="0" selected>SELECCIONA</option>
+                                            <option value="1">NO</option>
+                                            <option value="2">SI</option>
                                         </select>
                                     </div>
                                 </div>
@@ -774,9 +775,9 @@ include "../cond/todo.php"; ?>
                                     <div class="input-group shadow-sm">
                                         <label class="input-group-text w-auto" for="certificado_curso3"> Titulo certificado: </label>
                                         <select class="form-select" name="certificado_curso3" id="certificado_curso3">
-                                            <option value="" selected>SELECCIONA</option>
-                                            <option value="1">SI</option>
-                                            <option value="0">NO</option>
+                                            <option value="0" selected>SELECCIONA</option>
+                                            <option value="1">NO</option>
+                                            <option value="2">SI</option>
                                         </select>
                                     </div>
                                 </div>
@@ -818,9 +819,9 @@ include "../cond/todo.php"; ?>
                                     <div class="input-group shadow-sm">
                                         <label class="input-group-text w-auto" for="certificado_curso4"> Titulo certificado: </label>
                                         <select class="form-select" name="certificado_curso4" id="certificado_curso4">
-                                            <option value="" selected>SELECCIONA</option>
-                                            <option value="1">SI</option>
-                                            <option value="0">NO</option>
+                                            <option value="0" selected>SELECCIONA</option>
+                                            <option value="1">NO</option>
+                                            <option value="2">SI</option>
                                         </select>
                                     </div>
                                 </div>

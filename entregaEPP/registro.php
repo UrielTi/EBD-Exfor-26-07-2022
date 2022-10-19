@@ -1,4 +1,5 @@
-<?php session_start();
+<?php
+include("../login/userRestrintion.php");
 include("../include/conn/conn.php");
 include("../cond/todo.php"); ?>
 
@@ -76,7 +77,7 @@ include("../cond/todo.php"); ?>
                                 }
                                 ?>
                             </datalist>
-                            <button type="submit" title="Buscar empleado"name="postid" id="postid" value="Buscar Entregas..." class="btn btn-primary rounded" style="margin-left: 10px;"><i class="bi bi-search"></i></button>
+                            <button type="submit" title="Buscar empleado" name="postid" id="postid" value="Buscar Entregas..." class="btn btn-primary rounded" style="margin-left: 10px;"><i class="bi bi-search"></i></button>
                         </div>
                     </form>
 

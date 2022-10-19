@@ -17,7 +17,7 @@
 include("../../include/conn/conn.php");
 include("headOld.php");
 $id_documento = intval($_GET['id']);
-if (!isset($_SESSION['tipo']) == 'gerente' || ($_SESSION['tipo']) == 'sistemas' || ($_SESSION['tipo']) == 'gestor_riesgo'){
+if ($_SESSION['tipo'] == 'gerente' || $_SESSION['tipo'] == 'sistemas' || $_SESSION['tipo'] == 'gestor_riesgo'){
     $sql = mysqli_query($conn, "SELECT id,codigo,version,nombre,tipo,origen,actualizado,revisado,archivo FROM documentos_obsoletos WHERE id_documento='$id_documento'");
     while ($row = mysqli_fetch_assoc($sql)) {
     $nombreDocumento = $row['archivo'];
@@ -38,31 +38,28 @@ if (!isset($_SESSION['tipo']) == 'gerente' || ($_SESSION['tipo']) == 'sistemas' 
         </td>
     </tr>
     <?php 
-    } 
-    ?>
-<?php
+    }
 } else {
-    $sql = mysqli_query($conn, "SELECT id,codigo,version,nombre,tipo,origen,actualizado,revisado,archivo FROM documentos_obsoletos WHERE id_documento='$id_documento'");
-    while ($row = mysqli_fetch_assoc($sql)) {
-    $nombreDocumento = $row['archivo'];
-    ?>
-    <tr>
-        <td class="align-middle"><?php echo $row['version'] ?></td>
-        <td class="align-middle"><?php echo strtoupper($row['codigo']) ?></td>
-        <td class="align-middle"><a onclick="loadDataDocumental('bi bi-search','Visualización','oldvisualizar',<?php echo $row['id'] ?>)" href="" data-bs-toggle="modal" data-bs-target="#viewDocumental"><?php echo strtoupper($row['nombre']) ?></a></td>
-        <td class="align-middle"><?php echo $row['tipo'] ?></td>
-        <td class="align-middle"><?php echo $row['origen'] ?></td>
-        <td class="align-middle"><?php echo $row['actualizado'] ?></td>
-        <td class="align-middle"><?php echo $row['revisado'] ?></td>
-        <td class="align-middle">
-            <a href="olddownloads.php?file=<?php echo $row['archivo'] ?>" title="Descargar documento" class="btn btn-primary btn-sm"><i class="bi bi-download"></i></a>
-            <a onclick="loadId('../documental_obsoletos/oldvisualizar.php?id=','<?php echo $row['id'] ?>')" data-toggle="tooltip" title="Visualizar documento antiguo" class="btn btn-success btn-sm"> <i class="bi bi-search"></i> </a>
-            <a onclick="loadId('../documental_obsoletos/old_editar.php?id=','<?php echo $row['id'] ?>')" data-toggle="tooltip" title="Editar datos" class="btn btn-success btn-sm"> <i class="bi bi-pencil-fill"></i> </a>
-        </td>
-    </tr>
-    <?php 
-    } 
-    ?>
-<?php
+    if ($_SESSION['tipo'] == 'aux'){
+        $sql = mysqli_query($conn, "SELECT id,codigo,version,nombre,tipo,origen,actualizado,revisado,archivo FROM documentos_obsoletos WHERE id_documento='$id_documento'");
+        while ($row = mysqli_fetch_assoc($sql)) {
+        $nombreDocumento = $row['archivo'];
+        ?>
+        <tr>
+            <td class="align-middle"><?php echo $row['version'] ?></td>
+            <td class="align-middle"><?php echo strtoupper($row['codigo']) ?></td>
+            <td class="align-middle"><a onclick="loadDataDocumental('bi bi-search','Visualización','oldvisualizar',<?php echo $row['id'] ?>)" href="" data-bs-toggle="modal" data-bs-target="#viewDocumental"><?php echo strtoupper($row['nombre']) ?></a></td>
+            <td class="align-middle"><?php echo $row['tipo'] ?></td>
+            <td class="align-middle"><?php echo $row['origen'] ?></td>
+            <td class="align-middle"><?php echo $row['actualizado'] ?></td>
+            <td class="align-middle"><?php echo $row['revisado'] ?></td>
+            <td class="align-middle">
+                <a href="olddownloads.php?file=<?php echo $row['archivo'] ?>" title="Descargar documento" class="btn btn-primary btn-sm"><i class="bi bi-download"></i></a>
+                <a onclick="loadId('../documental_obsoletos/oldvisualizar.php?id=','<?php echo $row['id'] ?>')" data-toggle="tooltip" title="Visualizar documento antiguo" class="btn btn-success btn-sm"> <i class="bi bi-search"></i> </a>
+                <a onclick="loadId('../documental_obsoletos/old_editar.php?id=','<?php echo $row['id'] ?>')" data-toggle="tooltip" title="Editar datos" class="btn btn-success btn-sm"> <i class="bi bi-pencil-fill"></i> </a>
+            </td>
+        </tr>
+        <?php 
+        }
+    }
 }
-?>

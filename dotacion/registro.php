@@ -1,5 +1,6 @@
-<?php 
-    include "../include/conn/conn.php";
+<?php
+include("../login/userRestrintion.php");
+include "../include/conn/conn.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,37 +41,37 @@
     <div class="container-fluid border border-success bg-light">
         <hr>
         <?php
-            if (isset($_POST['input'])) {
-                $nombre = mysqli_real_escape_string($conn, (strip_tags($_POST['nombres'], ENT_QUOTES)));
-                $cedula = mysqli_real_escape_string($conn, (strip_tags($_POST['cedula'], ENT_QUOTES)));
-                $cargo = mysqli_real_escape_string($conn, (strip_tags($_POST['cargo'], ENT_QUOTES)));
-                $nucleo = mysqli_real_escape_string($conn, (strip_tags($_POST['nucleo'], ENT_QUOTES)));
-                $camisa = mysqli_real_escape_string($conn, (strip_tags($_POST['camisa'], ENT_QUOTES)));
-                $pantalon = mysqli_real_escape_string($conn, (strip_tags($_POST['pantalon'], ENT_QUOTES)));
-                $botas = mysqli_real_escape_string($conn, (strip_tags($_POST['botas'], ENT_QUOTES)));
-                $guayo = mysqli_real_escape_string($conn, (strip_tags($_POST['guayo'], ENT_QUOTES)));
-                $fecha1 = mysqli_real_escape_string($conn, (strip_tags($_POST['fecha1'], ENT_QUOTES)));
-                $fecha2 = mysqli_real_escape_string($conn, (strip_tags($_POST['fecha2'], ENT_QUOTES)));
-                $fecha3 = mysqli_real_escape_string($conn, (strip_tags($_POST['fecha3'], ENT_QUOTES)));
+        if (isset($_POST['input'])) {
+            $nombre = mysqli_real_escape_string($conn, (strip_tags($_POST['nombres'], ENT_QUOTES)));
+            $cedula = mysqli_real_escape_string($conn, (strip_tags($_POST['cedula'], ENT_QUOTES)));
+            $cargo = mysqli_real_escape_string($conn, (strip_tags($_POST['cargo'], ENT_QUOTES)));
+            $nucleo = mysqli_real_escape_string($conn, (strip_tags($_POST['nucleo'], ENT_QUOTES)));
+            $camisa = mysqli_real_escape_string($conn, (strip_tags($_POST['camisa'], ENT_QUOTES)));
+            $pantalon = mysqli_real_escape_string($conn, (strip_tags($_POST['pantalon'], ENT_QUOTES)));
+            $botas = mysqli_real_escape_string($conn, (strip_tags($_POST['botas'], ENT_QUOTES)));
+            $guayo = mysqli_real_escape_string($conn, (strip_tags($_POST['guayo'], ENT_QUOTES)));
+            $fecha1 = mysqli_real_escape_string($conn, (strip_tags($_POST['fecha1'], ENT_QUOTES)));
+            $fecha2 = mysqli_real_escape_string($conn, (strip_tags($_POST['fecha2'], ENT_QUOTES)));
+            $fecha3 = mysqli_real_escape_string($conn, (strip_tags($_POST['fecha3'], ENT_QUOTES)));
 
-                if ($fecha1 === ''){
-                    $fecha1 = date('Y').'/01/01';
-                }
-                if ($fecha2 === ''){
-                    $fecha2 = date('Y').'/01/01';
-                }
-                if ($fecha3 === ''){
-                    $fecha3 = date('Y').'/01/01';
-                }
-
-                $insert = mysqli_query($conn, "INSERT INTO dotacion(id, nombre, cedula, cargo, nucleo, camisa, pantalon, botas, guayo, fecha1, fecha2, fecha3)
-                    VALUES (NULL, '$nombre', '$cedula', '$cargo', '$nucleo', '$camisa', '$pantalon', '$botas', '$guayo', '$fecha1', '$fecha2', '$fecha3')") or die(mysqli_error($conn));
-                if ($insert) {
-					echo "<script>alert('Se ha registrado la dotacion!'); window.location = 'index.php'</script>";
-				} else {
-					echo "<script>alert('Error, no se pudo registrar la dotacion'); window.location = 'index.php'</script>";
-				}
+            if ($fecha1 === '') {
+                $fecha1 = date('Y') . '/01/01';
             }
+            if ($fecha2 === '') {
+                $fecha2 = date('Y') . '/01/01';
+            }
+            if ($fecha3 === '') {
+                $fecha3 = date('Y') . '/01/01';
+            }
+
+            $insert = mysqli_query($conn, "INSERT INTO dotacion(id, nombre, cedula, cargo, nucleo, camisa, pantalon, botas, guayo, fecha1, fecha2, fecha3)
+                    VALUES (NULL, '$nombre', '$cedula', '$cargo', '$nucleo', '$camisa', '$pantalon', '$botas', '$guayo', '$fecha1', '$fecha2', '$fecha3')") or die(mysqli_error($conn));
+            if ($insert) {
+                echo "<script>alert('Se ha registrado la dotacion!'); window.location = 'index.php'</script>";
+            } else {
+                echo "<script>alert('Error, no se pudo registrar la dotacion'); window.location = 'index.php'</script>";
+            }
+        }
         ?>
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -90,14 +91,13 @@
 
                 <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="nombres">(*) nombre: </span>
-                    <input name="nombres" id="nombres" class="form-control" type="text" required autocomplete="off"
-                    placeholder="Ingrese el nombre del empleado" list="empleados">
+                    <input name="nombres" id="nombres" class="form-control" type="text" required autocomplete="off" placeholder="Ingrese el nombre del empleado" list="empleados">
                     <datalist id="empleados">
                         <?php
-                            $query = $conn->query("SELECT nombres,cedula FROM clientes");
-                            while ($nombresC = mysqli_fetch_array($query)) {
-                                echo '<option value="' . $nombresC['nombres'] . '">' . $nombresC['cedula'] . '</option>';
-                            }
+                        $query = $conn->query("SELECT nombres,cedula FROM clientes");
+                        while ($nombresC = mysqli_fetch_array($query)) {
+                            echo '<option value="' . $nombresC['nombres'] . '">' . $nombresC['cedula'] . '</option>';
+                        }
                         ?>
                     </datalist>
                 </div>
@@ -105,45 +105,36 @@
 
                 <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="cedula">(*) cedula: </span>
-                    <input name="cedula" id="cedula" class="form-control" type="text" required
-                    placeholder="Ingrese el cedula del empleado" readonly>
+                    <input name="cedula" id="cedula" class="form-control" type="text" required placeholder="Ingrese el cedula del empleado" readonly>
                 </div>
                 <hr>
 
                 <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="cargo">(*) cargo: </span>
-                    <input name="cargo" id="cargo" class="form-control" type="hidden" required
-                    readonly>
-                    <input name="cargo1" id="cargo1" class="form-control" type="text" required
-                    placeholder="Ingrese el cargo del empleado" readonly>
+                    <input name="cargo" id="cargo" class="form-control" type="hidden" required readonly>
+                    <input name="cargo1" id="cargo1" class="form-control" type="text" required placeholder="Ingrese el cargo del empleado" readonly>
                 </div>
                 <hr>
 
                 <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="nucleo">(*) Nucleo: </span>
-                    <input name="nucleo" id="nucleo" class="form-control" type="hidden" required
-                    readonly>
-                    <input name="nucleo1" id="nucleo1" class="form-control" type="text" required
-                    placeholder="Ingrese el nucleo del empleado" readonly>
+                    <input name="nucleo" id="nucleo" class="form-control" type="hidden" required readonly>
+                    <input name="nucleo1" id="nucleo1" class="form-control" type="text" required placeholder="Ingrese el nucleo del empleado" readonly>
                 </div>
                 <hr>
 
                 <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="camisa">(*)Talla camisa:</span>
-                    <input name="camisa" id="camisa" required class="form-control" type="text" 
-                        placeholder="Talla de camisa">
+                    <input name="camisa" id="camisa" required class="form-control" type="text" placeholder="Talla de camisa">
                     <span class="input-group-text w-25" for="pantalon">(*)Talla pantalon:</span>
-                    <input name="pantalon" id="pantalon" required class="form-control" type="text" 
-                        placeholder="Talla de pantalon">
+                    <input name="pantalon" id="pantalon" required class="form-control" type="text" placeholder="Talla de pantalon">
                 </div>
-				<hr>
-				<div class="input-group shadow-sm">
+                <hr>
+                <div class="input-group shadow-sm">
                     <span class="input-group-text w-25" for="botas">(*)Talla botas:</span>
-                    <input name="botas" id="botas" required class="form-control" type="text" 
-                        placeholder="Talla de botas">
+                    <input name="botas" id="botas" required class="form-control" type="text" placeholder="Talla de botas">
                     <span class="input-group-text w-25" for="guayo">(*)Talla guayo:</span>
-					<input name="guayo" id="guayo" required class="form-control" type="text" 
-						placeholder="Talla de guayo">
+                    <input name="guayo" id="guayo" required class="form-control" type="text" placeholder="Talla de guayo">
                 </div>
                 <hr>
 

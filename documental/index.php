@@ -1,4 +1,5 @@
 ﻿<?php
+include("../login/userRestrintion.php");
 include "../include/conn/conn.php";
 ?>
 <!DOCTYPE html>
@@ -56,8 +57,9 @@ include "../include/conn/conn.php";
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <div class="d-inline-flex p-2 bd-highlight">
-                    <a onclick="loadPage('../documental/registro.php')" class="btn btn-success btn-sm"><i class="bi bi-file-earmark-plus-fill"></i>
-                        Cargar documento</a>&nbsp;
+                    <button type="button" onclick="loadPage('../documental/registro.php')" class="btn btn-success btn-sm" <?php $echo = $_SESSION['tipo'] == 'sst' || $_SESSION['tipo'] == 'sena' ? 'disabled' : '';
+                                                                                                                            echo $echo; ?> aria-label="Close"><i class="bi bi-file-earmark-plus-fill"></i>
+                        Cargar documento</button>&nbsp;
                     <a onclick="loadDataDocumental('bi bi-file-zip-fill','PROCEDIMIENTO CONTROL DE DOCUMENTOS','control_procedimiento','v8')" class="btn btn-success btn-sm" href="" data-bs-toggle="modal" data-bs-target="#viewDocumental"><i class="bi bi-info-lg"></i>
                         Control de documentos</a>&nbsp;
                     <a onclick="loadDataTarea('bi bi-book',' Tareas','documental')" class="btn btn-success btn-sm" href="" data-bs-toggle="modal" data-bs-target="#viewDocumental">
@@ -95,6 +97,9 @@ include "../include/conn/conn.php";
                         Servicios Forestales </b></center>
             </div>
         </div>
+        <script src="../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.2.1/jquery.quicksearch.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
         <script>

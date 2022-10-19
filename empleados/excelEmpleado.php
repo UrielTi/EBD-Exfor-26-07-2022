@@ -22,6 +22,8 @@ $spreadsheet->setActiveSheetIndexByName('Hoja de vida');
 $consultaEmpleado = mysqli_query($conn, "SELECT * FROM clientes WHERE id=$id") or die(mysqli_error($conn));
 $resultadoEmpleado = mysqli_fetch_array($consultaEmpleado);
 
+$enfermedad = $resultadoEmpleado['enfermedad'] == '1' ? 'NO' : 'SI';
+
 //Consult Talla Empleado
 $consultaTalla = mysqli_query($conn, "SELECT * FROM cliente_tallas WHERE id_empleado=$id") or die(mysqli_error($conn));
 $resultadoTalla = mysqli_fetch_array($consultaTalla);
@@ -44,7 +46,7 @@ while ($resultadoLaboral = mysqli_fetch_array($consultaLaboral)) {
 }
 
 //Contactos empleados
-$consultaContacto = mysqli_query($conn, "SELECT * FROM cliente_contacto WHERE id_empleado=$id") or die(mysqli_error($conn));
+$consultaContacto = mysqli_query($conn, "SELECT * FROM cliente_contacto WHERE id_empleado=$id AND parentesco != 1") or die(mysqli_error($conn));
 $cliente_contacto = array();
 while ($resultadoContacto = mysqli_fetch_assoc($consultaContacto)) {
     $contactoDirecto = $resultadoContacto['contacto_directo'];
@@ -80,13 +82,14 @@ if ($vehiculo[0] == "W43" && ($resultadoVehiculo['vehiculo'] == 'MOTO' || $resul
 
     $tecnoMec =  $resultadoVehiculo['ven_tecnomecanica'] ? $resultadoVehiculo['ven_tecnomecanica'] : '';
     $venSoat = $resultadoVehiculo['ven_soat'] ? $resultadoVehiculo['ven_soat'] : '';
+    $s = $tecnoMec == '' && $venSoat == '' ? '' : ' - ';
 } else {
     $tipoVehiculo = ["Z43", ""];
 }
 $spreadsheet->getActiveSheet()
     ->setCellValue($vehiculo[0], $vehiculo[1]) //Me coge la lista de la variable vehiculo por ejemplo $vehiculo[0] = "Z43" y $vehiculo[1] = "NO"
     ->setCellValue($tipoVehiculo[0], $tipoVehiculo[1])
-    ->setCellValue('T45', $venSoat . " - " . $tecnoMec);
+    ->setCellValue('T45', $venSoat . $s . $tecnoMec);
 
 $fecha_nacimiento = new DateTime($resultadoEmpleado['fecha_nacimiento']);
 $fecha_ingreso = new DateTime($resultadoEmpleado['fecha_ingreso']);
@@ -96,7 +99,7 @@ $edad = $edad->y; //La y significa los años en la diferencia de fechas
 
 
 $conyugue = array();
-for ($a = 0; $a <= count($cliente_contacto); $a++) {
+for ($a = 0; $a <= count($cliente_contacto); $a++) { // Comprobar el valor que si es 1 (selecciona) que no me lo imprima. igual el "-" en el coso de vehiculo.
     $spreadsheet->getActiveSheet()
         ->setCellValue('A91', $cliente_contacto[0][0])
         ->setCellValue('L91', $cliente_contacto[0][1])
@@ -122,7 +125,7 @@ $spreadsheet->getActiveSheet()
     ->setCellValue('A6', $cargos[$resultadoEmpleado['cargo']])
     ->setCellValue('L6', $nucleos[$resultadoEmpleado['nucleo']])
     ->setCellValue('U6', $resultadoEmpleado['no_contrato'])
-    ->setCellValue('I10', $resultadoEmpleado['nombres'])
+    ->setCellValue('I10', $resultadoEmpleado['nombres'] . ' ' . $resultadoEmpleado['primer_apellido'] . ' ' . $resultadoEmpleado['segundo_apellido'])
     ->setCellValue('D12', $resultadoEmpleado['cedula'])
     ->setCellValue('L12', $resultadoEmpleado['exp_ced'])
     ->setCellValue('X12', $resultadoEmpleado['fecha_expedicion'])
@@ -156,13 +159,14 @@ $spreadsheet->getActiveSheet()
     ->setCellValue('W38', $resultadoEmpleado['arl'])
     ->setCellValue('C39', $cajas[$resultadoEmpleado['caja']])
     ->setCellValue('S39', $resultadoEmpleado['serv_funerario'])
-    ->setCellValue('D108', $resultadoEmpleado['nombres'])
+    ->setCellValue('T42', $enfermedad)
+    ->setCellValue('D108', $resultadoEmpleado['nombres'] .  ' ' . $resultadoEmpleado['primer_apellido'] . ' ' . $resultadoEmpleado['segundo_apellido'])
     ->setCellValue('C109', $resultadoEmpleado['cedula'])
     ->setCellValue('O107', $resultadoEmpleado['fecha_ingreso']);
 
 // Información academica
 while (($queryInfoAcademic = mysqli_fetch_array($selectInfoAcademic)) != NULL) {
-    $nombreTitulo = $niveles_educativos[$queryInfoAcademic['curso']];
+    $nombreTitulo = $queryInfoAcademic['titulo'];
     switch ($queryInfoAcademic['curso']) {
         case 2:
             $checkComplete = $queryInfoAcademic['completado'] == '1' ? 'H52' : 'I52';
@@ -179,35 +183,35 @@ while (($queryInfoAcademic = mysqli_fetch_array($selectInfoAcademic)) != NULL) {
                 ->setCellValue('L54', $queryInfoAcademic['semestre'])
                 ->setCellValue('R54', $nombreTitulo);
             break;
-        case 4:
+        case 5:
             $checkComplete = $queryInfoAcademic['completado'] == '1' ? 'H56' : 'I56';
             $spreadsheet->getActiveSheet()
                 ->setCellValue($checkComplete, 'X')
                 ->setCellValue('L56', $queryInfoAcademic['semestre'])
                 ->setCellValue('R56', $nombreTitulo);
             break;
-        case 5:
+        case 6:
             $checkComplete = $queryInfoAcademic['completado'] == '1' ? 'H58' : 'I58';
             $spreadsheet->getActiveSheet()
                 ->setCellValue($checkComplete, 'X')
                 ->setCellValue('L58', $queryInfoAcademic['semestre'])
                 ->setCellValue('R58', $nombreTitulo);
             break;
-        case 6:
+        case 7:
             $checkComplete = $queryInfoAcademic['completado'] == '1' ? 'H60' : 'I60';
             $spreadsheet->getActiveSheet()
                 ->setCellValue($checkComplete, 'X')
                 ->setCellValue('L60', $queryInfoAcademic['semestre'])
                 ->setCellValue('R60', $nombreTitulo);
             break;
-        case 7:
+        case 8:
             $checkComplete = $queryInfoAcademic['completado'] == '1' ? 'H62' : 'I62';
             $spreadsheet->getActiveSheet()
                 ->setCellValue($checkComplete, 'X')
                 ->setCellValue('L62', $queryInfoAcademic['semestre'])
                 ->setCellValue('R62', $nombreTitulo);
             break;
-        case 8:
+        case 9:
             $checkComplete = $queryInfoAcademic['completado'] == '1' ? 'H64' : 'I64';
             $spreadsheet->getActiveSheet()
                 ->setCellValue($checkComplete, 'X')
@@ -294,7 +298,7 @@ while (($queryContactDirect = mysqli_fetch_array($selectContactDirect)) != NULL)
 }
 
 // Output
-$filename = "HV-" . " " . $resultadoEmpleado['nombres'] . " " . $resultadoEmpleado['primer_apellido'] . " " . "EXFOR S.A.S" . ".xlsx";
+$filename = "HV-" . " " . $resultadoEmpleado['nombres'] . " " . $resultadoEmpleado['primer_apellido'] . " " . $resultadoEmpleado['segundo_apellido'] . " " ."EXFOR S.A.S" . ".xlsx";
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment; filename="' . $filename . '"');
 

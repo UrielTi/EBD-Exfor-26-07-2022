@@ -1,6 +1,6 @@
 ﻿<?php
-    session_start();
-    include "../include/conn/conn.php"; 
+include("../login/userRestrintion.php");
+include "../include/conn/conn.php";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -23,21 +23,21 @@
         </div>
         <hr>
         <?php
-            if(isset($_GET['action']) == 'delete'){
-				$id_delete = intval($_GET['id']);
-				$query = mysqli_query($conn, "SELECT * FROM dotacion WHERE id='$id_delete'");
-				if(mysqli_num_rows($query) == 0){
-					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
-				}else{
-					$delete = mysqli_query($conn, "DELETE FROM dotacion WHERE id='$id_delete'");
-					if($delete){
-						echo '<div class="alert alert-primary alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  Bien hecho, los datos han sido eliminados correctamente.</div>';
-					}else{
-						echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo eliminar los datos.</div>';
-					}
-				}
-			}
-			?>
+        if (isset($_GET['action']) == 'delete') {
+            $id_delete = intval($_GET['id']);
+            $query = mysqli_query($conn, "SELECT * FROM dotacion WHERE id='$id_delete'");
+            if (mysqli_num_rows($query) == 0) {
+                echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
+            } else {
+                $delete = mysqli_query($conn, "DELETE FROM dotacion WHERE id='$id_delete'");
+                if ($delete) {
+                    echo '<div class="alert alert-primary alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  Bien hecho, los datos han sido eliminados correctamente.</div>';
+                } else {
+                    echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo eliminar los datos.</div>';
+                }
+            }
+        }
+        ?>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title"><i class="bi bi-person-fill"></i> Base de datos dotacion EXFOR
@@ -79,8 +79,8 @@
         <br>
         <div class="card-footer">
             <div class="container">
-            <center> <b class="copyright"><a href=""> EXFOR S.A.S</a> &copy;
-                                Servicios Forestales </b></center>
+                <center> <b class="copyright"><a href=""> EXFOR S.A.S</a> &copy;
+                        Servicios Forestales </b></center>
             </div>
         </div>
         <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -89,10 +89,9 @@
         <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
         <script>
-        $(document).ready(function() {
-            $('#table').DataTable();
-        });
-        
+            $(document).ready(function() {
+                $('#table').DataTable();
+            });
         </script>
 </body>
 

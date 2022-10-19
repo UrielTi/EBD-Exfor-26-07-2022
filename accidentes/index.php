@@ -1,4 +1,6 @@
-<?php include "../include/conn/conn.php"; ?>
+<?php
+include("../login/userRestrintion.php");
+include "../include/conn/conn.php"; ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -20,20 +22,20 @@
         </div>
         <hr>
         <?php
-            if (isset($_GET['action']) == 'delete') {
-                $id_delete = intval($_GET['id']);
-                $query = mysqli_query($conn, "SELECT * FROM accidentes WHERE id='$id_delete'");
-                if (mysqli_num_rows($query) == 0) {
-                    echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
+        if (isset($_GET['action']) == 'delete') {
+            $id_delete = intval($_GET['id']);
+            $query = mysqli_query($conn, "SELECT * FROM accidentes WHERE id='$id_delete'");
+            if (mysqli_num_rows($query) == 0) {
+                echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
+            } else {
+                $delete = mysqli_query($conn, "DELETE FROM accidentes WHERE id='$id_delete'");
+                if ($delete) {
+                    echo '<div class="alert alert-primary alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  Bien hecho, los datos han sido eliminados correctamente.</div>';
                 } else {
-                    $delete = mysqli_query($conn, "DELETE FROM accidentes WHERE id='$id_delete'");
-                    if ($delete) {
-                        echo '<div class="alert alert-primary alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  Bien hecho, los datos han sido eliminados correctamente.</div>';
-                    } else {
-                        echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo eliminar los datos.</div>';
-                    }
+                    echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo eliminar los datos.</div>';
                 }
             }
+        }
         ?>
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -89,31 +91,31 @@
                 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
                 <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
                 <script>
-                $(document).ready(function() {
-                    $('#table').DataTable({
-                        "language": {
-                            "sProcessing": "Procesando...",
-                            "sLengthMenu": "Mostrar _MENU_ registros",
-                            "sZeroRecords": "No se encontraron resultados",
-                            "sEmptyTable": "Ningún dato disponible en esta tabla",
-                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                            "sInfoPostFix": "",
-                            "sSearch": "Buscar:",
-                            "sUrl": "",
-                            "sInfoThousands": ",",
-                            "sLoadingRecords": "Cargando...",
-                            "oPaginate": {
-                                "sFirst": "Primero",
-                                "sLast": "Último",
-                                "sNext": "Siguiente",
-                                "sPrevious": "Anterior"
-                            },
+                    $(document).ready(function() {
+                        $('#table').DataTable({
+                            "language": {
+                                "sProcessing": "Procesando...",
+                                "sLengthMenu": "Mostrar _MENU_ registros",
+                                "sZeroRecords": "No se encontraron resultados",
+                                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                                "sInfoPostFix": "",
+                                "sSearch": "Buscar:",
+                                "sUrl": "",
+                                "sInfoThousands": ",",
+                                "sLoadingRecords": "Cargando...",
+                                "oPaginate": {
+                                    "sFirst": "Primero",
+                                    "sLast": "Último",
+                                    "sNext": "Siguiente",
+                                    "sPrevious": "Anterior"
+                                },
 
-                        }
+                            }
+                        });
                     });
-                });
                 </script>
 
 </body>

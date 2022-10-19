@@ -1,5 +1,5 @@
 ﻿<?php
-session_start();
+include ("../login/userRestrintion.php");
 include "../include/conn/conn.php";
 ?>
 <!DOCTYPE html>

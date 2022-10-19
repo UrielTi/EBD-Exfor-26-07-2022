@@ -13,7 +13,7 @@ error_reporting (E_ALL ^ E_NOTICE);
         34 => 'OPERADOR MAQUINARIA',35 => 'COORDINADOR RECURSOS HUMANOS',36 => 'COORDINADOR OPERATIVO',
         37 => 'RECIBIDOR DE VIAS',38 => 'MAMPOSTERO',39 => 'AUXILIAR DE MAMPOSTERIA',40 => 'INVESTIGADOR',
         41 => 'INGENIERO CIVIL', 42 => 'INGENIERO FORESTAL', 43 => 'SOCIAL', 44 => 'MEJORADORA SOCIAL',
-        45 => 'OFICIOS VARIOS'
+        45 => 'OFICIOS VARIOS', 46 => 'AUXILIAR EN SISTEMAS DE INFORMACIÓN'
     ];
 
     $nucleos=[
@@ -42,10 +42,11 @@ error_reporting (E_ALL ^ E_NOTICE);
     ];
 
     $parentescos=[
-        1 => 'FAMILIAR',
-        2 => 'CONYUGUE',
-        3 => 'AMIGO',
-        4 => 'COMPAÑERO DE TABAJO'
+        1 => 'SELECCIONA',
+        2 => 'FAMILIAR',
+        3 => 'CONYUGUE',
+        4 => 'AMIGO',
+        5 => 'COMPAÑERO DE TRABAJO'
     ];
 
     $programas=[

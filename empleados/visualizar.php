@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php include ("../login/userRestrintion.php"); ?>
 <!DOCTYPE html>
 <html lang="es">
 
