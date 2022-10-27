@@ -1,6 +1,7 @@
 ﻿<?php
-session_start();
-include "../include/conn/conn.php";
+include('../login/userRestrintion.php');
+include ('../include/conn/conn.php');
+include ('../cond/todo.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -50,37 +51,26 @@ include "../include/conn/conn.php";
                             Gracias!</strong></center>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div class="d-flex align-items-start">
-                    <a href="registro.php" class="btn btn-sm btn-success"> <i class="bi bi-bag-plus-fill"></i> Registrar nuevo
-                        elemento</a>&nbsp;
+                <div class="d-grid gap-2 d-md-block">
+                    <a href="registro.php" class="btn btn-sm btn-success"> <i class="bi bi-bag-plus-fill"></i> Registrar nuevo elemento</a>
                     <a onclick="loadData('bi bi-search','Visualización del elemento por agotarse','ElementSold','');" href="" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#mimodal"> <i class="bi bi-person-fill"></i>
                         Elementos por agotarse <span class="badge rounded-pill bg-danger"><?php
                                                                                             $sqlcont = mysqli_query($conn, "SELECT count(*)  AS totalAgotados FROM epp e WHERE stock <= 10;");
                                                                                             $conteo = mysqli_fetch_assoc($sqlcont);
                                                                                             echo $conteo['totalAgotados'];
-                                                                                            ?></span></a>&nbsp;
-                    <a onclick="loadData('bi bi-search','Visualización del elemento de alta rotación','elementRotation','');" href="" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#mimodal"> <i class="bi bi-heart-fill"></i>
-                        Elementos de alta rotación</a>&nbsp;
-                    <a href="../entregaEPP/index.php" class="btn btn-sm btn-success"> <i class="bi bi-person-plus-fill"></i> Nueva
-                        entrega de epp</a>&nbsp;
-                    <a onclick="loadDataTarea('bi bi-book',' Tareas','epp')" class="btn btn-sm btn-success" href="" data-bs-toggle="modal" data-bs-target="#mimodal">
-                        <i class="bi bi-book-fill"></i> Tareas</a>&nbsp;
-                    <form name="form2" id="form2" class="form-horizontal row-fluid" action="index.php" method="POST" enctype="multipart/form-data">
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text w-25" id="inputGroup-sizing-sm"> Núcleo: </span>
-                            <select class="form-select form-select-sm" id="select_nucleo" aria-label=".form-select-sm example">
-                                <option selected> Selecciona núcleo </option>
-                                <option value="1"> Ambos núcleos </option>
-                                <option value="2"> Santa Rosa </option>
-                                <option value="3"> Riosucio </option>
-                            </select>
-                            <input type="hidden" name="input_nucleo" id="input_nucleo">
-                            <button type="submit" name="filtro_nucleo" id="filtro_nucleo" class="btn btn-primary btn-sm">Filtrar núcleo</button>
-                    </form>
+                                                                                            ?></span></a>
+                    <a onclick="loadData('bi bi-search','Visualización del elemento de alta rotación','elementRotation','');" href="" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#mimodal"> <i class="bi bi-heart-fill"></i> Elementos de alta rotación</a>
+                    <a href="../entregaEPP/index.php" class="btn btn-sm btn-success"> <i class="bi bi-person-plus-fill"></i> Nueva entrega de epp</a>
+                    <a onclick="loadDataTarea('bi bi-book',' Tareas','epp')" class="btn btn-sm btn-success" href="" data-bs-toggle="modal" data-bs-target="#mimodal"><i class="bi bi-book-fill"></i> Tareas</a>
                 </div>
+                <?php
+                if ($_SESSION['tipo'] == 'gerente' || $_SESSION['tipo'] == 'sistemas' || $_SESSION['tipo'] == 'gestor_riesgo'){
+                    include('filtradoDeNucleo.php');
+                }
+                ?>
             </div>
             <hr>
-            <div class="table-responsive">
+            <div class="table-responsive-sm">
                 <table id="table" class="table table-bordered border-dark table-striped text-center">
                     <thead>
                         <tr class="table-success border-success">

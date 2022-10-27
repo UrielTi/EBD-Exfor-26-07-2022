@@ -14,10 +14,6 @@
     </div>
 </div>
 <?php
-include("../include/conn/conn.php");
-include("../cond/todo.php");
-?>
-<?php
 if (isset($_POST['filtro_nucleo'])) {
     $input_nucleo = mysqli_real_escape_string($conn, (strip_tags($_POST['input_nucleo'], ENT_QUOTES)));
     if ($input_nucleo == '1') {
@@ -35,7 +31,6 @@ if (isset($_POST['filtro_nucleo'])) {
                 <td>
                     <a href="visualizar.php?id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Visualizar" class="btn btn-sm btn-secondary"> <i class="bi bi-search"></i> </a>
                     <a href="editar.php?id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Editar datos" class="btn btn-sm btn-success"> <i class="bi bi-pencil-fill"></i> </a>
-                    <!-- <a href="../entregaEPP/index.php" data-toggle="tooltip" title="Entrega epp" class="btn btn-sm btn-info"> <i class="bi bi-heart-fill"></i> </a> -->
                     <a href="index.php?action=delete&id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos de: <?php echo $row['nombre'] ?>?\')" class="btn btn-sm btn-danger"> <i class="bi bi-trash-fill"></i> </a>
                 </td>
             </tr>
@@ -60,7 +55,6 @@ if (isset($_POST['filtro_nucleo'])) {
                     <td>
                         <a href="visualizar.php?id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Visualizar" class="btn btn-sm btn-success"> <i class="bi bi-search"></i> </a>
                         <a href="editar.php?id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Editar datos" class="btn btn-sm btn-success"> <i class="bi bi-pencil-fill"></i> </a>
-                        <!-- <a href="../entregaEPP/index.php" data-toggle="tooltip" title="Entrega epp" class="btn btn-sm btn-info"> <i class="bi bi-heart-fill"></i> </a> -->
                         <a href="index.php?action=delete&id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos de: <?php echo $row['nombre'] ?>?\')" class="btn btn-sm btn-danger"> <i class="bi bi-trash-fill"></i> </a>
                     </td>
                 </tr>
@@ -85,7 +79,6 @@ if (isset($_POST['filtro_nucleo'])) {
                         <td>
                             <a href="visualizar.php?id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Visualizar" class="btn btn-sm btn-dark"> <i class="bi bi-search"></i> </a>
                             <a href="editar.php?id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Editar datos" class="btn btn-sm btn-success"> <i class="bi bi-pencil-fill"></i> </a>
-                            <!-- <a href="../entregaEPP/index.php" data-toggle="tooltip" title="Entrega epp" class="btn btn-sm btn-info"> <i class="bi bi-heart-fill"></i> </a> -->
                             <a href="index.php?action=delete&id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos de: <?php echo $row['nombre'] ?>?\')" class="btn btn-sm btn-danger"> <i class="bi bi-trash-fill"></i> </a>
                         </td>
                     </tr>
@@ -104,7 +97,7 @@ if (isset($_POST['filtro_nucleo'])) {
     ?>
     <?php
 } else {
-    if ($_SESSION['tipo'] == 'gerente' || $_SESSION['tipo'] == 'sistemas' || $_SESSION['tipo'] == 'admin' || $_SESSION['tipo'] == 'gestor_riesgo') {
+    if ($_SESSION['tipo'] == 'gerente' || $_SESSION['tipo'] == 'sistemas' || $_SESSION['tipo'] == 'gestor_riesgo') {
         $sql = mysqli_query($conn, "SELECT * FROM epp");
         while ($row = mysqli_fetch_assoc($sql)) {
         ?>
@@ -119,7 +112,6 @@ if (isset($_POST['filtro_nucleo'])) {
                 <td>
                     <a href="visualizar.php?id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Visualizar" class="btn btn-sm btn-secondary"> <i class="bi bi-search"></i> </a>
                     <a href="editar.php?id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Editar datos" class="btn btn-sm btn-success"> <i class="bi bi-pencil-fill"></i> </a>
-                    <!-- <a href="../entregaEPP/index.php" data-toggle="tooltip" title="Entrega epp" class="btn btn-sm btn-info"> <i class="bi bi-heart-fill"></i> </a> -->
                     <a href="index.php?action=delete&id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos de: <?php echo $row['nombre'] ?>?\')" class="btn btn-sm btn-danger"> <i class="bi bi-trash-fill"></i> </a>
                 </td>
             </tr>
@@ -128,9 +120,48 @@ if (isset($_POST['filtro_nucleo'])) {
         ?>
     <?php
     } else {
-        if ($_SESSION['tipo'] == 'supervisor' || $_SESSION['tipo'] == 'contador' || $_SESSION['nucleo'] == '2') {
+        if ($_SESSION['nucleo'] == '1' && $_SESSION['tipo'] == 'aux') {
+            $sql = mysqli_query($conn, "SELECT * FROM epp WHERE nucleo=1");
+            while ($row = mysqli_fetch_assoc($sql)) {
+            ?>
+                <tr class="table-responsive">
+                    <td><?php echo $row['codigo'] ?></td>
+                    <td><img width="80%" src="data:image/jpg;base64,<?php echo base64_encode($row['imagen']); ?>"></td>
+                    <td><a onclick="loadData('bi bi-search','Visualización del elemento','visualizar',<?php echo  $row['id'] ?>)" href="" data-bs-toggle="modal" data-bs-target="#mimodal"><?php echo $row['nombre'] ?></a></td>
+                    <td><?php echo $row['stock'] ?></td>
+                    <td><?php echo $nucleosEmpleado[$row['nucleo']] ?></td>
+                    <td><?php echo $row['proveedor'] ?></td>
+                    <td><?php echo $row['precio'] ?></td>
+                    <td>
+                        <a href="visualizar.php?id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Visualizar" class="btn btn-sm btn-success"> <i class="bi bi-search"></i> </a>
+                        <a href="editar.php?id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Editar datos" class="btn btn-sm btn-success"> <i class="bi bi-pencil-fill"></i> </a>
+                    </td>
+                </tr>
 
-            echo "<script>alert('Usted no puede acceder a este sistema'); window.location = '../empleados/index.php'</script>";
+            <?php
+            }
+        } else {
+            if ($_SESSION['nucleo'] == '3' && $_SESSION['tipo'] == 'aux') {
+                $sql = mysqli_query($conn, "SELECT * FROM epp WHERE nucleo=3");
+                while ($row = mysqli_fetch_assoc($sql)) {
+                ?>
+                    <tr class="table-responsive">
+                        <td><?php echo $row['codigo'] ?></td>
+                        <td><img width="80%" src="data:image/jpg;base64,<?php echo base64_encode($row['imagen']); ?>"></td>
+                        <td><a onclick="loadData('bi bi-search','Visualización del elemento','visualizar',<?php echo  $row['id'] ?>)" href="" data-bs-toggle="modal" data-bs-target="#mimodal"><?php echo $row['nombre'] ?></a></td>
+                        <td><?php echo $row['stock'] ?></td>
+                        <td><?php echo $nucleosEmpleado[$row['nucleo']] ?></td>
+                        <td><?php echo $row['proveedor'] ?></td>
+                        <td><?php echo $row['precio'] ?></td>
+                        <td>
+                            <a href="visualizar.php?id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Visualizar" class="btn btn-sm btn-success"> <i class="bi bi-search"></i> </a>
+                            <a href="editar.php?id=<?php echo $row['id'] ?>" data-toggle="tooltip" title="Editar datos" class="btn btn-sm btn-success"> <i class="bi bi-pencil-fill"></i> </a>
+                        </td>
+                    </tr>
+    
+                <?php
+                }
+            }
         }
     }
     ?>
