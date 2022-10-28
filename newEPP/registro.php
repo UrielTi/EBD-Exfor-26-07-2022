@@ -6,7 +6,6 @@ include('../include/conn/conn.php');
 <html lang="es">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="./css/inputFile.css">
     <?php include("head.php"); ?>
 </head>
 
@@ -59,14 +58,13 @@ include('../include/conn/conn.php');
                 </div>
                 <br>
                 <div class="custom-input-file d-grid gap-2 d-md-block col-6 mx-auto shadow">
-                    <input type="file" id="fichero-tarifas" name="img" class="input-file" value="">
+                    <input type="file" id="fichero-tarifas" name="img" class="input-file" value="" required>
                     <i class="bi bi-camera-fill"></i> Imágen del elemento <i class="bi bi-paperclip"></i>
                 </div>
                 <br>
                 <!-- Tallas (única o multiples) -->
                 <?php include('../newEPP/tabla_tallas.php') ?>
                 <hr>
-                <p>
             </div>
             <span class="badge" style="font-size: 17px; margin-left: 13px; background-color: #0d6efdff;"> Total del elemento: </span>
             <br><br>
@@ -85,9 +83,6 @@ include('../include/conn/conn.php');
         <br>
 
         <div class="control-group">
-            <center>
-                <h6>Para registrar los cambios realizados, dar clic en el siguiente botón de Registrar o de lo contrario en el botón de Cancelar para salir:</h6>
-            </center>
             <div class="controls">
                 <center><button type="submit" name="input" id="input" class="btn btn-sm btn-success"><i class="bi bi-bag-plus-fill"></i></i> Registrar</button>
                     <a href="index.php" class="btn btn-sm btn-secondary"><i class="bi bi-x-circle"></i> Cancelar</a>

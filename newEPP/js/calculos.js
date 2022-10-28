@@ -1,29 +1,23 @@
 var tallas = ["tallaU", "tallaS", "tallaM", "tallaL", "tallaXL", "tallaXXL", "talla28", "talla29", "talla30", "talla31", "talla32", "talla33", "talla34", "talla35", "talla36", "talla37", "talla38", "talla39", "talla40", "talla41", "talla42", "talla43"]
 var precios = ["precioU", "precioS", "precioM", "precioL", "precioXL", "precioXXL", "precio28", "precio29", "precio30", "precio31", "precio32", "precio33", "precio34", "precio35", "precio36", "precio37", "precio38", "precio39", "precio40", "precio41", "precio42", "precio43"]
 
+// Función que nos va a permitir sumar la cantidad y el precio al mismo tiempo.
 
-function CantTotal() {
-    let total_cantidad = 0;
-    for (var i = 0; i < tallas.length; i++) {
-        try {
-            var uno = parseInt(document.getElementById(tallas[i]).value) || 0;
-            total_cantidad += uno;
-            document.getElementById("cantidad").value = total_cantidad;
-        } catch (e) { }
+function calcTotal() {
+    let totalPrecio = 0;
+    let totalCantidad = 0;
 
-    }
-}
-
-function PrecTotal() {
-    let total_precios = 0;
     for (var i = 0; i < tallas.length; i++) {
         try {
             var uno = parseInt(document.getElementById(tallas[i]).value) || 0;
             var dos = parseInt(document.getElementById(precios[i]).value) || 0;
-            total_precios += uno * dos;
-            document.getElementById("precio").value = total_precios;
-        } catch (e) {}
 
+            totalPrecio += uno * dos;
+            totalCantidad += uno;
+
+            document.getElementById("cantidad").value = totalCantidad;
+            document.getElementById("precio").value = totalPrecio;
+        } catch (e) {}
     }
 }
 function mayus(e) {
