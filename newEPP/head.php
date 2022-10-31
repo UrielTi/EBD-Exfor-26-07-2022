@@ -21,8 +21,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="../stacktable.js/js/stacktable.js"></script>
-<link href="../stacktable.js/css/stacktable.css" rel="stylesheet">
 <!-- Javascripts calculos y demás -->
 <script src="./js/calculos.js" type="text/javascript"></script>
 <script src="./js/filtro.js"></script>

@@ -14,7 +14,6 @@ include('../include/conn/conn.php');
 
     <div class="container-fluid border border-success bg-light">
 
-        <?php include('insert.php'); ?>
         <hr>
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -31,9 +30,10 @@ include('../include/conn/conn.php');
                             Ir al Inventario </a>
                     </div>
                 </div>
+                <hr>
+                <?php include('insert.php'); ?>
                 <form name="form1" id="form1" class="form-horizontal row-fluid" action="registro.php" method="POST" enctype="multipart/form-data">
             </div>
-            <hr>
             <!-- información elemento -->
             <span class="badge text-bg-success" style="font-size: 17px; margin-left: 13px;"> Datos del Elemento: </span>
             <br><br>
@@ -53,7 +53,7 @@ include('../include/conn/conn.php');
                     <select id="my_selector" name="tipo_talla" class="form-select rounded-start shadow-sm" style="border-color: #198754; border-width: 1px;" aria-label="Default select example" required>
                         <option value="1">Tipo de Talla</option>
                         <option value="2">Única</option>
-                        <option value="3">Múltiple</option> <!-- Colocar aria controls a los collapse de abajo -->
+                        <option value="3">Múltiple</option>
                     </select>
                 </div>
                 <br>

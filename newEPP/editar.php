@@ -81,13 +81,14 @@
 					<i class="bi bi-camera-fill"></i> Imágen del elemento <i class="bi bi-paperclip"></i>
 				</div>
 				<br>
+				<hr>
 				<div class="container-fluid">
 
 					<input type="hidden" name="id" id="id" value="<?php echo $row['id']; ?>">
 
-					<div class="input-group shadow-sm">
-						<span class="input-group-text" style="background-color: #198754; color: white; border-width: 1px; border-color: #198754;"> Código: </span>
-						<input class="form-control" style="border-color: #198754; border-width: 1px; max-width: 30%;" type="text" name="codigo" id="codigo" value="<?php echo $row['codigo']; ?>" readonly>
+					<div class="input-group">
+						<span class="input-group-text shadow-sm" style="background-color: #198754; color: white; border-width: 1px; border-color: #198754;"> Código: </span>
+						<input class="form-control shadow-sm" style="border-color: #198754; border-width: 1px; max-width: 30%;" type="text" name="codigo" id="codigo" value="<?php echo $row['codigo']; ?>" readonly>
 					</div>
 					<br>
 

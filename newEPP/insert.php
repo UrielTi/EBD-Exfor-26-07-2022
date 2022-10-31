@@ -58,6 +58,19 @@ if (isset($_POST['input'])) {
     //alta rotacion
     $rotacion = mysqli_real_escape_string($conn, (strip_tags($_POST['rotacion'], ENT_QUOTES)));
 
+    // Determinar la imagen y convertirla a webp si es necesario
+    // $extension = pathinfo($archivo, PATHINFO_EXTENSION);
+    // if ($extension == 'jpeg' || $extension == 'jpg') {
+    //     $imagen = imagecreatefromjpeg($archivo);
+    // } else if ($extension == 'gif') {
+    //     $imagen = imagecreatefromgif($archivo);
+    // } else if ($extension == 'png') {
+    //     $imagen = imagecreatefrompng($archivo);
+    // } else if ($extension == 'webp') {
+    //     $imagen = $archivo;
+    // } else {
+    //     $imagen = 
+    // }
     $sql_nucleo = mysqli_query($conn, "SELECT * FROM nucleos WHERE id_nucleos='$nucleo'");
     $row_nucleo = mysqli_fetch_assoc($sql_nucleo);
     $aleatorio = mt_rand(100, 999);
@@ -145,10 +158,8 @@ if (isset($_POST['input'])) {
         if ($talla43 >= '0') {
             $insertEppTallas = mysqli_query($conn, "INSERT INTO elemento_tallas(id, id_elemento, talla, cantidad, precio)VALUES(NULL, '$id_elemento', '43', '$talla43', '$precio43')") or die(mysqli_error($conn));
         }
-        echo '<div class="alert alert-success alert-dismissable">
-        <center>&nbsp; Se ha registrado correctamente el elemento &nbsp;<button type="button" class="btn btn-outline-success" data-dismiss="alert" aria-hidden="true">Cerrar Ventana &times;</button></center>
-    </div>';
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert"><center> Se ha registrado correctamente el elemento en el inventario </center><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
     } else {
-        echo '<div class="alert alert-danger alert-dismissable">&nbsp; No se pudo registrar el elemento verifique los datos &nbsp;<button type="button" class="btn btn-outline-success" data-dismiss="alert" aria-hidden="true">Volver Intentar &times;</button></div>';
+        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert"><center> No se pudo registrar el elemento en el inventario </center><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
     }
 }

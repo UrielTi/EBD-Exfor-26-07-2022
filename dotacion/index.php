@@ -15,7 +15,7 @@ include "../include/conn/conn.php";
     <div class="container-fluid border border-success bg-light">
         <hr>
         <div class="alert alert-success" role="alert">
-            <center><strong>¡Hola!</strong> Asegúrate que la información que estas diligenciando esté
+            <center><strong>¡Hola!</strong> Asegúrate que la información que estas diligenciando esté hola
                 actualizada hasta la fecha, en cualquier caso si necesitas modificar algún dato en otro
                 momento puedes hacerlo con el botón <i class="bi bi-pencil-fill"></i> o en "Editar
                 Información" en la visualización del empleado <i class="bi bi-search"></i> , <strong>¡Muchas

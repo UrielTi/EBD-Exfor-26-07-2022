@@ -437,8 +437,8 @@ if (isset($_POST['update'])) {
 				$updateTalla43 = mysqli_query($conn, "UPDATE elemento_tallas SET cantidad='$talla43', precio='$precio43' WHERE id=$id43 and id_elemento=$id");
 			}
 		}
-		echo "<script>alert('Los datos del elemento se han actualizado correctamente'); window.location = 'editar.php?id=$id'</script>";
-	} else {
-		echo "<script>alert('No se pudo actualizar el elemento verifique los datos'); window.location = 'editar.php?id=$id'</script>";
-	}
+		echo '<div class="alert alert-success alert-dismissible fade show" role="alert"><center> Se ha guardado correctamente los cambios realizados en el elemento </center><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+    } else {
+        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert"><center> No pudimos guardar los cambios realizados en el elemento </center><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+    }
 }
