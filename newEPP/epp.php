@@ -22,7 +22,7 @@ if (isset($_POST['filtro_nucleo'])) {
         ?>
             <tr class="table-responsive">
                 <td><?php echo $row['codigo'] ?></td>
-                <td><img width="80px" src="data:image/jpg;base64,<?php echo base64_encode($row['imagen']); ?>"></td>
+                <td><td><img src="<?php echo $row['imagen']; ?>" width="5%"></td></td>
                 <td><a onclick="loadData('bi bi-search','Visualización del elemento','visualizar',<?php echo  $row['id'] ?>)" href="" data-bs-toggle="modal" data-bs-target="#mimodal"><?php echo $row['nombre'] ?></a></td>
                 <td><?php echo $row['stock'] ?></td>
                 <td><?php echo $nucleosEmpleado[$row['nucleo']] ?></td>
@@ -46,7 +46,7 @@ if (isset($_POST['filtro_nucleo'])) {
             ?>
                 <tr class="table-responsive">
                     <td><?php echo $row['codigo'] ?></td>
-                    <td><img width="80px" src="data:image/jpg;base64,<?php echo base64_encode($row['imagen']); ?>"></td>
+                    <td><td><img src="<?php echo $row['imagen']; ?>" width="5%"></td></td>
                     <td><a onclick="loadData('bi bi-search','Visualización del elemento','visualizar',<?php echo  $row['id'] ?>)" href="" data-bs-toggle="modal" data-bs-target="#mimodal"><?php echo $row['nombre'] ?></a></td>
                     <td><?php echo $row['stock'] ?></td>
                     <td><?php echo $nucleosEmpleado[$row['nucleo']] ?></td>
@@ -70,7 +70,7 @@ if (isset($_POST['filtro_nucleo'])) {
                 ?>
                     <tr class="table-responsive">
                         <td><?php echo $row['codigo'] ?></td>
-                        <td><img width="80px" src="data:image/jpg;base64,<?php echo base64_encode($row['imagen']); ?>"></td>
+                        <td><td><img src="<?php echo $row['imagen']; ?>" width="5%"></td></td>
                         <td><a onclick="loadData('bi bi-search','Visualización del elemento','visualizar',<?php echo  $row['id'] ?>)" href="" data-bs-toggle="modal" data-bs-target="#mimodal"><?php echo $row['nombre'] ?></a></td>
                         <td><?php echo $row['stock'] ?></td>
                         <td><?php echo $nucleosEmpleado[$row['nucleo']] ?></td>
@@ -103,7 +103,7 @@ if (isset($_POST['filtro_nucleo'])) {
         ?>
             <tr class="table-responsive">
                 <td><?php echo $row['codigo'] ?></td>
-                <td><img width="80px" src="data:image/jpg;base64,<?php echo base64_encode($row['imagen']); ?>"></td>
+                <td><td><img src="<?php echo $row['imagen']; ?>" width="5%"></td></td>
                 <td><a onclick="loadData('bi bi-search','Visualización del elemento','visualizar',<?php echo  $row['id'] ?>)" href="" data-bs-toggle="modal" data-bs-target="#mimodal"><?php echo $row['nombre'] ?></a></td>
                 <td><?php echo $row['stock'] ?></td>
                 <td><?php echo $nucleosEmpleado[$row['nucleo']] ?></td>
@@ -126,7 +126,7 @@ if (isset($_POST['filtro_nucleo'])) {
             ?>
                 <tr class="table-responsive">
                     <td><?php echo $row['codigo'] ?></td>
-                    <td><img width="80px" src="data:image/jpg;base64,<?php echo base64_encode($row['imagen']); ?>"></td>
+                    <td><td><img src="<?php echo $row['imagen']; ?>" width="5%"></td></td>
                     <td><a onclick="loadData('bi bi-search','Visualización del elemento','visualizar',<?php echo  $row['id'] ?>)" href="" data-bs-toggle="modal" data-bs-target="#mimodal"><?php echo $row['nombre'] ?></a></td>
                     <td><?php echo $row['stock'] ?></td>
                     <td><?php echo $nucleosEmpleado[$row['nucleo']] ?></td>
@@ -147,7 +147,7 @@ if (isset($_POST['filtro_nucleo'])) {
                 ?>
                     <tr class="table-responsive">
                         <td><?php echo $row['codigo'] ?></td>
-                        <td><img width="80px" src="data:image/jpg;base64,<?php echo base64_encode($row['imagen']); ?>"></td>
+                        <td><td><img src="<?php echo $row['imagen']; ?>" width="5%"></td></td>
                         <td><a onclick="loadData('bi bi-search','Visualización del elemento','visualizar',<?php echo  $row['id'] ?>)" href="" data-bs-toggle="modal" data-bs-target="#mimodal"><?php echo $row['nombre'] ?></a></td>
                         <td><?php echo $row['stock'] ?></td>
                         <td><?php echo $nucleosEmpleado[$row['nucleo']] ?></td>

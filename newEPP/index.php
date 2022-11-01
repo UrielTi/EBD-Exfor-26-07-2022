@@ -1,7 +1,7 @@
 ﻿<?php
 include('../login/userRestrintion.php');
-include ('../include/conn/conn.php');
-include ('../cond/todo.php');
+include('../include/conn/conn.php');
+include('../cond/todo.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -14,6 +14,7 @@ include ('../cond/todo.php');
     <?php include("../include/navegacion/nav.php"); ?>
 
     <div class="container-fluid border border-success bg-light">
+    <hr>
         <?php
         if (isset($_GET['action']) == 'delete') {
             $id_delete = intval($_GET['id']);
@@ -21,21 +22,17 @@ include ('../cond/todo.php');
             if (mysqli_num_rows($query) == 0) {
                 echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
             } else {
-                $sql = mysqli_query($conn, "SELECT * FROM epp WHERE id='$id_delete'");
-                $row = mysqli_fetch_assoc($sql);
-                $img_bd = $row['imagen'];
-                unlink('files/' . $img_bd);
-
                 $delete = mysqli_query($conn, "DELETE FROM epp WHERE id='$id_delete'");
-                if ($delete) {
-                    echo '<div class="alert alert-primary alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  Bien hecho, los datos han sido eliminados correctamente.</div>';
+                $delete2 = mysqli_query($conn, "DELETE FROM elemento_tallas WHERE id_elemento='$id_delete'");
+
+                if ($delete || $delete2) {
+                    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert"><center> Se ha eliminado correctamente el registro del elemento </center><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                 } else {
-                    echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo eliminar los datos.</div>';
+                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert"><center> No se pudo eliminar el registro del elemento </center><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                 }
             }
         }
         ?>
-        <hr>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <p class="h3"><i class="bi bi-file-earmark-text-fill"></i> Sistema de inventario de elementos EXFOR S.A.S </p>
@@ -64,7 +61,7 @@ include ('../cond/todo.php');
                     <a onclick="loadDataTarea('bi bi-book',' Tareas','epp')" class="btn btn-sm btn-success" href="" data-bs-toggle="modal" data-bs-target="#mimodal"><i class="bi bi-book-fill"></i> Tareas</a>
                 </div>
                 <?php
-                if ($_SESSION['tipo'] == 'gerente' || $_SESSION['tipo'] == 'sistemas' || $_SESSION['tipo'] == 'gestor_riesgo'){
+                if ($_SESSION['tipo'] == 'gerente' || $_SESSION['tipo'] == 'sistemas' || $_SESSION['tipo'] == 'gestor_riesgo') {
                     include('filtradoDeNucleo.php');
                 }
                 ?>
@@ -129,7 +126,6 @@ include ('../cond/todo.php');
                 }
             });
         });
-
     </script>
 </body>
 

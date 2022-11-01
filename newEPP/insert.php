@@ -7,7 +7,8 @@ if (isset($_POST['input'])) {
     $proveedor = mysqli_real_escape_string($conn, (strip_tags($_POST['proveedor'], ENT_QUOTES)));
     $precio = mysqli_real_escape_string($conn, (strip_tags($_POST['precio'], ENT_QUOTES)));
 
-    $imagen = mysqli_real_escape_string($conn, (file_get_contents($_FILES["img"]["tmp_name"], ENT_QUOTES)));
+    $archivo = mysqli_real_escape_string($conn, (strip_tags($_FILES['img']['name'], ENT_QUOTES)));
+
     //TALLAS
     $tipo_talla = mysqli_real_escape_string($conn, (strip_tags($_POST['tipo_talla'], ENT_QUOTES)));
     $tallaU = mysqli_real_escape_string($conn, (strip_tags($_POST['tallaU'], ENT_QUOTES)));
@@ -59,19 +60,49 @@ if (isset($_POST['input'])) {
     $rotacion = mysqli_real_escape_string($conn, (strip_tags($_POST['rotacion'], ENT_QUOTES)));
 
     // Determinar la imagen y convertirla a webp si es necesario
-    // $extension = pathinfo($archivo, PATHINFO_EXTENSION);
-    // if ($extension == 'jpeg' || $extension == 'jpg') {
-    //     $imagen = imagecreatefromjpeg($archivo);
-    // } else if ($extension == 'gif') {
-    //     $imagen = imagecreatefromgif($archivo);
-    // } else if ($extension == 'png') {
-    //     $imagen = imagecreatefrompng($archivo);
-    // } else if ($extension == 'webp') {
-    //     $imagen = $archivo;
-    // } else {
-    //     $imagen = 
-    // }
-    $sql_nucleo = mysqli_query($conn, "SELECT * FROM nucleos WHERE id_nucleos='$nucleo'");
+    $path = "temp/" . $archivo;
+    $extension = pathinfo($path, PATHINFO_EXTENSION);
+
+    if ($_FILES['img']['error'] > 0) {
+        echo "<script>alert('Error inesperado al subir el archivo'); window.location = 'registro.php'</script>";
+    } else {
+        $limite_kb = 200;
+        if ($_FILES["img"]["size"] <= ($limite_kb * 1024)) {
+            if ($extension == 'jpeg' || $extension == 'jpg' || $extension == 'png' || $extension == 'webp') {
+                // Primero subimos el archivo para poder modificarlo
+                $ruta = "temp/";
+                $imagePath = $ruta . $archivo;
+                $quality = 80;
+
+                move_uploaded_file($_FILES["img"]["tmp_name"], $imagePath);
+
+                // comprobamos el tipo de imagen y la convertimos si es el caso
+                if ($extension == 'jpeg' || $extension == 'jpg') {
+                    //Obtengo la imagen guardada
+                    $im = imagecreatefromjpeg($imagePath);
+                    //Se le asigna el nuevo tipo de imagen
+                    $newImagePath = str_replace("jpg", "webp", $imagePath);
+                    //Se convierte la imagen
+                    imagewebp($im, $newImagePath, $quality);
+                    imagedestroy($im);
+                    $imagen = $newImagePath;
+                } else if ($extension == 'png') {
+                    $im = imagecreatefrompng($imagePath);
+                    $newImagePath = str_replace("png", "webp", $imagePath);
+                    imagewebp($im, $newImagePath, $quality);
+                    imagedestroy($im);
+                    $imagen = $newImagePath;
+                } else if ($extension == 'webp') {
+                    $imagen = $archivo;
+                }
+            } else {
+                echo "<script>alert(' La imágen no es del tipo JPEG, JPG, PNG, WEBP. '); window.location = 'registro.php'</script>";
+            }
+        } else {
+            echo "<script>alert(' La imágen pesa más de 20MB '); window.location = 'registro.php'</script>";
+        }
+    }
+    $sql_nucleo = mysqli_query($conn, "SELECT * FROM nucleos WHERE id_nucleos='$nucleo'") or die(mysqli_error($conn));
     $row_nucleo = mysqli_fetch_assoc($sql_nucleo);
     $aleatorio = mt_rand(100, 999);
     $codigo = strtoupper($nombre[0]) . '-' . "$aleatorio" . '-' . $row_nucleo['id_nucleos'][0];
@@ -86,9 +117,17 @@ if (isset($_POST['input'])) {
         $aleatorio2 = mt_rand(100, 999);
         $codigo = strtoupper($nombre[0]) . '-' . "$aleatorio2" . '-' . $row_nucleo['nucleo'][0];
     }
+    
     mysqli_free_result($query_codigo);
+
     $insert = mysqli_query($conn, "INSERT INTO epp(id, codigo, imagen, nombre, stock, nucleo, proveedor, precio, rotacion, tipo_talla)VALUES(NULL,'$codigo', '$imagen', '$nombre', '$cantidad', '$nucleo', '$proveedor', '$precio', '$rotacion', '$tipo_talla')") or die(mysqli_error($conn));
+
     if ($insert) {
+        // eliminar foto original y deja el formato webp
+        if ($extension == 'jpeg' || $extension == 'jpg' || $extension == 'png') {
+            unlink($imagePath);
+        }
+        
         $consultaEpp = mysqli_query($conn, "SELECT id FROM epp WHERE codigo='$codigo'");
         $resultadoEpp = mysqli_fetch_assoc($consultaEpp);
         $id_elemento = intval($resultadoEpp['id']);

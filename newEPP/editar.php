@@ -76,7 +76,7 @@
 				<span class="badge text-bg-success" style="font-size: 17px; margin-left: 13px;"> Datos del Elemento: </span>
 				<br><br>
 				<div class="custom-input-file d-grid gap-2 d-md-block col-6 mx-auto shadow">
-					<img src="data:image/webp;base64,<?php echo base64_encode($row['imagen']); ?>" class="img-thumbnail" alt="...">
+					<img src="<?php echo $row['imagen']; ?>" class="img-thumbnail" alt="...">
 					<input type="file" id="fichero-tarifas" name="img" class="input-file" value="" required>
 					<i class="bi bi-camera-fill"></i> Imágen del elemento <i class="bi bi-paperclip"></i>
 				</div>

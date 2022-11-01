@@ -1,20 +1,54 @@
 <?php
 include '../include/conn/conn.php';
 if (isset($_POST['update'])) {
-	if (
-		!empty($_FILES['img']['tmp_name'])
-		&& file_exists($_FILES['img']['tmp_name'])
-	) {
-		$imagen = addslashes(file_get_contents($_FILES['img']['tmp_name'], ENT_QUOTES));
+	if (!empty($_FILES['img']['tmp_name']) && file_exists($_FILES['img']['tmp_name'])) {
+
+		$archivo = mysqli_real_escape_string($conn, (strip_tags($_FILES['img']['tmp_name'], ENT_QUOTES)));
+
+		$extension = pathinfo($archivo, PATHINFO_EXTENSION);
+		$limite_kb = 20;
+
+		if ($_FILES["img"]["size"] <= ($limite_kb * 1024)) {
+			if ($extension == 'jpeg' || $extension == 'jpg' || $extension == 'png' || $extension == 'webp') {
+				// Primero subimos el archivo para poder modificarlo
+				$ruta = "temp/";
+				$imagePath = $ruta . $archivo;
+				$quality = 80;
+
+				move_uploaded_file($_FILES["img"]["tmp_name"], $imagePath);
+
+				// comprobamos el tipo de imagen y la convertimos si es el caso
+				if ($extension == 'jpeg' || $extension == 'jpg') {
+					//Obtengo la imagen guardada
+					$im = imagecreatefromjpeg($imagePath);
+					//Se le asigna el nuevo tipo de imagen
+					$newImagePath = str_replace("jpg", "webp", $imagePath);
+					//Se convierte la imagen
+					imagewebp($im, $newImagePath, $quality);
+					$imagen = file_get_contents($newImagePath);
+				} else if ($extension == 'png') {
+					$im = imagecreatefrompng($imagePath);
+					$newImagePath = str_replace("png", "webp", $imagePath);
+					imagewebp($im, $newImagePath, $quality);
+					$imagen = file_get_contents($newImagePath);
+				} else if ($extension == 'webp') {
+					$imagen = file_get_contents($archivo);
+				}
+			} else {
+				echo "<script>alert(' La imágen no es del tipo JPEG, JPG, PNG, WEBP. '); window.location = 'registro.php'</script>";
+			}
+		} else {
+			echo "<script>alert(' La imágen pesa más de 20MB '); window.location = 'registro.php'</script>";
+		}
 	}
-	$id			= intval($_POST['id']);
+	$id = intval($_POST['id']);
 	$nombre	= mysqli_real_escape_string($conn, (strip_tags($_POST['nombre'], ENT_QUOTES)));
-	$codigo  	= mysqli_real_escape_string($conn, (strip_tags($_POST['codigo'], ENT_QUOTES)));
-	$cantidad  = mysqli_real_escape_string($conn, (strip_tags($_POST['cantidad'], ENT_QUOTES)));
-	$proveedor  = mysqli_real_escape_string($conn, (strip_tags($_POST['proveedor'], ENT_QUOTES)));
-	$precio  = mysqli_real_escape_string($conn, (strip_tags($_POST['precio'], ENT_QUOTES)));
-	$nucleo  = mysqli_real_escape_string($conn, (strip_tags($_POST['nucleo'], ENT_QUOTES)));
-	$rotacion  = mysqli_real_escape_string($conn, (strip_tags($_POST['rotacion'], ENT_QUOTES)));
+	$codigo	= mysqli_real_escape_string($conn, (strip_tags($_POST['codigo'], ENT_QUOTES)));
+	$cantidad = mysqli_real_escape_string($conn, (strip_tags($_POST['cantidad'], ENT_QUOTES)));
+	$proveedor = mysqli_real_escape_string($conn, (strip_tags($_POST['proveedor'], ENT_QUOTES)));
+	$precio = mysqli_real_escape_string($conn, (strip_tags($_POST['precio'], ENT_QUOTES)));
+	$nucleo = mysqli_real_escape_string($conn, (strip_tags($_POST['nucleo'], ENT_QUOTES)));
+	$rotacion = mysqli_real_escape_string($conn, (strip_tags($_POST['rotacion'], ENT_QUOTES)));
 	/**TALLAS */
 	$tipo_talla = mysqli_real_escape_string($conn, (strip_tags($_POST['tipo_talla'], ENT_QUOTES)));
 	$tallaU = mysqli_real_escape_string($conn, (strip_tags($_POST['tallaU'], ENT_QUOTES)));
@@ -63,49 +97,48 @@ if (isset($_POST['update'])) {
 	$precio42 = mysqli_real_escape_string($conn, (strip_tags($_POST['precio42'], ENT_QUOTES)));
 	$precio43 = mysqli_real_escape_string($conn, (strip_tags($_POST['precio43'], ENT_QUOTES)));
 	/**ID */
-	$idU  = mysqli_real_escape_string($conn, (strip_tags($_POST['idU'], ENT_QUOTES)));
-	$idS  = mysqli_real_escape_string($conn, (strip_tags($_POST['idS'], ENT_QUOTES)));
-	$idM  = mysqli_real_escape_string($conn, (strip_tags($_POST['idM'], ENT_QUOTES)));
-	$idL  = mysqli_real_escape_string($conn, (strip_tags($_POST['idL'], ENT_QUOTES)));
-	$idXL  = mysqli_real_escape_string($conn, (strip_tags($_POST['idXL'], ENT_QUOTES)));
-	$idXXL  = mysqli_real_escape_string($conn, (strip_tags($_POST['idXXL'], ENT_QUOTES)));
-	$id28  = mysqli_real_escape_string($conn, (strip_tags($_POST['id28'], ENT_QUOTES)));
-	$id29  = mysqli_real_escape_string($conn, (strip_tags($_POST['id29'], ENT_QUOTES)));
-	$id30  = mysqli_real_escape_string($conn, (strip_tags($_POST['id30'], ENT_QUOTES)));
-	$id31  = mysqli_real_escape_string($conn, (strip_tags($_POST['id31'], ENT_QUOTES)));
-	$id32  = mysqli_real_escape_string($conn, (strip_tags($_POST['id32'], ENT_QUOTES)));
-	$id33  = mysqli_real_escape_string($conn, (strip_tags($_POST['id33'], ENT_QUOTES)));
-	$id34  = mysqli_real_escape_string($conn, (strip_tags($_POST['id34'], ENT_QUOTES)));
-	$id35  = mysqli_real_escape_string($conn, (strip_tags($_POST['id35'], ENT_QUOTES)));
-	$id36  = mysqli_real_escape_string($conn, (strip_tags($_POST['id36'], ENT_QUOTES)));
-	$id37  = mysqli_real_escape_string($conn, (strip_tags($_POST['id37'], ENT_QUOTES)));
-	$id38  = mysqli_real_escape_string($conn, (strip_tags($_POST['id38'], ENT_QUOTES)));
-	$id39  = mysqli_real_escape_string($conn, (strip_tags($_POST['id39'], ENT_QUOTES)));
-	$id40  = mysqli_real_escape_string($conn, (strip_tags($_POST['id40'], ENT_QUOTES)));
-	$id41  = mysqli_real_escape_string($conn, (strip_tags($_POST['id41'], ENT_QUOTES)));
-	$id42  = mysqli_real_escape_string($conn, (strip_tags($_POST['id42'], ENT_QUOTES)));
-	$id43  = mysqli_real_escape_string($conn, (strip_tags($_POST['id43'], ENT_QUOTES)));
+	$idU = mysqli_real_escape_string($conn, (strip_tags($_POST['idU'], ENT_QUOTES)));
+	$idS = mysqli_real_escape_string($conn, (strip_tags($_POST['idS'], ENT_QUOTES)));
+	$idM = mysqli_real_escape_string($conn, (strip_tags($_POST['idM'], ENT_QUOTES)));
+	$idL = mysqli_real_escape_string($conn, (strip_tags($_POST['idL'], ENT_QUOTES)));
+	$idXL = mysqli_real_escape_string($conn, (strip_tags($_POST['idXL'], ENT_QUOTES)));
+	$idXXL = mysqli_real_escape_string($conn, (strip_tags($_POST['idXXL'], ENT_QUOTES)));
+	$id28 = mysqli_real_escape_string($conn, (strip_tags($_POST['id28'], ENT_QUOTES)));
+	$id29 = mysqli_real_escape_string($conn, (strip_tags($_POST['id29'], ENT_QUOTES)));
+	$id30 = mysqli_real_escape_string($conn, (strip_tags($_POST['id30'], ENT_QUOTES)));
+	$id31 = mysqli_real_escape_string($conn, (strip_tags($_POST['id31'], ENT_QUOTES)));
+	$id32 = mysqli_real_escape_string($conn, (strip_tags($_POST['id32'], ENT_QUOTES)));
+	$id33 = mysqli_real_escape_string($conn, (strip_tags($_POST['id33'], ENT_QUOTES)));
+	$id34 = mysqli_real_escape_string($conn, (strip_tags($_POST['id34'], ENT_QUOTES)));
+	$id35 = mysqli_real_escape_string($conn, (strip_tags($_POST['id35'], ENT_QUOTES)));
+	$id36 = mysqli_real_escape_string($conn, (strip_tags($_POST['id36'], ENT_QUOTES)));
+	$id37 = mysqli_real_escape_string($conn, (strip_tags($_POST['id37'], ENT_QUOTES)));
+	$id38 = mysqli_real_escape_string($conn, (strip_tags($_POST['id38'], ENT_QUOTES)));
+	$id39 = mysqli_real_escape_string($conn, (strip_tags($_POST['id39'], ENT_QUOTES)));
+	$id40 = mysqli_real_escape_string($conn, (strip_tags($_POST['id40'], ENT_QUOTES)));
+	$id41 = mysqli_real_escape_string($conn, (strip_tags($_POST['id41'], ENT_QUOTES)));
+	$id42 = mysqli_real_escape_string($conn, (strip_tags($_POST['id42'], ENT_QUOTES)));
+	$id43 = mysqli_real_escape_string($conn, (strip_tags($_POST['id43'], ENT_QUOTES)));
 
-	$sql = mysqli_query($conn, "SELECT * FROM epp WHERE codigo='$codigo'");
+
+
+	$sql = mysqli_query($conn, "SELECT * FROM epp WHERE codigo='$codigo'") or die(mysqli_error($conn));
 	$row = mysqli_fetch_assoc($sql);
 
 	$update = mysqli_query($conn, "UPDATE epp SET nombre='$nombre', stock='$cantidad', nucleo='$nucleo', proveedor='$proveedor', precio='$precio', rotacion='$rotacion', tipo_talla='$tipo_talla' WHERE id='$id' AND codigo='$codigo'") or die(mysqli_error($conn));
 	if ($update) {
 		if (isset($imagen)) {
-			$consult_img = mysqli_query($conn, "SELECT imagen FROM epp WHERE id='$id' and codigo='$codigo'");
+			$consult_img = mysqli_query($conn, "SELECT imagen FROM epp WHERE id='$id' and codigo='$codigo'") or die(mysqli_error($conn));
 			$query_img = mysqli_fetch_assoc($consult_img);
-			if (mysqli_num_rows($consult_img) == 0) {
-				if ($imagen >= '') {
-					$insert_img = mysqli_query($conn, "INSERT INTO epp (imagen)VALUES('$imagen') WHERE id='$id' AND codigo='$codigo'");
-				}
-			} else {
-				if ($imagen != $query_img['imagen']) {
-					$update_img = mysqli_query($conn, "UPDATE epp SET imagen='$imagen' WHERE id='$id' AND codigo='$codigo'");
+			if ($imagen != $query_img['imagen']) {
+				$update_img = mysqli_query($conn, "UPDATE epp SET imagen='$imagen' WHERE id='$id' AND codigo='$codigo'") or die(mysqli_error($conn));
+				if ($update_img) {
+					unlink($newImagePath);
 				}
 			}
 		}
 		//Update tallas
-		$consult_tallaU = mysqli_query($conn, "SELECT id, cantidad, precio FROM elemento_tallas WHERE id_elemento=$id and talla='U'");
+		$consult_tallaU = mysqli_query($conn, "SELECT id, cantidad, precio FROM elemento_tallas WHERE id_elemento=$id and talla='U'") or die(mysqli_error($conn));
 		$epp_tallaU = mysqli_fetch_assoc($consult_tallaU);
 		if (mysqli_num_rows($consult_tallaU) == 0) {
 			if ($tallaU >= '0') {
@@ -113,14 +146,14 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($tallaU != $epp_tallaU['cantidad'] || $precioU != $epp_tallaU['precio']) {
-				if($tallaU == ''){
+				if ($tallaU == '') {
 					$tallaU = '0';
 					$precioU = '0';
 				}
-				$updateTallaU = mysqli_query($conn, "UPDATE elemento_tallas SET cantidad='$tallaU', precio='$precioU' WHERE id=$idU and id_elemento=$id");
+				$updateTallaU = mysqli_query($conn, "UPDATE elemento_tallas SET cantidad='$tallaU', precio='$precioU' WHERE id=$idU and id_elemento=$id") or die(mysqli_error($conn));
 			}
 		}
-		$consult_tallaS = mysqli_query($conn, "SELECT id, cantidad, precio FROM elemento_tallas WHERE id_elemento=$id and talla='S'");
+		$consult_tallaS = mysqli_query($conn, "SELECT id, cantidad, precio FROM elemento_tallas WHERE id_elemento=$id and talla='S'") or die(mysqli_error($conn));
 		$epp_tallaS = mysqli_fetch_assoc($consult_tallaS);
 		if (mysqli_num_rows($consult_tallaS) == 0) {
 			if ($tallaS >= '0') {
@@ -128,14 +161,14 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($tallaS != $epp_tallaS['cantidad'] || $precioS != $epp_tallaS['precio']) {
-				if($tallaS == ''){
+				if ($tallaS == '') {
 					$tallaS = '0';
 					$precioS = '0';
 				}
-				$updateTallaS = mysqli_query($conn, "UPDATE elemento_tallas SET cantidad='$tallaS', precio='$precioS' WHERE id=$idS and id_elemento=$id");
+				$updateTallaS = mysqli_query($conn, "UPDATE elemento_tallas SET cantidad='$tallaS', precio='$precioS' WHERE id=$idS and id_elemento=$id") or die(mysqli_error($conn));
 			}
 		}
-		$consult_tallaM = mysqli_query($conn, "SELECT id, cantidad, precio FROM elemento_tallas WHERE id_elemento=$id and talla='M'");
+		$consult_tallaM = mysqli_query($conn, "SELECT id, cantidad, precio FROM elemento_tallas WHERE id_elemento=$id and talla='M'") or die(mysqli_error($conn));
 		$epp_tallaM = mysqli_fetch_assoc($consult_tallaM);
 		if (mysqli_num_rows($consult_tallaM) == 0) {
 			if ($tallaM >= '0') {
@@ -143,7 +176,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($tallaM != $epp_tallaM['cantidad'] || $precioM != $epp_tallaM['precio']) {
-				if($tallaM == ''){
+				if ($tallaM == '') {
 					$tallaM = '0';
 					$precioM = '0';
 				}
@@ -158,7 +191,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($tallaL != $epp_tallaL['cantidad'] || $precioL != $epp_tallaL['precio']) {
-				if($tallaL == ''){
+				if ($tallaL == '') {
 					$tallaL = '0';
 					$precioL = '0';
 				}
@@ -173,7 +206,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($tallaXL != $epp_tallaXL['cantidad'] || $precioXL != $epp_tallaXL['precio']) {
-				if($tallaXL == ''){
+				if ($tallaXL == '') {
 					$tallaXL = '0';
 					$precioXL = '0';
 				}
@@ -188,7 +221,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($tallaXXL != $epp_tallaXXL['cantidad'] || $precioXXL != $epp_tallaXXL['precio']) {
-				if($tallaXXL == ''){
+				if ($tallaXXL == '') {
 					$tallaXXL = '0';
 					$precioXXL = '0';
 				}
@@ -203,7 +236,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla28 != $epp_talla28['cantidad'] || $precio28 != $epp_talla28['precio']) {
-				if($talla28 == ''){
+				if ($talla28 == '') {
 					$talla28 = '0';
 					$precio28 = '0';
 				}
@@ -218,7 +251,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla29 != $epp_talla29['cantidad'] || $precio29 != $epp_talla29['precio']) {
-				if($talla29 == ''){
+				if ($talla29 == '') {
 					$talla29 = '0';
 					$precio29 = '0';
 				}
@@ -234,7 +267,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla30 != $epp_talla30['cantidad'] || $precio30 != $epp_talla30['precio']) {
-				if($talla30 == ''){
+				if ($talla30 == '') {
 					$talla30 = '0';
 					$precio30 = '0';
 				}
@@ -250,7 +283,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla31 != $epp_talla31['cantidad'] || $precio31 != $epp_talla31['precio']) {
-				if($talla31 == ''){
+				if ($talla31 == '') {
 					$talla31 = '0';
 					$precio31 = '0';
 				}
@@ -265,7 +298,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla32 != $epp_talla32['cantidad'] || $precio32 != $epp_talla32['precio']) {
-				if($talla32 == ''){
+				if ($talla32 == '') {
 					$talla32 = '0';
 					$precio32 = '0';
 				}
@@ -280,7 +313,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla33 != $epp_talla33['cantidad'] || $precio33 != $epp_talla33['precio']) {
-				if($talla33 == ''){
+				if ($talla33 == '') {
 					$talla33 = '0';
 					$precio33 = '0';
 				}
@@ -295,7 +328,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla34 != $epp_talla34['cantidad'] || $precio34 != $epp_talla34['precio']) {
-				if($talla34 == ''){
+				if ($talla34 == '') {
 					$talla34 = '0';
 					$precio34 = '0';
 				}
@@ -310,7 +343,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla35 != $epp_talla35['cantidad'] || $precio35 != $epp_talla35['precio']) {
-				if($talla35 == ''){
+				if ($talla35 == '') {
 					$talla35 = '0';
 					$precio35 = '0';
 				}
@@ -325,7 +358,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla36 != $epp_talla36['cantidad'] || $precio36 != $epp_talla36['precio']) {
-				if($talla36 == ''){
+				if ($talla36 == '') {
 					$talla36 = '0';
 					$precio36 = '0';
 				}
@@ -340,7 +373,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla37 != $epp_talla37['cantidad'] || $precio37 != $epp_talla37['precio']) {
-				if($talla37 == ''){
+				if ($talla37 == '') {
 					$talla37 = '0';
 					$precio37 = '0';
 				}
@@ -355,7 +388,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla38 != $epp_talla38['cantidad'] || $precio38 != $epp_talla38['precio']) {
-				if($talla38 == ''){
+				if ($talla38 == '') {
 					$talla38 = '0';
 					$precio38 = '0';
 				}
@@ -370,7 +403,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla39 != $epp_talla39['cantidad'] || $precio39 != $epp_talla39['precio']) {
-				if($talla39 == ''){
+				if ($talla39 == '') {
 					$talla39 = '0';
 					$precio39 = '0';
 				}
@@ -385,7 +418,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla40 != $epp_talla40['cantidad'] || $precio40 != $epp_talla40['precio']) {
-				if($talla40 == ''){
+				if ($talla40 == '') {
 					$talla40 = '0';
 					$precio40 = '0';
 				}
@@ -400,7 +433,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla41 != $epp_talla41['cantidad'] || $precio41 != $epp_talla41['precio']) {
-				if($talla41 == ''){
+				if ($talla41 == '') {
 					$talla41 = '0';
 					$precio41 = '0';
 				}
@@ -415,7 +448,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla42 != $epp_talla42['cantidad'] || $precio42 != $epp_talla42['precio']) {
-				if($talla42 == ''){
+				if ($talla42 == '') {
 					$talla42 = '0';
 					$precio42 = '0';
 				}
@@ -430,7 +463,7 @@ if (isset($_POST['update'])) {
 			}
 		} else {
 			if ($talla43 != $epp_talla43['cantidad'] || $precio43 != $epp_talla43['precio']) {
-				if($talla43 == ''){
+				if ($talla43 == '') {
 					$talla43 = '0';
 					$precio43 = '0';
 				}
@@ -438,7 +471,7 @@ if (isset($_POST['update'])) {
 			}
 		}
 		echo '<div class="alert alert-success alert-dismissible fade show" role="alert"><center> Se ha guardado correctamente los cambios realizados en el elemento </center><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-    } else {
-        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert"><center> No pudimos guardar los cambios realizados en el elemento </center><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-    }
+	} else {
+		echo '<div class="alert alert-danger alert-dismissible fade show" role="alert"><center> No pudimos guardar los cambios realizados en el elemento </center><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+	}
 }
