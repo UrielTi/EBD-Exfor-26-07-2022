@@ -8,7 +8,7 @@ while ($row = mysqli_fetch_assoc($sql)) {
             <div class="d-flex">
                 <div class="card" style="width: 30rem;">
                     <div class="d-flex justify-content-center">
-                        <img class="col-md-1 form-control" src="data:image/jpg;base64,<?php echo base64_encode($row['imagen']); ?>" readonly="readonly" >
+                        <img class="col-md-1 form-control" src="./webp/<?php echo $row['imagen']; ?>" readonly="readonly" >
                     </div>
                 </div>&nbsp;
                 <div class="container">

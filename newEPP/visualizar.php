@@ -87,7 +87,7 @@ include "../cond/todo.php";
                                     <p class="card-text"><?php echo $row['nombre']; ?></p>
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <img width="65%" src="data:image/jpg;base64,<?php echo base64_encode($row['imagen']); ?>" class="card-img-top">
+                                    <img width="65%" src="./webp/<?php echo $row['imagen']; ?>" class="card-img-top">
                                 </div>
 
                             </div>&nbsp;

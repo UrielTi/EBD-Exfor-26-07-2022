@@ -18,7 +18,9 @@ include('../cond/todo.php');
         <?php
         if (isset($_GET['action']) == 'delete') {
             $id_delete = intval($_GET['id']);
-            $query = mysqli_query($conn, "SELECT * FROM epp WHERE id='$id_delete'");
+            $query = mysqli_query($conn, "SELECT id, imagen FROM epp WHERE id='$id_delete'");
+            $rQ = mysqli_fetch_assoc($query);
+
             if (mysqli_num_rows($query) == 0) {
                 echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
             } else {
@@ -26,6 +28,7 @@ include('../cond/todo.php');
                 $delete2 = mysqli_query($conn, "DELETE FROM elemento_tallas WHERE id_elemento='$id_delete'");
 
                 if ($delete || $delete2) {
+                    unlink("./webp/" . $rQ['imagen']);
                     echo '<div class="alert alert-warning alert-dismissible fade show" role="alert"><center> Se ha eliminado correctamente el registro del elemento </center><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                 } else {
                     echo '<div class="alert alert-danger alert-dismissible fade show" role="alert"><center> No se pudo eliminar el registro del elemento </center><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
@@ -35,7 +38,7 @@ include('../cond/todo.php');
         ?>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <p class="h3"><i class="bi bi-file-earmark-text-fill"></i> Sistema de inventario de elementos EXFOR S.A.S </p>
+                <p class="h3"><i class="bi bi-bag-check-fill"></i> Sistema de inventario de elementos EXFOR S.A.S </p>
             </div>
             <br>
 
@@ -73,7 +76,7 @@ include('../cond/todo.php');
                         <tr class="table-success border-success">
                             <th>Código</th>
                             <th class="col-md-1">Imagen</th>
-                            <th class="w-25">Nombre</th>
+                            <th>Nombre</th>
                             <th>Cantidad</th>
                             <th>Núcleo</th>
                             <th>Proveedor</th>

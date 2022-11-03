@@ -1,4 +1,8 @@
-<?php include '../include/conn/conn.php'; ?>
+<?php
+include('../login/userRestrintion.php');
+include('../include/conn/conn.php');
+include("../cond/todo.php");
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,6 +21,7 @@
 			<center><strong>¡Hola!</strong> Asegúrate que la información que estas diligenciando esté actualizada hasta
 				la fecha, <strong>¡Muchas Gracias!</strong></center>
 		</div>
+		<?php include('update-edit.php'); ?>
 		<hr>
 		<?php
 		$id = intval($_GET['id']);
@@ -65,19 +70,22 @@
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h4 class="panel-title"><i class="bi bi-pencil-square"></i> Editar la Información del Elemento de
-					Protección Personal</h4>
+				<p class="h3"><i class="bi bi-bag-heart-fill"></i>&nbsp; Inventario <small class="text-success"> Editar elemento: <?php echo $row['nombre'];?></small></p>
 			</div>
-			<form name="form1" id="form1" class="form-horizontal row-fluid" action="update-edit.php" method="POST" enctype="multipart/form-data">
-				<div class="input-group shadow-sm-auto">
-					<a href="index.php" class="btn btn-sm btn-danger"><i class="bi bi-arrow-left"></i> Regresar</a>
+			<form name="form1" id="form1" class="form-horizontal row-fluid" action="editar.php?id=<?php echo $id; ?>" method="POST" enctype="multipart/form-data">
+				<div class="control-group">
+					<div class="controls">
+						<a href="index.php" class="btn btn-sm btn-success">&nbsp;<i class="bi bi-arrow-left"></i>
+							Ir al Inventario </a>
+					</div>
 				</div>
 				<hr>
 				<span class="badge text-bg-success" style="font-size: 17px; margin-left: 13px;"> Datos del Elemento: </span>
 				<br><br>
 				<div class="custom-input-file d-grid gap-2 d-md-block col-6 mx-auto shadow">
-					<img src="<?php echo $row['imagen']; ?>" class="img-thumbnail" alt="...">
-					<input type="file" id="fichero-tarifas" name="img" class="input-file" value="" required>
+					<img src="./webp/<?php echo $row['imagen']; ?>" width="80%" class="img-thumbnail" alt="...">
+					<br>
+					<input type="file" id="fichero-tarifas" name="img" class="input-file" value="">
 					<i class="bi bi-camera-fill"></i> Imágen del elemento <i class="bi bi-paperclip"></i>
 				</div>
 				<br>
@@ -93,13 +101,13 @@
 					<br>
 
 					<div class="input-group">
-						<input type="text" name="nombre" id="nombre" value="<?php echo $row['nombre']; ?>" class="form-control rounded-end shadow-sm" style="margin-right: 10px; border-color: #198754; border-width: 1px;" onkeyup="mayus(this);" required>
-						<input type="hidden" name="nucleo" value="<?php echo $_SESSION['nucleo']; ?>">
-						<input name="proveedor" id="proveedor" onkeyup="mayus(this);" value="<?php echo $row['proveedor']; ?>" class="form-control rounded-start shadow-sm" style="border-color: #198754; border-width: 1px;" type="text" placeholder="PROVEEDOR" required>
+						<input type="text" name="nombre" id="nombre" value="<?php echo $row['nombre']; ?>" class="form-control rounded-end shadow-sm" style="margin-right: 10px; border-color: #198754; border-width: 1px;" onkeyup="mayus(this);">
+						
+						<input name="proveedor" id="proveedor" onkeyup="mayus(this);" value="<?php echo $row['proveedor']; ?>" class="form-control rounded-start shadow-sm" style="border-color: #198754; border-width: 1px;" type="text" placeholder="PROVEEDOR">
 					</div>
 					<br>
 					<div class="input-group">
-						<select class="form-select rounded-end shadow-sm" style="margin-right: 10px; border-color: #198754; border-width: 1px;" aria-label="Default select example" id="rotacion" name="rotacion" required>
+						<select class="form-select rounded-end shadow-sm" style="margin-right: 10px; border-color: #198754; border-width: 1px;" aria-label="Default select example" id="rotacion" name="rotacion">
 							<option value=""> Rotación </option>
 							<option value="0" <?php if ($row['rotacion'] == 0) {
 													echo "selected";
@@ -108,7 +116,7 @@
 													echo "selected";
 												} ?>>Alta</option>
 						</select>
-						<select id="my_selector2" name="tipo_talla" class="form-select rounded-start shadow-sm" style="border-color: #198754; border-width: 1px;" aria-label="Default select example" required>
+						<select id="my_selector2" name="tipo_talla" class="form-select rounded-start shadow-sm" style="border-color: #198754; border-width: 1px;" aria-label="Default select example">
 							<option value="1">Tipo de Talla</option>
 							<option value="2" <?php $tipo = $row_epp_talla['tipo_talla'] == 2 ? 'selected' : '';
 												echo $tipo; ?>> Única </option>
@@ -138,7 +146,8 @@
 				<br>
 
 				<div class="controls">
-					<center><button type="submit" name="update" id="update" class="btn btn-success"><i class="bi bi-bag-plus-fill"></i></i> Guardar </button>
+					<center>
+						<button type="submit" name="update" id="update" class="btn btn-success"><i class="bi bi-bag-plus-fill"></i></i> Guardar </button>
 						<a href="index.php" class="btn btn-secondary"><i class="bi bi-x-circle"></i> Cancelar</a>
 					</center>
 				</div>

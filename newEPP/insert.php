@@ -66,11 +66,11 @@ if (isset($_POST['input'])) {
     if ($_FILES['img']['error'] > 0) {
         echo "<script>alert('Error inesperado al subir el archivo'); window.location = 'registro.php'</script>";
     } else {
-        $limite_kb = 200;
-        if ($_FILES["img"]["size"] <= ($limite_kb * 1024)) {
+        $limite_kb = 20000 * 1024;
+			if ($_FILES["img"]["size"] <= $limite_kb ) {
             if ($extension == 'jpeg' || $extension == 'jpg' || $extension == 'png' || $extension == 'webp') {
                 // Primero subimos el archivo para poder modificarlo
-                $ruta = "temp/";
+                $ruta = "webp/";
                 $imagePath = $ruta . $archivo;
                 $quality = 80;
 
@@ -85,13 +85,13 @@ if (isset($_POST['input'])) {
                     //Se convierte la imagen
                     imagewebp($im, $newImagePath, $quality);
                     imagedestroy($im);
-                    $imagen = $newImagePath;
+                    $imagen = str_replace("webp/", "", $newImagePath);
                 } else if ($extension == 'png') {
                     $im = imagecreatefrompng($imagePath);
                     $newImagePath = str_replace("png", "webp", $imagePath);
                     imagewebp($im, $newImagePath, $quality);
                     imagedestroy($im);
-                    $imagen = $newImagePath;
+                    $imagen = str_replace("webp/", "", $newImagePath);
                 } else if ($extension == 'webp') {
                     $imagen = $archivo;
                 }
