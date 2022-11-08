@@ -26,12 +26,14 @@
             $stock = $rS['stock'];
 
             $newStock = $stock + $cantidad;
-            $newPrecio = $rS['precio'] + ($precio * $cantidad);
-            $updateEpp = mysqli_query($conn, "UPDATE epp SET stock='$newStock', precio='$newPrecio' WHERE id='$id_elemento'") or die(mysqli_error($conn));
-
-            $consultEtallas = mysqli_query($conn, "SELECT cantidad FROM elemento_tallas WHERE id_elemento='$id_elemento' AND talla='$talla'") or die(mysqli_error($conn));
+            
+            $consultEtallas = mysqli_query($conn, "SELECT cantidad, precio FROM elemento_tallas WHERE id_elemento='$id_elemento' AND talla='$talla'") or die(mysqli_error($conn));
             $rEt = mysqli_fetch_assoc($consultEtallas);
             $cant = $rEt['cantidad'];
+            $precio = $rEt['precio'];
+
+            $newPrecio = $rS['precio'] + ($precio * $cantidad);
+            $updateEpp = mysqli_query($conn, "UPDATE epp SET stock='$newStock', precio='$newPrecio' WHERE id='$id_elemento'") or die(mysqli_error($conn));
 
             $newCant = $cant + $cantidad;
             $updateEtallas = mysqli_query($conn, "UPDATE elemento_tallas SET cantidad='$newCant' WHERE id_elemento='$id_elemento' AND talla='$talla'") or die(mysqli_error($conn));
