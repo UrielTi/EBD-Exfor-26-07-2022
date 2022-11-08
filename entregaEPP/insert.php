@@ -12,7 +12,7 @@ if (isset($_POST['insert'])) {
         $fecha = date("Y-m-d"); // Fecha default 2012-05-30 <- Example.
     }
 
-    $consultElemento = mysqli_query($conn, "SELECT nombre FROM epp WHERE codigo='$codigo'") or die(mysqli_error($conn));
+    $consultElemento = mysqli_query($conn, "SELECT nombre, precio FROM epp WHERE codigo='$codigo'") or die(mysqli_error($conn));
 
     while ($rE = mysqli_fetch_assoc($consultElemento)) {
         $consultPrecio = mysqli_query($conn, "SELECT precio FROM elemento_tallas WHERE id_elemento='$id_elemento' AND talla='$talla'") or die (mysqli_error($conn));
@@ -22,11 +22,12 @@ if (isset($_POST['insert'])) {
             $newStock = $stock - $cantidadElement;
             $newCantTalla = $cantTalla - $cantidadElement;
             $elemento = $rE['nombre'];
+            $newPrecio = $rE['precio'] - ($precio * $cantidadElement);
 
 
             $insertEntrega = mysqli_query($conn, "INSERT INTO entrega_epp(id, id_empleado, id_elemento, elemento, cantidad, talla, fecha, precio)VALUES(NULL, '$id_empleado', '$id_elemento', '$elemento', '$cantidadElement', '$talla', '$fecha', '$precio')") or die(mysqli_error($conn));
             if ($insertEntrega) {
-                $updateStock = mysqli_query($conn, "UPDATE epp SET stock='$newStock' WHERE codigo='$codigo'") or die(mysqli_error($conn));
+                $updateStock = mysqli_query($conn, "UPDATE epp SET stock='$newStock', precio='$newPrecio' WHERE codigo='$codigo'") or die(mysqli_error($conn));
                 $updateCantTalla = mysqli_query($conn, "UPDATE elemento_tallas SET cantidad='$newCantTalla' WHERE id_elemento='$id_elemento' and talla='$talla'") or die(mysqli_error($conn));    
                 echo '<div class="alert alert-success alert-dismissable"><center>&nbsp; Se ha registrado correctamente una entrega &nbsp;<button type="button" class="btn btn-outline-success" data-dismiss="alert" aria-hidden="true">Cerrar Ventana &times;</button></center></div>';
             }
